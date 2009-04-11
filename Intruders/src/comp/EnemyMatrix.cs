@@ -1,3 +1,4 @@
+using Intruders.logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -6,6 +7,7 @@ namespace Intruders.comp
     class EnemyMatrix : SpriteComponent
     {
         private Texture2D m_TextureEnemy1;
+        private EnemyMatrixLogic r_ComponentLogic;
 
         public EnemyMatrix(Game game) : base(game)
         {
@@ -14,34 +16,32 @@ namespace Intruders.comp
         protected override void LoadContent()
         {
             m_TextureEnemy1 = Game.Content.Load<Texture2D>(@"Sprites\Enemy01");
+            r_ComponentLogic =
+                new EnemyMatrixLogic(
+                m_TextureEnemy1.Width,
+                m_TextureEnemy1.Height,
+                GraphicsDevice.Viewport.Width,
+                GraphicsDevice.Viewport.Height);
             base.LoadContent();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            r_ComponentLogic.Update(gameTime, null);
+            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            drawEnemyRow(0, Color.Pink);
-            drawEnemyRow(1, Color.LightBlue);
-            drawEnemyRow(2, Color.LightBlue);
-            drawEnemyRow(3, Color.Yellow);
-            drawEnemyRow(4, Color.Yellow);
-            base.Draw(gameTime);
-        }
-
-        private void drawEnemyRow(int i_Row, Color i_Color)
-        {
             SpriteBatch sb = new SpriteBatch(Game.GraphicsDevice);
             sb.Begin();
-            Vector2 currentPosition = new Vector2();
-            int enemyHeight = m_TextureEnemy1.Height;
-            currentPosition.Y = (float)(enemyHeight * 3 + (i_Row * (enemyHeight + enemyHeight * 0.6)));
-            for (int i = 0; i < 9; i++)
+            foreach (SpriteAtt sprite in r_ComponentLogic.getPosition())
             {
-                int enemyWidth = m_TextureEnemy1.Width;
-                currentPosition.X = (float)(i * (enemyWidth + enemyWidth * 0.6));
-                sb.Draw(m_TextureEnemy1, currentPosition, i_Color);
+                sb.Draw(m_TextureEnemy1, sprite.Position, sprite.Color);
             }
-            sb.End();
 
+            sb.End();
+            base.Draw(gameTime);
         }
     }
 }

@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\logic\EnemyMatrixLogicTest.cs" />
     <Compile Include="src\logic\ShipLogicTest.cs" />
   </ItemGroup>
   <ItemGroup>

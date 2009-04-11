@@ -40,7 +40,7 @@ namespace ItrudersUT.logic
         {
             MockRepository mocks = new MockRepository();
             GameTime gameTime = new GameTime(new TimeSpan(), new TimeSpan(),
-                                             new TimeSpan(), new TimeSpan(k_XStartPosition, k_XStartPosition, 1));
+                                             new TimeSpan(), new TimeSpan(0, 0, 1));
             IInputManager inputManager = mocks.DynamicMock<IInputManager>();
             Expect.Call(inputManager.KeyHeld(i_Key)).Return(true);
             Expect.Call(inputManager.KeyHeld(Keys.Right)).Return(false);
@@ -95,5 +95,6 @@ namespace ItrudersUT.logic
             sl.Update(new GameTime(), inputManager);
             Assert.AreEqual(new Vector2(k_XStartPosition, k_ShipYPos), sl.getPosition());
         }
+
     }
 }
