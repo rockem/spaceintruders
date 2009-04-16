@@ -58,14 +58,17 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\comp\BackgroundComponent.cs" />
-    <Compile Include="src\comp\EnemyComponent.cs" />
-    <Compile Include="src\comp\EnemyMatrix.cs" />
-    <Compile Include="src\comp\ShipComponent.cs" />
+    <Compile Include="src\comp\LoadableDrawableComponent.cs" />
+    <Compile Include="src\comp\xna\XNAViewFactory.cs" />
+    <Compile Include="src\logic\ILogic.cs" />
+    <Compile Include="src\logic\ISpriteLogic.cs" />
+    <Compile Include="src\logic\Monster.cs" />
+    <Compile Include="src\comp\ISprite.cs" />
     <Compile Include="src\comp\SpriteComponent.cs" />
-    <Compile Include="src\logic\ComponentLogic.cs" />
+    <Compile Include="src\comp\IViewFactory.cs" />
     <Compile Include="src\logic\EnemyMatrixLogic.cs" />
-    <Compile Include="src\logic\ShipLogic.cs" />
-    <Compile Include="src\logic\SpriteAtt.cs" />
+    <Compile Include="src\logic\Ship.cs" />
+    <Compile Include="src\logic\SpriteLogic.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\MarsIntruders.cs" />
   </ItemGroup>

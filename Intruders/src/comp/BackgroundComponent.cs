@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.comp
 {
-    class BackgroundComponent : SpriteComponent 
+    internal class BackgroundComponent : LoadableDrawableComponent
     {
         private Texture2D m_TextureBackground;
 
@@ -19,11 +19,9 @@ namespace Intruders.comp
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch sb = new SpriteBatch(Game.GraphicsDevice);
-            sb.Begin();
+            SpriteBatch sb = (SpriteBatch) Game.Services.GetService(typeof(SpriteBatch));
             sb.Draw(m_TextureBackground, Vector2.Zero, Color.Brown);
             base.Draw(gameTime);
-            sb.End();
         }
     }
 }

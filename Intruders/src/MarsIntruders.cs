@@ -1,5 +1,7 @@
 using GameCommon.manager.xna;
 using Intruders.comp;
+using Intruders.comp.xna;
+using Intruders.logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,33 +12,50 @@ namespace Intruders
     /// </summary>
     public class MarsIntruders : Game
     {
+        private readonly EnemyMatrixLogic r_Monsters;
+        private SpriteBatch r_SpriteBatch;
 
         public MarsIntruders()
         {
             new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            IViewFactory viewFactory = new XNAViewFactory(this);
+
             new InputManager(this);
             new BackgroundComponent(this);
-            new ShipComponent(this);
-            new EnemyMatrix(this);
+            
+            new Ship(viewFactory);
+            r_Monsters = new EnemyMatrixLogic(viewFactory);
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
+        protected override void Initialize()
         {
-            // TODO: Unload any non ContentManager content here
+            r_SpriteBatch = new SpriteBatch(GraphicsDevice);
+            Services.AddService(typeof(SpriteBatch), r_SpriteBatch);
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            base.LoadContent();
+            r_Monsters.Initialize();
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            r_Monsters.Update(gameTime);
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            SpriteBatch sb = new SpriteBatch(GraphicsDevice);
-            sb.Begin();
+            r_SpriteBatch.Begin();
             base.Draw(gameTime);
-            sb.End();
+            r_SpriteBatch.End();
         }
+
+       
+
+        
     }
 }
