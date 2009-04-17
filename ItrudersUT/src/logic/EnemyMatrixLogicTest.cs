@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameCommon.manager;
 using Intruders.comp;
 using Intruders.logic;
+using ItrudersUT.comp.mock;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NUnit.Framework;
@@ -14,71 +15,12 @@ namespace ItrudersUT.logic
     {
         private const int k_SpriteWidth = 12;
         private EnemyMatrixLogic m_MatrixLogic;
-        private StubViewFactory m_Factory;
-
-        class StubViewFactory : IViewFactory
-        {
-            public readonly List<ISprite> r_Sprites = new List<ISprite>();
-
-            public int ViewHeight
-            {
-                get { return 200; }
-            }
-
-            public int ViewWidth
-            {
-                get { return 176; }
-            }
-
-            public IInputManager InputManager
-            {
-                get { return null;}
-            }
-
-            public ISprite CreateSpriteComponent()
-            {
-                ISprite s = new StubSprite();
-                r_Sprites.Add(s);
-                return s;
-            }
-        }
-
-        class StubSprite : ISprite
-        {
-            private Vector2 m_Position;
-
-            public int Width
-            {
-                get { return k_SpriteWidth; }
-            }
-
-            public int Height
-            {
-                get { return k_SpriteWidth; }
-            }
-
-            public Vector2 Position
-            {
-                get { return m_Position; }
-                set { m_Position = value; }
-            }
-
-            public Color Color
-            {
-                get { return Color.White; }
-                set {  }
-            }
-
-            public void setComponentLogic(ISpriteLogic i_Logic)
-            {
-                
-            }
-        }
+        private MockViewFactory m_Factory;
 
         [SetUp]
         public void setUp()
         {
-            m_Factory = new StubViewFactory();
+            m_Factory = new MockViewFactory(176, 200, k_SpriteWidth, k_SpriteWidth);
             m_MatrixLogic = new EnemyMatrixLogic(m_Factory);
             m_MatrixLogic.Initialize();
         }

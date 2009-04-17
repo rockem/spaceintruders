@@ -7,9 +7,9 @@ namespace Intruders.comp
     public class SpriteComponent : LoadableDrawableComponent, ISprite
     {
         private Texture2D m_TextureShip;
-        private ISpriteLogic r_SpriteLogic;
         private Vector2 m_Position;
         private Color m_Color = Color.White;
+        private ISpriteLogic m_SpriteLogic;
 
         public SpriteComponent(Game game) : base(game)
         {
@@ -17,14 +17,14 @@ namespace Intruders.comp
 
         protected override void LoadContent()
         {
-            m_TextureShip = Game.Content.Load<Texture2D>(r_SpriteLogic.GetImagePath());
+            m_TextureShip = Game.Content.Load<Texture2D>(m_SpriteLogic.GetImagePath());
             base.LoadContent();
-            r_SpriteLogic.Initialize();
+            m_SpriteLogic.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
-            r_SpriteLogic.Update(gameTime);
+            m_SpriteLogic.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -42,11 +42,11 @@ namespace Intruders.comp
             set { m_Color = value; }
         }
 
-        public void setComponentLogic(ISpriteLogic i_Logic)
+        public ISpriteLogic SpriteLogic
         {
-            r_SpriteLogic = i_Logic;
+            get { return m_SpriteLogic; }
+            set { m_SpriteLogic = value; }
         }
-
 
         public int Width
         {

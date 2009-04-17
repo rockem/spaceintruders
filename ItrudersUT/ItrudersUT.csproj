@@ -60,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\comp\mock\MockSprite.cs" />
+    <Compile Include="src\comp\mock\MockViewFactory.cs" />
+    <Compile Include="src\logic\BulletTest.cs" />
     <Compile Include="src\logic\EnemyMatrixLogicTest.cs" />
     <Compile Include="src\logic\ShipLogicTest.cs" />
   </ItemGroup>

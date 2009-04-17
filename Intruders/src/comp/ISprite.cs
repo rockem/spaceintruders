@@ -7,6 +7,10 @@ namespace Intruders.comp
 {
     public interface ISprite
     {
+        bool Enabled { get; set; }
+
+        bool Visible { get; set; }
+
         int Width { get; }
 
         int Height { get; }
@@ -15,6 +19,7 @@ namespace Intruders.comp
 
         Color Color { get; set; }
 
-        void setComponentLogic(ISpriteLogic i_Logic);
+        ISpriteLogic SpriteLogic { get; set; }
+
     }
 }

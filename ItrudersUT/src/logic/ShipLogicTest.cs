@@ -2,6 +2,7 @@ using System;
 using GameCommon.manager;
 using Intruders.comp;
 using Intruders.logic;
+using ItrudersUT.comp.mock;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -16,61 +17,13 @@ namespace ItrudersUT.logic
         private const int k_ShipYPos = 60;
         private const int k_XStartPosition = 0;
         private const int k_PxForSec = 120;
+        private const int k_ShipSize = 20;
 
         private Ship m_Ship;
-        private StubViewFactory m_Factory;
-
-        internal class StubShipSprite : ISprite
-        {
-            public IInputManager m_InputManager;
-            private Vector2 m_Position;
-
-            public int Width
-            {
-                get { return 20; }
-            }
-
-            public int Height
-            {
-                get { return 20; }
-            }
-
-            public int ViewWidth
-            {
-                get { return 140; }
-            }
-
-            public int ViewHeight
-            {
-                get { return 100; }
-            }
-
-            public Vector2 Position
-            {
-                get { return m_Position; }
-                set { m_Position = value;}
-            }
-
-            public Color Color
-            {
-                get { return Color.White; }
-                set {  }
-            }
-
-            public IInputManager InputManager
-            {
-                get { return m_InputManager; }
-            }
-
-            public void setComponentLogic(ISpriteLogic i_Logic)
-            {
-                
-            }
-        }
+        private MockViewFactory m_Factory;
 
         class StubViewFactory : IViewFactory
         {
-
             public ISprite m_Sprite;
             public IInputManager m_InputManager;
 
@@ -91,7 +44,7 @@ namespace ItrudersUT.logic
 
             public ISprite CreateSpriteComponent()
             {
-                m_Sprite = new StubShipSprite();
+                m_Sprite = new MockSprite(k_ShipSize, k_ShipSize);
                 return m_Sprite;
             }
         }
@@ -99,12 +52,12 @@ namespace ItrudersUT.logic
         [SetUp]
         public void setUp()
         {
-            m_Factory = new StubViewFactory();
+            m_Factory = new MockViewFactory(140, 100, k_ShipSize, k_ShipSize);
             m_Ship = new Ship(m_Factory);
             m_Ship.Initialize();
         }
 
-        private void makePressKeyAndUpdate( Keys i_Key )
+        private void holdKeyAndUpdate( Keys i_Key )
         {
             MockRepository mocks = new MockRepository();
             GameTime gameTime = new GameTime(new TimeSpan(), new TimeSpan(),
@@ -119,10 +72,21 @@ namespace ItrudersUT.logic
             m_Ship.Update(gameTime);
         }
 
+        private void pressKeyAndUpdate(Keys i_Key)
+        {
+            MockRepository mocks = new MockRepository();
+            GameTime gameTime = new GameTime(new TimeSpan(), new TimeSpan(),
+                                             new TimeSpan(), new TimeSpan(0, 0, 1));
+            m_Factory.m_InputManager = mocks.DynamicMock<IInputManager>();
+            Expect.Call(m_Factory.m_InputManager.KeyPressed(i_Key)).Return(true);
+            mocks.ReplayAll();
+            m_Ship.Update(gameTime);
+        }
+
         [Test]
         public void testShouldBeOnLeftSideOnConstruction()
         {
-            Assert.AreEqual(new Vector2(k_XStartPosition, k_ShipYPos), m_Factory.m_Sprite.Position);
+            Assert.AreEqual(new Vector2(k_XStartPosition, k_ShipYPos), m_Factory.r_Sprites[0].Position);
         }
 
         [Test]
@@ -133,7 +97,7 @@ namespace ItrudersUT.logic
             Expect.Call(m_Factory.m_InputManager.MousePositionDelta).Return(new Vector2(10, 20));
             mocks.ReplayAll();
             m_Ship.Update(new GameTime());
-            Assert.AreEqual(new Vector2(10, k_ShipYPos), m_Factory.m_Sprite.Position);
+            Assert.AreEqual(new Vector2(10, k_ShipYPos), m_Factory.r_Sprites[0].Position);
         }
 
         [Test]
@@ -144,39 +108,59 @@ namespace ItrudersUT.logic
             Expect.Call(m_Factory.m_InputManager.MousePositionDelta).Return(new Vector2(-10, 20));
             mocks.ReplayAll();
             m_Ship.Update(new GameTime());
-            Assert.AreEqual(new Vector2(k_XStartPosition, k_ShipYPos), m_Factory.m_Sprite.Position);
+            Assert.AreEqual(new Vector2(k_XStartPosition, k_ShipYPos), m_Factory.r_Sprites[0].Position);
         }
 
         [Test]
         public void testShouldShouldMoveLeftOnUserLeft()
         {
-            makePressKeyAndUpdate(Keys.Right);
-            makePressKeyAndUpdate(Keys.Left);
-            Assert.AreEqual(new Vector2(k_XStartPosition, k_ShipYPos), m_Factory.m_Sprite.Position);
+            holdKeyAndUpdate(Keys.Right);
+            holdKeyAndUpdate(Keys.Left);
+            Assert.AreEqual(new Vector2(k_XStartPosition, k_ShipYPos), m_Factory.r_Sprites[0].Position);
         }
 
         [Test]
         public void testShouldShouldMoveRightOnUserRight()
         {
-            makePressKeyAndUpdate(Keys.Right);
-            Assert.AreEqual(new Vector2(k_PxForSec, k_ShipYPos), m_Factory.m_Sprite.Position);
+            holdKeyAndUpdate(Keys.Right);
+            Assert.AreEqual(new Vector2(k_PxForSec, k_ShipYPos), m_Factory.r_Sprites[0].Position);
         }
 
         [Test]
         public void testShouldStopOnViewLeftBounds()
         {
-            makePressKeyAndUpdate(Keys.Left);
-            Assert.AreEqual(new Vector2(k_XStartPosition, k_ShipYPos), m_Factory.m_Sprite.Position);
+            holdKeyAndUpdate(Keys.Left);
+            Assert.AreEqual(new Vector2(k_XStartPosition, k_ShipYPos), m_Factory.r_Sprites[0].Position);
         }
 
         [Test]
         public void testShouldStopOnViewRightBounds()
         {
-            makePressKeyAndUpdate(Keys.Right);
-            makePressKeyAndUpdate(Keys.Right);
-            Assert.AreEqual(new Vector2(k_PxForSec, k_ShipYPos), m_Factory.m_Sprite.Position);
+            holdKeyAndUpdate(Keys.Right);
+            holdKeyAndUpdate(Keys.Right);
+            Assert.AreEqual(new Vector2(k_PxForSec, k_ShipYPos), m_Factory.r_Sprites[0].Position);
         }
 
+        [Test]
+        public void testShouldCreateBulletOnInitialize()
+        {
+            Assert.AreEqual(typeof(Bullet), m_Factory.r_Sprites[1].SpriteLogic.GetType());
+            Assert.AreEqual(0, m_Factory.r_Sprites[1].SpriteLogic.XVelocity);
+            Assert.AreEqual(-200, m_Factory.r_Sprites[1].SpriteLogic.YVelocity);
+            Assert.AreEqual(false, m_Factory.r_Sprites[1].Enabled);
+            Assert.AreEqual(false, m_Factory.r_Sprites[1].Visible);
+        }
+
+        [Test]
+        public void testShouldEnableBulletOnEnterPress()
+        {
+            pressKeyAndUpdate(Keys.Enter);
+            Assert.AreEqual(
+                new Vector2(k_XStartPosition + k_ShipSize / 2 - m_Factory.r_Sprites[1].Width / 2,
+                k_ShipYPos - m_Factory.r_Sprites[1].Height), m_Factory.r_Sprites[1].Position);
+            Assert.AreEqual(true, m_Factory.r_Sprites[1].Enabled);
+            Assert.AreEqual(true, m_Factory.r_Sprites[1].Visible);
+        }
     }
 
     

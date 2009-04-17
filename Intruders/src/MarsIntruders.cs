@@ -19,13 +19,13 @@ namespace Intruders
         {
             new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IViewFactory viewFactory = new XNAViewFactory(this);
+            IViewFactory factory = new XNAViewFactory(this);
 
             new InputManager(this);
             new BackgroundComponent(this);
-            
-            new Ship(viewFactory);
-            r_Monsters = new EnemyMatrixLogic(viewFactory);
+
+            new Ship(factory);
+            r_Monsters = new EnemyMatrixLogic(factory);
         }
 
         protected override void Initialize()
