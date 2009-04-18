@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,12 +8,15 @@ namespace Intruders.logic
     public class EnemyMatrixLogic : ILogic
     {
         private const int k_NumOfColumns = 9;
+        private const int k_NumOfRows = 5;
 
-        private readonly List<Monster> r_Sprites = new List<Monster>();
+        private readonly Monster[,] r_Monsters = new Monster[k_NumOfColumns,k_NumOfRows];
         private TimeSpan m_TimeBetweenJumps = TimeSpan.FromSeconds(0.5f);
         private TimeSpan m_TimeLeftToNextJump;
         private float m_Velocity = 1;
         private readonly IViewFactory r_Factory;
+        private int m_StartColumn;
+        private int m_EndColumn = k_NumOfColumns - 1;
 
 
         public EnemyMatrixLogic(IViewFactory i_Factory)
@@ -25,30 +27,80 @@ namespace Intruders.logic
 
         private void createMonsters()
         {
-            for(int i = 0; i < k_NumOfColumns * 5; i++)
+            for(int i = 0; i < k_NumOfColumns; i++)
             {
-                r_Sprites.Add(new Monster(r_Factory));
+                for(int j = 0; j < k_NumOfRows; j++)
+                {
+                    Monster item = createMonsterForRow(j);
+                    item.MonsterHit += EnemyMatrix_MonsterHit;
+                    r_Monsters[i, j] = item;
+                }
             }
+        }
+
+        private Monster createMonsterForRow(int i_Row)
+        {
+            Monster monster;
+            switch(i_Row)
+            {
+                case 0:
+                    monster = new PinkMonster(r_Factory);
+                    break;
+                case 1:
+                    monster = new BlueMonster(r_Factory);
+                    break;
+                case 2:
+                    monster = new BlueMonster(r_Factory);
+                    monster.SwitchLook();
+                    break;
+                case 3:
+                    monster = new YellowMonster(r_Factory);
+                    break;
+                default:
+                    monster = new YellowMonster(r_Factory);
+                    monster.SwitchLook();
+                    break;
+            }
+            return monster;
+        }
+
+        private void EnemyMatrix_MonsterHit(object sender, EventArgs e)
+        {
+            updateMatrixBounds();
+            fasterTimeBetweenJumps();
+        }
+
+        private void updateMatrixBounds()
+        {
+            if(checkForEmptyColumn(m_StartColumn)) m_StartColumn++;
+            if(checkForEmptyColumn(m_EndColumn)) m_EndColumn--;
+        }
+
+        private bool checkForEmptyColumn(int i_Column)
+        {
+            bool decBound = true;
+            for(int i = 0; i < k_NumOfRows; i++)
+            {
+                if(r_Monsters[i_Column, i].Alive)
+                {
+                    decBound = false;
+                    break;
+                }
+            }
+            return decBound;
         }
 
         private void initMatrix()
         {
-            addRow(0, Color.Pink);
-            addRow(1, Color.LightBlue);
-            addRow(2, Color.LightBlue);
-            addRow(3, Color.Yellow);
-            addRow(4, Color.Yellow);
-        }
-
-        private void addRow(int i_Row, Color i_Color)
-        {
-            Monster first = r_Sprites[0];
-            float yaxis = (float)(first.Height * 3 + (i_Row * (first.Height + first.Height * 0.6)));
-            for(int i = 0; i < k_NumOfColumns; i++)
+            Monster first = r_Monsters[0, 0];
+            for(int r = 0; r < k_NumOfRows; r++)
             {
-                Monster att = r_Sprites[i_Row * k_NumOfColumns + i];
-                att.Position = new Vector2((float)(i * (att.Width + att.Width * 0.6)), yaxis);
-                att.Color = i_Color;
+                float yaxis = (float) (first.Height * 3 + (r * (first.Height + first.Height * 0.6)));
+                for(int i = 0; i < k_NumOfColumns; i++)
+                {
+                    Monster att = r_Monsters[i, r];
+                    att.Position = new Vector2((float) (i * (att.Width + att.Width * 0.6)), yaxis);
+                }
             }
         }
 
@@ -63,12 +115,13 @@ namespace Intruders.logic
                 {
                     tmpVelocity = -tmpVelocity;
                     m_Velocity = 0;
-                    yvel = (float)r_Sprites[0].Width / 2;
+                    yvel = (float) r_Monsters[0, 0].Width / 2;
                     fasterTimeBetweenJumps();
                 }
-                foreach(Monster att in r_Sprites)
+                foreach(Monster mon in r_Monsters)
                 {
-                    att.Position = new Vector2(att.Position.X + m_Velocity, att.Position.Y + yvel);
+                     mon.Position = new Vector2(mon.Position.X + m_Velocity, mon.Position.Y + yvel);
+                     mon.SwitchLook();
                 }
                 resetTimeForNextJump();
                 m_Velocity = tmpVelocity;
@@ -82,8 +135,9 @@ namespace Intruders.logic
 
         private bool matrixTouchedViewBounds()
         {
-            return r_Sprites[0].Position.X + getMatrixWidth() + m_Velocity >= r_Factory.ViewWidth ||
-                   r_Sprites[0].Position.X + m_Velocity <= 0;
+            return r_Monsters[m_EndColumn, 0].Position.X + r_Monsters[m_EndColumn, 0].Width + m_Velocity >=
+                   r_Factory.ViewWidth ||
+                   r_Monsters[m_StartColumn, 0].Position.X + m_Velocity <= 0;
         }
 
         private void fasterTimeBetweenJumps()
@@ -91,15 +145,10 @@ namespace Intruders.logic
             m_TimeBetweenJumps = TimeSpan.FromSeconds(m_TimeBetweenJumps.TotalSeconds * 0.95);
         }
 
-        private float getMatrixWidth()
-        {
-            return k_NumOfColumns * r_Sprites[0].Width + k_NumOfColumns * r_Sprites[0].Width / 2;
-        }
-
         public void Initialize()
         {
             initMatrix();
-            m_Velocity = (float)r_Sprites[0].Width / 2;
+            m_Velocity = (float) r_Monsters[0, 0].Width / 2;
         }
     }
 }

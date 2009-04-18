@@ -50,9 +50,15 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\manager\CollisionManager.cs" />
+    <Compile Include="src\manager\ICollidable.cs" />
+    <Compile Include="src\manager\ICollidable2D.cs" />
+    <Compile Include="src\manager\ICollisionsManager.cs" />
     <Compile Include="src\manager\IInputManager.cs" />
     <Compile Include="src\manager\xna\XNAInputManager.cs" />
     <Compile Include="src\service\GameService.cs" />

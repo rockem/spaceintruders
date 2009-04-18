@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using GameCommon.manager;
 using GameCommon.manager.xna;
 using Intruders.comp;
 using Intruders.comp.xna;
@@ -22,6 +24,7 @@ namespace Intruders
             IViewFactory factory = new XNAViewFactory(this);
 
             new InputManager(this);
+            new CollisionsManager(this);
             new BackgroundComponent(this);
 
             new Ship(factory);
@@ -53,9 +56,5 @@ namespace Intruders
             base.Draw(gameTime);
             r_SpriteBatch.End();
         }
-
-       
-
-        
     }
 }

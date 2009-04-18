@@ -1,15 +1,16 @@
+using System.Collections.Generic;
 using GameCommon.manager;
 using Microsoft.Xna.Framework;
 
 namespace Intruders.comp.xna
 {
-    class XNAViewFactory : IViewFactory 
+    internal class XNAViewFactory : IViewFactory
     {
         private readonly Game r_Game;
 
         public XNAViewFactory(Game i_Game)
         {
-            r_Game = i_Game;    
+            r_Game = i_Game;
         }
 
         public int ViewHeight
@@ -24,12 +25,12 @@ namespace Intruders.comp.xna
 
         public IInputManager InputManager
         {
-            get { return (IInputManager)r_Game.Services.GetService(typeof(IInputManager)); }
+            get { return (IInputManager) r_Game.Services.GetService(typeof(IInputManager)); }
         }
 
-        public ISprite CreateSpriteComponent()
+        public ISprite CreateSpriteComponent(string[] i_Assets)
         {
-            return new SpriteComponent(r_Game);
+            return new SpriteComponent(i_Assets, r_Game);
         }
     }
 }

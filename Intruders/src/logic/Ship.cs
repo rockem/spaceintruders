@@ -20,18 +20,13 @@ namespace Intruders.logic
         {
         }
 
-        public override string GetImagePath()
-        {
-            return "Sprites\\Ship";
-        }
-
         public override void Update(GameTime time)
         {
             int velocity = 0;
             float currentX = getSprite().Position.X;
             m_TimeLeftForNextShoot -= time.ElapsedGameTime;
 
-            if (inputFire())
+            if(inputFire())
             {
                 if(m_TimeLeftForNextShoot.TotalSeconds <= 0)
                 {
@@ -40,16 +35,16 @@ namespace Intruders.logic
                 }
             }
 
-            if (inputRight())
+            if(inputRight())
             {
                 velocity = k_PxForSecond;
             }
-            if (inputLeft())
+            if(inputLeft())
             {
                 velocity = -k_PxForSecond;
             }
 
-            currentX += velocity * (float)time.ElapsedGameTime.TotalSeconds;
+            currentX += velocity * (float) time.ElapsedGameTime.TotalSeconds;
             currentX += ViewFactory.InputManager.MousePositionDelta.X;
             currentX = MathHelper.Clamp(currentX, 0, ViewFactory.ViewWidth - getSprite().Width);
             getSprite().Position = new Vector2(currentX, getSprite().Position.Y);
@@ -57,8 +52,8 @@ namespace Intruders.logic
 
         private bool inputFire()
         {
-            return ViewFactory.InputManager.KeyPressed(Keys.Enter) || 
-                ViewFactory.InputManager.ButtonPressed(eInputButtons.Left);
+            return ViewFactory.InputManager.KeyPressed(Keys.Enter) ||
+                   ViewFactory.InputManager.ButtonPressed(eInputButtons.Left);
         }
 
         private bool inputLeft()
@@ -77,7 +72,7 @@ namespace Intruders.logic
             if(bullet != null)
             {
                 bullet.Position = new Vector2(Position.X + (float) Width / 2 - (float) bullet.Width / 2,
-                                                Position.Y - bullet.Height);
+                                              Position.Y - bullet.Height);
                 bullet.Alive = true;
             }
         }
@@ -105,7 +100,7 @@ namespace Intruders.logic
         {
             for(int i = 0; i < k_MaxNumOfBullets; i++)
             {
-                r_Bullets.Add(createBullet());    
+                r_Bullets.Add(createBullet());
             }
         }
 
@@ -115,6 +110,11 @@ namespace Intruders.logic
             bullet.YVelocity = k_BulletVelocity;
             bullet.Alive = false;
             return bullet;
+        }
+
+        protected override void CreateAssets()
+        {
+            Assets = new string[] {"Sprites\\Ship"};
         }
     }
 }

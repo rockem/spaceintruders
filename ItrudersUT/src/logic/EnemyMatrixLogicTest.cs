@@ -69,7 +69,7 @@ namespace ItrudersUT.logic
             m_MatrixLogic.Update(createGameTime(500 / 2));
             m_MatrixLogic.Update(createGameTime(500 / 2));
             Assert.AreEqual(k_SpriteWidth / 2, m_Factory.r_Sprites[0].Position.X);
-            m_MatrixLogic.Update(createGameTime(500 / 2));
+            m_MatrixLogic.Update(createGameTime(1000));
             Assert.AreEqual(k_SpriteWidth, m_Factory.r_Sprites[0].Position.X);
         }
 

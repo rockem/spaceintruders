@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GameCommon.manager;
 using Intruders.comp;
 using Intruders.logic;
@@ -60,6 +61,22 @@ namespace ItrudersUT.comp.mock
         {
             get { return m_SpriteLogic; }
             set { m_SpriteLogic = value; }
+        }
+
+        public float Scale
+        {
+            get { return 1; }
+            set { }
+        }
+
+        public string CurrentAsset
+        {
+            set {  }
+        }
+
+        public List<string> Assets
+        {
+            set {  }
         }
 
         public void setComponentLogic(ISpriteLogic i_Logic)

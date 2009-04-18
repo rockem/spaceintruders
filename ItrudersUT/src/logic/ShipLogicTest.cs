@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GameCommon.manager;
 using Intruders.comp;
 using Intruders.logic;
@@ -42,7 +43,7 @@ namespace ItrudersUT.logic
                 get { return m_InputManager; }
             }
 
-            public ISprite CreateSpriteComponent()
+            public ISprite CreateSpriteComponent(string[] i_Assets)
             {
                 m_Sprite = new MockSprite(k_ShipSize, k_ShipSize);
                 return m_Sprite;

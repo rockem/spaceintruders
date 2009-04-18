@@ -36,7 +36,7 @@ namespace ItrudersUT.comp.mock
             get { return m_InputManager; }
         }
 
-        public ISprite CreateSpriteComponent()
+        public ISprite CreateSpriteComponent(string[] i_Assets)
         {
             ISprite s = new MockSprite(r_SpriteWidth, r_SpriteHeight);
             r_Sprites.Add(s);

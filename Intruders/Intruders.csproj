@@ -60,9 +60,8 @@
     <Compile Include="src\comp\BackgroundComponent.cs" />
     <Compile Include="src\comp\LoadableDrawableComponent.cs" />
     <Compile Include="src\comp\xna\XNAViewFactory.cs" />
+    <Compile Include="src\logic\BlueMonster.cs" />
     <Compile Include="src\logic\Bullet.cs" />
-    <Compile Include="src\logic\eSpriteType.cs" />
-    <Compile Include="src\logic\IClonable.cs" />
     <Compile Include="src\logic\ILogic.cs" />
     <Compile Include="src\logic\ISpriteLogic.cs" />
     <Compile Include="src\logic\Monster.cs" />
@@ -70,9 +69,10 @@
     <Compile Include="src\comp\SpriteComponent.cs" />
     <Compile Include="src\comp\IViewFactory.cs" />
     <Compile Include="src\logic\EnemyMatrixLogic.cs" />
+    <Compile Include="src\logic\PinkMonster.cs" />
     <Compile Include="src\logic\Ship.cs" />
     <Compile Include="src\logic\SpriteLogic.cs" />
-    <Compile Include="src\logic\SpriteLogicFactory.cs" />
+    <Compile Include="src\logic\YellowMonster.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\MarsIntruders.cs" />
   </ItemGroup>
