@@ -91,9 +91,14 @@ namespace Intruders.logic
 
         public override void Initialize()
         {
+            initPosition();
+            buildBulletsArray();
+        }
+
+        private void initPosition()
+        {
             float currentY = ViewFactory.ViewHeight - getSprite().Height / 2 - 30;
             getSprite().Position = new Vector2(0, currentY);
-            buildBulletsArray();
         }
 
         private void buildBulletsArray()
@@ -114,6 +119,11 @@ namespace Intruders.logic
         protected override void CreateAssets()
         {
             Assets = new string[] {"Sprites\\Ship"};
+        }
+
+        public override void CollidedWith(ISpriteLogic i_SpriteLogic)
+        {
+            initPosition();
         }
     }
 }
