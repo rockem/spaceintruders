@@ -23,7 +23,8 @@ namespace Intruders.logic
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
-            if (Type == eSpriteType.Bullet && i_SpriteLogic.Type == eSpriteType.Monster)
+            if ((Type == eSpriteType.Bullet && i_SpriteLogic.Type == eSpriteType.Monster) ||
+                Type == eSpriteType.Bullet && i_SpriteLogic.Type == eSpriteType.Bomb)
             {
                 Alive = false;
             }

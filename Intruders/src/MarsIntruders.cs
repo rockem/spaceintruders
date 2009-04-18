@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using GameCommon.manager;
 using GameCommon.manager.xna;
@@ -20,6 +19,9 @@ namespace Intruders
         private SpriteBatch r_SpriteBatch;
         private readonly Ship r_Ship;
         private bool m_GameOver;
+        private Random i_Random = new Random();
+        private MotherShip r_MotherShip;
+
 
         public MarsIntruders()
         {
@@ -32,6 +34,7 @@ namespace Intruders
             new BackgroundComponent(this);
 
             r_Ship = new Ship(factory);
+            r_MotherShip = new MotherShip(factory);
             r_Ship.ShipHit += MarsIntruders_ShipHit;
             r_Monsters = new EnemyMatrixLogic(factory);
             r_Monsters.MatrixChanged += MarsIntruders_MatrixChanged;
@@ -75,8 +78,18 @@ namespace Intruders
                 DisplayScoreMessage();
                 Exit();
             }
+            sailMotherShipIfPossible();
             r_Monsters.Update(gameTime);
             base.Update(gameTime);
+        }
+
+        private void sailMotherShipIfPossible()
+        {
+            if(i_Random.Next(2000) == 1329 && !r_MotherShip.Alive)
+            {
+                r_MotherShip.Position = new Vector2(-r_MotherShip.Width, r_MotherShip.Height);
+                r_MotherShip.Alive = true;
+            }
         }
 
         protected override void Draw(GameTime gameTime)

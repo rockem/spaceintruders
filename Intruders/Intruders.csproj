@@ -78,6 +78,7 @@
     <Compile Include="src\comp\SpriteComponent.cs" />
     <Compile Include="src\comp\IViewFactory.cs" />
     <Compile Include="src\logic\EnemyMatrixLogic.cs" />
+    <Compile Include="src\logic\MotherShip.cs" />
     <Compile Include="src\logic\PinkMonster.cs" />
     <Compile Include="src\logic\Ship.cs" />
     <Compile Include="src\logic\SpriteLogic.cs" />

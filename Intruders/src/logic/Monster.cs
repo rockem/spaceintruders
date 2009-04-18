@@ -10,16 +10,16 @@ namespace Intruders.logic
         private readonly TimeSpan r_MinTimeBetweenBullets = TimeSpan.FromSeconds(0.5f);
         private TimeSpan m_TimeLeftToNextBullet;
         private TimeSpan m_TimeLeftToDie;
-        private Bullet m_Bullet;
+        private readonly Bullet r_Bullet;
         private bool m_Dying;
-        private Random r_Random;
+        private readonly Random r_Random;
 
         public event EventHandler MonsterHit;
 
         public Monster(IViewFactory i_Factory) : base(i_Factory)
         {
-            m_Bullet = new Bullet(ViewFactory, eSpriteType.Bomb);
-            m_Bullet.YVelocity = 200;
+            r_Bullet = new Bullet(ViewFactory, eSpriteType.Bomb);
+            r_Bullet.YVelocity = 200;
             r_Random = new Random(GetHashCode());
             Type = eSpriteType.Monster;
         }
@@ -44,9 +44,10 @@ namespace Intruders.logic
             }
             int num = r_Random.Next(5000);
             m_TimeLeftToNextBullet -= i_GameTime.ElapsedGameTime;
-            if(m_TimeLeftToNextBullet.TotalSeconds <= 0 && num == 287 && !m_Bullet.Alive)
+            if(m_TimeLeftToNextBullet.TotalSeconds <= 0 && num == 287 && !r_Bullet.Alive)
             {
                 shootBullet();
+                m_TimeLeftToNextBullet = r_MinTimeBetweenBullets;
             }
             
             base.Update(i_GameTime);
@@ -54,8 +55,8 @@ namespace Intruders.logic
 
         private void shootBullet()
         {
-            m_Bullet.Position = new Vector2(Position.X + (float)Width / 2, Position.Y + Height);
-            m_Bullet.Alive = true;
+            r_Bullet.Position = new Vector2(Position.X + (float)Width / 2, Position.Y + Height);
+            r_Bullet.Alive = true;
         }
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
