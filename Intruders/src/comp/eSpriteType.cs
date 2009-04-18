@@ -4,6 +4,7 @@ namespace Intruders.comp
     {
         Bullet,
         Bomb,
-        Monster
+        Monster,
+        Wall
     }
 }

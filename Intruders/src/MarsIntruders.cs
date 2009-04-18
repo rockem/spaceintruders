@@ -21,6 +21,7 @@ namespace Intruders
         private bool m_GameOver;
         private Random i_Random = new Random();
         private MotherShip r_MotherShip;
+        private WallMatrix r_Walls;
 
 
         public MarsIntruders()
@@ -34,8 +35,9 @@ namespace Intruders
             new BackgroundComponent(this);
 
             r_Ship = new Ship(factory);
-            r_MotherShip = new MotherShip(factory);
             r_Ship.ShipHit += MarsIntruders_ShipHit;
+            r_Walls = new WallMatrix(factory);
+            r_MotherShip = new MotherShip(factory);
             r_Monsters = new EnemyMatrixLogic(factory);
             r_Monsters.MatrixChanged += MarsIntruders_MatrixChanged;
         }
@@ -69,6 +71,7 @@ namespace Intruders
         {
             base.LoadContent();
             r_Monsters.Initialize();
+            r_Walls.Initialize();
         }
 
         protected override void Update(GameTime gameTime)
@@ -80,6 +83,7 @@ namespace Intruders
             }
             sailMotherShipIfPossible();
             r_Monsters.Update(gameTime);
+            r_Walls.Update(gameTime);
             base.Update(gameTime);
         }
 
