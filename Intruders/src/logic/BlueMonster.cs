@@ -7,6 +7,7 @@ namespace Intruders.logic
         public BlueMonster(IViewFactory i_Factory) : base(i_Factory)
         {
             Color = Microsoft.Xna.Framework.Graphics.Color.LightBlue;
+            Score = 200;
         }
 
         protected override void CreateAssets()

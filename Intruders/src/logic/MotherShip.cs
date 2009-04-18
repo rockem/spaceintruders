@@ -1,4 +1,3 @@
-using System;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 
@@ -10,6 +9,7 @@ namespace Intruders.logic
         {
             Color = Microsoft.Xna.Framework.Graphics.Color.Red;
             Alive = false;
+            Score = 500;
 
         }
 
@@ -28,6 +28,12 @@ namespace Intruders.logic
         protected override void CreateAssets()
         {
             Assets = new string[] {"Sprites\\MotherShip"};
+        }
+
+        public override void CollidedWith(ISpriteLogic i_SpriteLogic)
+        {
+            i_SpriteLogic.Score = Score;
+            Alive = false;
         }
     }
 }

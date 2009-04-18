@@ -23,11 +23,6 @@ namespace Intruders.logic
         {
         }
 
-        public int Score
-        {
-            get { return 0; }
-        }
-
         public int Souls
         {
             get
@@ -128,8 +123,14 @@ namespace Intruders.logic
         private Bullet createBullet()
         {
             Bullet bullet = new Bullet(ViewFactory, eSpriteType.Bullet);
+            bullet.BulletHit += Ship_BulletHit;
             bullet.YVelocity = k_BulletVelocity;
             return bullet;
+        }
+
+        private void Ship_BulletHit(object sender, EventArgs e)
+        {
+            Score += ((Bullet) sender).Score;
         }
 
         protected override void CreateAssets()
@@ -141,6 +142,8 @@ namespace Intruders.logic
         {
             initPosition();
             m_RemainingSouls--;
+            Score -= 2000;
+            if (Score < 0) Score = 0;
             ShipHit(this, EventArgs.Empty);
         }
     }

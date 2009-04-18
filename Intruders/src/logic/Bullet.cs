@@ -1,3 +1,4 @@
+using System;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 
@@ -5,10 +6,18 @@ namespace Intruders.logic
 {
     public class Bullet : SpriteLogic
     {
+        public event EventHandler BulletHit; 
+
         public Bullet(IViewFactory i_Factory, eSpriteType i_Type) : base(i_Factory)
         {
             Alive = false;
             Type = i_Type;
+            BulletHit += Bullet_Dummy;
+        }
+
+        private void Bullet_Dummy(object sender, EventArgs e)
+        {
+            
         }
 
         public override void Update(GameTime i_GameTime)
@@ -27,6 +36,7 @@ namespace Intruders.logic
                 Type == eSpriteType.Bullet && i_SpriteLogic.Type == eSpriteType.Bomb)
             {
                 Alive = false;
+                BulletHit(this, EventArgs.Empty);
             }
         }
 

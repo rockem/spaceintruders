@@ -7,6 +7,7 @@ namespace Intruders.logic
         public PinkMonster(IViewFactory i_Factory) : base(i_Factory)
         {
             Color = Microsoft.Xna.Framework.Graphics.Color.LightPink;
+            Score = 300;
         }
 
         protected override void CreateAssets()

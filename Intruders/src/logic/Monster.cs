@@ -61,10 +61,12 @@ namespace Intruders.logic
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
-            if (i_SpriteLogic.Type == eSpriteType.Bullet)
+            ISpriteLogic logic = i_SpriteLogic;
+            if (logic.Type == eSpriteType.Bullet)
             {
                 m_TimeLeftToDie = r_DieDuration;
                 m_Dying = true;
+                logic.Score = Score;
             }
         }
 

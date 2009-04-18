@@ -19,6 +19,7 @@ namespace Intruders.logic
         protected string[] m_Assets;
         private int m_CurrentAsset;
         private eSpriteType m_SpriteType;
+        private int m_Score;
 
         protected SpriteLogic(IViewFactory i_Factory)
         {
@@ -92,6 +93,12 @@ namespace Intruders.logic
             {
                 m_SpriteType = value;
             }
+        }
+
+        public int Score
+        {
+            get { return m_Score; }
+            set { m_Score = value; }
         }
 
         public virtual void CollidedWith(ISpriteLogic i_SpriteLogic)

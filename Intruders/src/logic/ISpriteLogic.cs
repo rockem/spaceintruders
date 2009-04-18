@@ -11,6 +11,8 @@ namespace Intruders.logic
 
         eSpriteType Type { get; set; }
 
+        int Score { get; set; }
+
         void CollidedWith(ISpriteLogic i_SpriteLogic);
     }
 }
