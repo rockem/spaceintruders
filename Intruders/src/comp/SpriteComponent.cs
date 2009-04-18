@@ -12,10 +12,9 @@ namespace Intruders.comp
         private Vector2 m_Position;
         private Color m_Color = Color.White;
         private ISpriteLogic m_SpriteLogic;
-        private readonly string r_AssetPath;
         private float m_Scale = 1;
         private string m_CurrentAsset;
-        private string[] r_Assets;
+        private readonly string[] r_Assets;
 
         public SpriteComponent(string[] i_Assets, Game game) : base(game)
         {

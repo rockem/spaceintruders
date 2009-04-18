@@ -106,9 +106,8 @@ namespace Intruders.logic
 
         private Bullet createBullet()
         {
-            Bullet bullet = new Bullet(ViewFactory);
+            Bullet bullet = new Bullet(ViewFactory, eSpriteType.Bullet);
             bullet.YVelocity = k_BulletVelocity;
-            bullet.Alive = false;
             return bullet;
         }
 

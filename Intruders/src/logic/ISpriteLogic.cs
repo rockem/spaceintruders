@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Intruders.comp;
 
 namespace Intruders.logic
 {
@@ -7,6 +8,8 @@ namespace Intruders.logic
         int XVelocity { get; }
 
         int YVelocity { get; }
+
+        eSpriteType Type { get; set; }
 
         void CollidedWith(ISpriteLogic i_SpriteLogic);
     }

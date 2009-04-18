@@ -5,8 +5,10 @@ namespace Intruders.logic
 {
     public class Bullet : SpriteLogic
     {
-        public Bullet(IViewFactory i_Factory) : base(i_Factory)
+        public Bullet(IViewFactory i_Factory, eSpriteType i_Type) : base(i_Factory)
         {
+            Alive = false;
+            Type = i_Type;
         }
 
         public override void Update(GameTime i_GameTime)
@@ -21,7 +23,10 @@ namespace Intruders.logic
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
-            Alive = false;
+            if (Type == eSpriteType.Bullet && i_SpriteLogic.Type == eSpriteType.Monster)
+            {
+                Alive = false;
+            }
         }
 
         protected override void CreateAssets()

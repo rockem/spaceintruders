@@ -1,7 +1,6 @@
 using System;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.logic
 {

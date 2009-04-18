@@ -18,6 +18,7 @@ namespace Intruders.logic
         private bool m_Alive = true;
         protected string[] m_Assets;
         private int m_CurrentAsset;
+        private eSpriteType m_SpriteType;
 
         protected SpriteLogic(IViewFactory i_Factory)
         {
@@ -82,6 +83,15 @@ namespace Intruders.logic
         {
             get { return m_YVelocity; }
             set { m_YVelocity = value; }
+        }
+
+        public eSpriteType Type
+        {
+            get { return m_SpriteType; }
+            set
+            {
+                m_SpriteType = value;
+            }
         }
 
         public virtual void CollidedWith(ISpriteLogic i_SpriteLogic)
