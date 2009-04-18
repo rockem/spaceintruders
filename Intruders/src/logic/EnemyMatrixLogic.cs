@@ -16,7 +16,10 @@ namespace Intruders.logic
         private readonly IViewFactory r_Factory;
         private int m_StartColumn;
         private int m_EndColumn = k_NumOfColumns - 1;
+        private int m_EndRow = k_NumOfRows - 1;
+        private int m_NumberOfMonsters;
 
+        public event EventHandler MatrixChanged;
 
         public EnemyMatrixLogic(IViewFactory i_Factory)
         {
@@ -67,12 +70,28 @@ namespace Intruders.logic
         {
             updateMatrixBounds();
             fasterTimeBetweenJumps();
+            MatrixChanged(this, EventArgs.Empty);
         }
 
         private void updateMatrixBounds()
         {
             if(checkForEmptyColumn(m_StartColumn)) m_StartColumn++;
             if(checkForEmptyColumn(m_EndColumn)) m_EndColumn--;
+            if (checkForEmptyRow(m_EndRow)) m_EndRow--;
+        }
+
+        private bool checkForEmptyRow(int i_Row)
+        {
+            bool decBound = true;
+            for (int i = 0; i < k_NumOfColumns; i++)
+            {
+                if (r_Monsters[i, i_Row].Alive)
+                {
+                    decBound = false;
+                    break;
+                }
+            }
+            return decBound;
         }
 
         private bool checkForEmptyColumn(int i_Column)
@@ -117,10 +136,16 @@ namespace Intruders.logic
                     yvel = (float) r_Monsters[0, 0].Width / 2;
                     fasterTimeBetweenJumps();
                 }
+                m_NumberOfMonsters = 0;
                 foreach(Monster mon in r_Monsters)
                 {
-                     mon.Position = new Vector2(mon.Position.X + m_Velocity, mon.Position.Y + yvel);
-                     mon.SwitchLook();
+                    mon.Position = new Vector2(mon.Position.X + m_Velocity, mon.Position.Y + yvel);
+                    if(mon.Alive)
+                    {
+                        mon.SwitchLook();
+                        m_NumberOfMonsters++;    
+                    }
+                    
                 }
                 resetTimeForNextJump();
                 m_Velocity = tmpVelocity;
@@ -148,6 +173,16 @@ namespace Intruders.logic
         {
             initMatrix();
             m_Velocity = (float) r_Monsters[0, 0].Width / 2;
+        }
+
+        public float GetLowerBound()
+        {
+            return r_Monsters[0, m_EndRow].Position.Y + r_Monsters[0, m_EndRow].Height;
+        }
+
+        public int GetNumberOfMonstersAlive()
+        {
+            return m_NumberOfMonsters;        
         }
     }
 }

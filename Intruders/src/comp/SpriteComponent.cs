@@ -30,7 +30,7 @@ namespace Intruders.comp
 
             ICollidable2D source = i_Source as ICollidable2D;
 
-            if(Visible && source != null)
+            if(source != null && source.Visible)
             {
                 collided = source.Bounds.Intersects(Bounds);
             }

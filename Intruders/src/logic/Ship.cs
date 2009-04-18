@@ -15,9 +15,25 @@ namespace Intruders.logic
         private TimeSpan m_TimeLeftForNextShoot;
         private const int k_BulletVelocity = -200;
         private const int k_PxForSecond = 120;
+        private int m_RemainingSouls = 3;
+
+        public event EventHandler ShipHit;
 
         public Ship(IViewFactory i_Factory) : base(i_Factory)
         {
+        }
+
+        public int Score
+        {
+            get { return 0; }
+        }
+
+        public int Souls
+        {
+            get
+            {
+                return m_RemainingSouls;
+            }
         }
 
         public override void Update(GameTime time)
@@ -124,6 +140,8 @@ namespace Intruders.logic
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
             initPosition();
+            m_RemainingSouls--;
+            ShipHit(this, EventArgs.Empty);
         }
     }
 }

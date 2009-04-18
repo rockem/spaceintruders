@@ -53,6 +53,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +63,12 @@
     <Compile Include="src\comp\eSpriteType.cs" />
     <Compile Include="src\comp\LoadableDrawableComponent.cs" />
     <Compile Include="src\comp\xna\XNAViewFactory.cs" />
+    <Compile Include="src\form\GameScoreForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\form\GameScoreForm.Designer.cs">
+      <DependentUpon>GameScoreForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\logic\BlueMonster.cs" />
     <Compile Include="src\logic\Bullet.cs" />
     <Compile Include="src\logic\ILogic.cs" />
@@ -92,6 +100,12 @@
       <Project>{18EE2418-5380-4DAB-93DC-18E5C597C262}</Project>
       <Name>GameCommon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="src\form\GameScoreForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GameScoreForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.Common.targets" />
