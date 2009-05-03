@@ -32,5 +32,10 @@ namespace Intruders.comp.xna
         {
             return new SpriteComponent(i_Assets, r_Game);
         }
+
+        public IFontComponent CreateFontComponent()
+        {
+            return new FontComponent(r_Game);
+        }
     }
 }

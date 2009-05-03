@@ -19,6 +19,8 @@ namespace Intruders.logic
 
         public event EventHandler ShipHit;
 
+        public event EventHandler ScoreChanged;
+
         public Ship(IViewFactory i_Factory) : base(i_Factory)
         {
             Type = eSpriteType.Ship;
@@ -139,7 +141,13 @@ namespace Intruders.logic
 
         private void Ship_BulletHit(object sender, EventArgs e)
         {
-            Score += ((Bullet) sender).Score;
+            setNewScore(Score + ((Bullet) sender).Score);
+        }
+
+        private void setNewScore(int score)
+        {
+            Score = score < 0 ? 0 : score;
+            ScoreChanged(this, EventArgs.Empty);
         }
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
@@ -148,8 +156,7 @@ namespace Intruders.logic
             {
                 initPosition();
                 m_RemainingSouls--;
-                Score -= 2000;
-                if(Score < 0) Score = 0;
+                setNewScore(Score - 2000);
                 ShipHit(this, EventArgs.Empty);
                 if(m_RemainingSouls ==0)
                 {

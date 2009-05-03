@@ -37,6 +37,7 @@ namespace Intruders.logic
                 i_SpriteLogic.Type == eSpriteType.Wall)
             {
                 Alive = false;
+                Score = i_SpriteLogic.Score;
                 BulletHit(this, EventArgs.Empty);
             }
         }

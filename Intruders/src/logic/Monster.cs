@@ -66,7 +66,6 @@ namespace Intruders.logic
             {
                 m_TimeLeftToDie = r_DieDuration;
                 m_Dying = true;
-                logic.Score = Score;
             }
         }
 

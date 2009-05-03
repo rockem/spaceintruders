@@ -24,6 +24,7 @@ namespace Intruders
         private readonly WallMatrix r_Walls;
         private readonly GreenShip r_GreenShip;
         private readonly LivesMatrix r_Lives;
+        private readonly ScoreDisplay r_Score;
 
         public MarsIntruders()
         {
@@ -35,15 +36,24 @@ namespace Intruders
             new CollisionsManager(this);
             new BackgroundComponent(this);
 
+            r_Score = new ScoreDisplay(factory);
             r_BlueShip = new BlueShip(factory);
             r_BlueShip.ShipHit += MarsIntruders_ShipHit;
+            r_BlueShip.ScoreChanged += MarsIntruders_ScoreChanged;
             r_GreenShip = new GreenShip(factory);
             r_GreenShip.ShipHit += MarsIntruders_ShipHit;
+            r_GreenShip.ScoreChanged += MarsIntruders_ScoreChanged;
             r_Lives = new LivesMatrix(factory, 3);
             r_Walls = new WallMatrix(factory);
             r_MotherShip = new MotherShip(factory);
             r_Monsters = new EnemyMatrixLogic(factory);
             r_Monsters.MatrixChanged += MarsIntruders_MatrixChanged;
+        }
+
+        private void MarsIntruders_ScoreChanged(object sender, EventArgs e)
+        {
+            r_Score.P1Score = r_BlueShip.Score;
+            r_Score.P2Score = r_GreenShip.Score;
         }
 
         private void MarsIntruders_MatrixChanged(object sender, EventArgs e)
@@ -111,7 +121,7 @@ namespace Intruders
 
         private void DisplayScoreMessage()
         {
-            string scoreMessage = string.Format("Blue score: {0}\nGreen score: {1}", r_BlueShip.Score, r_GreenShip.Score);
+            string scoreMessage = string.Format("Blue score: {0}\nGreen score: {1}\n", r_BlueShip.Score, r_GreenShip.Score);
             scoreMessage += string.Format("You are a {0}\n", isAWinner() ? "winner" : "loser, you died");
 
             MessageBox.Show(scoreMessage, "Game Over!");

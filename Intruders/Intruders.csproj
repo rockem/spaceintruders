@@ -61,8 +61,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\comp\BackgroundComponent.cs" />
     <Compile Include="src\comp\eSpriteType.cs" />
+    <Compile Include="src\comp\FontComponent.cs" />
+    <Compile Include="src\comp\IFontComponent.cs" />
     <Compile Include="src\comp\LoadableDrawableComponent.cs" />
-    <Compile Include="src\comp\xna\XNAViewFactory.cs" />
+    <Compile Include="src\comp\XNAViewFactory.cs" />
     <Compile Include="src\logic\BlueMonster.cs" />
     <Compile Include="src\logic\BlueShip.cs" />
     <Compile Include="src\logic\Bullet.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="src\logic\EnemyMatrixLogic.cs" />
     <Compile Include="src\logic\MotherShip.cs" />
     <Compile Include="src\logic\PinkMonster.cs" />
+    <Compile Include="src\logic\ScoreDisplay.cs" />
     <Compile Include="src\logic\Ship.cs" />
     <Compile Include="src\logic\SmallBlueShip.cs" />
     <Compile Include="src\logic\SmallGreenShip.cs" />
