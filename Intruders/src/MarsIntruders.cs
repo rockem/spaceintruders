@@ -17,12 +17,13 @@ namespace Intruders
     {
         private readonly EnemyMatrixLogic r_Monsters;
         private SpriteBatch r_SpriteBatch;
-        private readonly Ship r_Ship;
+        private readonly Ship r_BlueShip;
         private bool m_GameOver;
-        private Random i_Random = new Random();
-        private MotherShip r_MotherShip;
-        private WallMatrix r_Walls;
-
+        private readonly Random r_Random = new Random();
+        private readonly MotherShip r_MotherShip;
+        private readonly WallMatrix r_Walls;
+        private readonly GreenShip r_GreenShip;
+        private readonly LivesMatrix r_Lives;
 
         public MarsIntruders()
         {
@@ -34,8 +35,11 @@ namespace Intruders
             new CollisionsManager(this);
             new BackgroundComponent(this);
 
-            r_Ship = new Ship(factory);
-            r_Ship.ShipHit += MarsIntruders_ShipHit;
+            r_BlueShip = new BlueShip(factory);
+            r_BlueShip.ShipHit += MarsIntruders_ShipHit;
+            r_GreenShip = new GreenShip(factory);
+            r_GreenShip.ShipHit += MarsIntruders_ShipHit;
+            r_Lives = new LivesMatrix(factory, 3);
             r_Walls = new WallMatrix(factory);
             r_MotherShip = new MotherShip(factory);
             r_Monsters = new EnemyMatrixLogic(factory);
@@ -45,16 +49,17 @@ namespace Intruders
         private void MarsIntruders_MatrixChanged(object sender, EventArgs e)
         {
             EnemyMatrixLogic eml = (EnemyMatrixLogic) sender;
-            if (eml.GetLowerBound() >= r_Ship.Position.Y || eml.GetNumberOfMonstersAlive() == 0)
+            if (eml.GetLowerBound() >= r_BlueShip.Position.Y || eml.GetNumberOfMonstersAlive() == 0)
             {
                 m_GameOver = true;
-
             }
         }
 
         private void MarsIntruders_ShipHit(object sender, EventArgs e)
         {
-            if(((Ship)sender).Souls == 0)
+            r_Lives.GreenSouls = r_GreenShip.Souls;
+            r_Lives.BlueSouls = r_BlueShip.Souls;
+            if(r_GreenShip.Souls == 0 && r_BlueShip.Souls == 0)
             {
                 m_GameOver = true;
             }
@@ -70,6 +75,7 @@ namespace Intruders
         protected override void LoadContent()
         {
             base.LoadContent();
+            r_Lives.Initialize();
             r_Monsters.Initialize();
             r_Walls.Initialize();
         }
@@ -89,7 +95,7 @@ namespace Intruders
 
         private void sailMotherShipIfPossible()
         {
-            if(i_Random.Next(2000) == 1329 && !r_MotherShip.Alive)
+            if(r_Random.Next(2000) == 1329 && !r_MotherShip.Alive)
             {
                 r_MotherShip.Position = new Vector2(-r_MotherShip.Width, r_MotherShip.Height);
                 r_MotherShip.Alive = true;
@@ -105,7 +111,7 @@ namespace Intruders
 
         private void DisplayScoreMessage()
         {
-            string scoreMessage = string.Format("Your score: {0}\n", r_Ship.Score);
+            string scoreMessage = string.Format("Blue score: {0}\nGreen score: {1}", r_BlueShip.Score, r_GreenShip.Score);
             scoreMessage += string.Format("You are a {0}\n", isAWinner() ? "winner" : "loser, you died");
 
             MessageBox.Show(scoreMessage, "Game Over!");
@@ -113,7 +119,7 @@ namespace Intruders
 
         private bool isAWinner()
         {
-            return r_Ship.Souls > 0 && r_Monsters.GetNumberOfMonstersAlive() == 0;
+            return r_BlueShip.Souls > 0 && r_Monsters.GetNumberOfMonstersAlive() == 0;
         }
     }
 }

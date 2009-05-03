@@ -114,12 +114,12 @@ namespace Intruders.comp
 
         public int Width
         {
-            get { return r_Textures[m_CurrentAsset].Width; }
+            get { return (int) (r_Textures[m_CurrentAsset].Width * m_Scale); }
         }
 
         public int Height
         {
-            get { return r_Textures[m_CurrentAsset].Height; }
+            get { return (int) (r_Textures[m_CurrentAsset].Height * m_Scale); }
         }
 
         public Vector2 Position

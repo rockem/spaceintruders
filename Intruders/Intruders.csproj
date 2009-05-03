@@ -64,9 +64,12 @@
     <Compile Include="src\comp\LoadableDrawableComponent.cs" />
     <Compile Include="src\comp\xna\XNAViewFactory.cs" />
     <Compile Include="src\logic\BlueMonster.cs" />
+    <Compile Include="src\logic\BlueShip.cs" />
     <Compile Include="src\logic\Bullet.cs" />
+    <Compile Include="src\logic\GreenShip.cs" />
     <Compile Include="src\logic\ILogic.cs" />
     <Compile Include="src\logic\ISpriteLogic.cs" />
+    <Compile Include="src\logic\LivesMatrix.cs" />
     <Compile Include="src\logic\Monster.cs" />
     <Compile Include="src\comp\ISprite.cs" />
     <Compile Include="src\comp\SpriteComponent.cs" />
@@ -75,6 +78,8 @@
     <Compile Include="src\logic\MotherShip.cs" />
     <Compile Include="src\logic\PinkMonster.cs" />
     <Compile Include="src\logic\Ship.cs" />
+    <Compile Include="src\logic\SmallBlueShip.cs" />
+    <Compile Include="src\logic\SmallGreenShip.cs" />
     <Compile Include="src\logic\SpriteLogic.cs" />
     <Compile Include="src\logic\Wall.cs" />
     <Compile Include="src\logic\WallMatrix.cs" />

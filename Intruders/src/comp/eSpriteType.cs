@@ -5,6 +5,7 @@ namespace Intruders.comp
         Bullet,
         Bomb,
         Monster,
-        Wall
+        Wall,
+        Ship
     }
 }

@@ -21,6 +21,7 @@ namespace Intruders.logic
 
         public Ship(IViewFactory i_Factory) : base(i_Factory)
         {
+            Type = eSpriteType.Ship;
         }
 
         public int Souls
@@ -56,25 +57,33 @@ namespace Intruders.logic
             }
 
             currentX += velocity * (float) time.ElapsedGameTime.TotalSeconds;
-            currentX += ViewFactory.InputManager.MousePositionDelta.X;
+            if (useMouseForMovement())
+            {
+                currentX += ViewFactory.InputManager.MousePositionDelta.X;
+            }
             currentX = MathHelper.Clamp(currentX, 0, ViewFactory.ViewWidth - getSprite().Width);
             getSprite().Position = new Vector2(currentX, getSprite().Position.Y);
         }
 
-        private bool inputFire()
+        protected virtual bool inputFire()
         {
             return ViewFactory.InputManager.KeyPressed(Keys.Enter) ||
                    ViewFactory.InputManager.ButtonPressed(eInputButtons.Left);
         }
 
-        private bool inputLeft()
+        protected virtual bool inputLeft()
         {
             return ViewFactory.InputManager.KeyHeld(Keys.Left);
         }
 
-        private bool inputRight()
+        protected virtual bool inputRight()
         {
             return ViewFactory.InputManager.KeyHeld(Keys.Right);
+        }
+
+        protected virtual bool useMouseForMovement()
+        {
+            return false;
         }
 
         private void shootBullet()
@@ -106,7 +115,7 @@ namespace Intruders.logic
             buildBulletsArray();
         }
 
-        private void initPosition()
+        protected virtual void initPosition()
         {
             float currentY = ViewFactory.ViewHeight - getSprite().Height / 2 - 30;
             getSprite().Position = new Vector2(0, currentY);
@@ -133,18 +142,21 @@ namespace Intruders.logic
             Score += ((Bullet) sender).Score;
         }
 
-        protected override void CreateAssets()
-        {
-            Assets = new string[] {"Sprites\\Ship"};
-        }
-
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
-            initPosition();
-            m_RemainingSouls--;
-            Score -= 2000;
-            if (Score < 0) Score = 0;
-            ShipHit(this, EventArgs.Empty);
+            if (i_SpriteLogic.Type == eSpriteType.Bomb)
+            {
+                initPosition();
+                m_RemainingSouls--;
+                Score -= 2000;
+                if(Score < 0) Score = 0;
+                ShipHit(this, EventArgs.Empty);
+                if(m_RemainingSouls ==0)
+                {
+                    Alive = false;
+                }
+
+            }
         }
     }
 }
