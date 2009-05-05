@@ -6,17 +6,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.comp
 {
-    public class SpriteComponent : LoadableDrawableComponent, ISprite, ICollidable2D
+    public class SpriteComponent : Component, ISprite, ICollidable2D
     {
         private readonly Dictionary<string, Texture2D> r_Textures = new Dictionary<string, Texture2D>();
         private Vector2 m_Position;
         private Color m_Color = Color.White;
-        private ISpriteLogic m_SpriteLogic;
         private float m_Scale = 1;
         private string m_CurrentAsset;
         private readonly string[] r_Assets;
 
-        public SpriteComponent(string[] i_Assets, Game game) : base(game)
+        public SpriteComponent(string[] i_Assets, Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
         {
             m_CurrentAsset = i_Assets[0];
             r_Assets = i_Assets;
@@ -40,7 +39,7 @@ namespace Intruders.comp
 
         public void Collided(ICollidable i_Collidable)
         {
-            SpriteLogic.CollidedWith(((ISprite) i_Collidable).SpriteLogic);
+            ((ISpriteLogic)Logic).CollidedWith((ISpriteLogic)((IComponent)i_Collidable).Logic);
         }
 
         protected virtual void OnPositionChanged()
@@ -72,12 +71,12 @@ namespace Intruders.comp
             }
             // m_TextureShip = Game.Content.Load<Texture2D>(r_AssetPath);
             base.LoadContent();
-            m_SpriteLogic.Initialize();
+            Logic.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
-            m_SpriteLogic.Update(gameTime);
+            Logic.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -93,12 +92,6 @@ namespace Intruders.comp
         {
             get { return m_Color; }
             set { m_Color = value; }
-        }
-
-        public ISpriteLogic SpriteLogic
-        {
-            get { return m_SpriteLogic; }
-            set { m_SpriteLogic = value; }
         }
 
         public float Scale

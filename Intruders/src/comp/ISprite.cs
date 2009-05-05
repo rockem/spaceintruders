@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.comp
 {
-    public interface ISprite
+    public interface ISprite : IComponent
     {
         bool Enabled { get; set; }
 
@@ -18,8 +18,6 @@ namespace Intruders.comp
         Vector2 Position { get; set; }
 
         Color Color { get; set; }
-
-        ISpriteLogic SpriteLogic { get; set; }
 
         float Scale { get; set; }
 

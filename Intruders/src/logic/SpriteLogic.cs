@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,10 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Intruders.logic
 {
     [Serializable()]
-    public abstract class SpriteLogic : ISpriteLogic
+    public abstract class SpriteLogic : Logic, ISpriteLogic
     {
-        private readonly IViewFactory r_Factory;
-        private readonly ISprite r_Sprite;
         private int m_XVelocity;
         private int m_YVelocity;
         private bool m_Alive = true;
@@ -21,48 +16,36 @@ namespace Intruders.logic
         private eSpriteType m_SpriteType;
         private int m_Score;
 
-        protected SpriteLogic(IViewFactory i_Factory)
+        protected SpriteLogic(IViewFactory i_Factory) : base(i_Factory)
         {
-            r_Factory = i_Factory;
             CreateAssets();
-            r_Sprite = r_Factory.CreateSpriteComponent(m_Assets);
-            r_Sprite.SpriteLogic = this;
+            CreateView(ViewFactory.CreateSpriteComponent(m_Assets));
         }
 
         protected virtual void CreateAssets()
         {
         }
 
-        protected IViewFactory ViewFactory
-        {
-            get { return r_Factory; }
-        }
-
-        protected ISprite getSprite()
-        {
-            return r_Sprite;
-        }
-
         public Color Color
         {
-            get { return r_Sprite.Color; }
-            set { r_Sprite.Color = value; }
+            get { return ((ISprite)View).Color; }
+            set { ((ISprite)View).Color = value; }
         }
 
         public int Width
         {
-            get { return r_Sprite.Width; }
+            get { return ((ISprite)View).Width; }
         }
 
         public int Height
         {
-            get { return r_Sprite.Height; }
+            get { return ((ISprite)View).Height; }
         }
 
         public Vector2 Position
         {
-            get { return r_Sprite.Position; }
-            set { r_Sprite.Position = value; }
+            get { return ((ISprite)View).Position; }
+            set { ((ISprite)View).Position = value; }
         }
 
 
@@ -111,8 +94,8 @@ namespace Intruders.logic
             set
             {
                 m_Alive = value;
-                getSprite().Enabled = value;
-                getSprite().Visible = value;
+                ((ISprite)View).Enabled = value;
+                ((ISprite)View).Visible = value;
             }
         }
 
@@ -128,7 +111,7 @@ namespace Intruders.logic
             set
             {
                 m_CurrentAsset = value;
-                r_Sprite.CurrentAsset = m_Assets[m_CurrentAsset];
+                ((ISprite)View).CurrentAsset = m_Assets[m_CurrentAsset];
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Intruders.comp
         private string m_Text;
         private ILogic m_Logic;
 
-        public FontComponent(Game game) : base(game)
+        public FontComponent(Game game, int i_UpdateOrder): base(game, i_UpdateOrder)
         {
         }
 

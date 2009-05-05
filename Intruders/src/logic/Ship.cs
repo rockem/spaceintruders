@@ -37,7 +37,7 @@ namespace Intruders.logic
         public override void Update(GameTime time)
         {
             int velocity = 0;
-            float currentX = getSprite().Position.X;
+            float currentX = ((ISprite)View).Position.X;
             m_TimeLeftForNextShoot -= time.ElapsedGameTime;
 
             if(inputFire())
@@ -63,8 +63,8 @@ namespace Intruders.logic
             {
                 currentX += ViewFactory.InputManager.MousePositionDelta.X;
             }
-            currentX = MathHelper.Clamp(currentX, 0, ViewFactory.ViewWidth - getSprite().Width);
-            getSprite().Position = new Vector2(currentX, getSprite().Position.Y);
+            currentX = MathHelper.Clamp(currentX, 0, ViewFactory.ViewWidth - ((ISprite)View).Width);
+            ((ISprite)View).Position = new Vector2(currentX, ((ISprite)View).Position.Y);
         }
 
         protected virtual bool inputFire()
@@ -119,8 +119,8 @@ namespace Intruders.logic
 
         protected virtual void initPosition()
         {
-            float currentY = ViewFactory.ViewHeight - getSprite().Height / 2 - 30;
-            getSprite().Position = new Vector2(0, currentY);
+            float currentY = ViewFactory.ViewHeight - ((ISprite)View).Height / 2 - 30;
+            ((ISprite)View).Position = new Vector2(0, currentY);
         }
 
         private void buildBulletsArray()

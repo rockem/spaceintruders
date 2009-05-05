@@ -1,12 +1,12 @@
-using System.Collections.Generic;
 using GameCommon.manager;
 using Microsoft.Xna.Framework;
 
-namespace Intruders.comp.xna
+namespace Intruders.comp
 {
     internal class XNAViewFactory : IViewFactory
     {
         private readonly Game r_Game;
+        private int m_Order = 1;
 
         public XNAViewFactory(Game i_Game)
         {
@@ -30,12 +30,17 @@ namespace Intruders.comp.xna
 
         public ISprite CreateSpriteComponent(string[] i_Assets)
         {
-            return new SpriteComponent(i_Assets, r_Game);
+            return new SpriteComponent(i_Assets, r_Game, m_Order++);
         }
 
         public IFontComponent CreateFontComponent()
         {
-            return new FontComponent(r_Game);
+            return new FontComponent(r_Game, m_Order++);
+        }
+
+        public IComponent CreateComponent()
+        {
+            return new Component(r_Game, m_Order++);
         }
     }
 }

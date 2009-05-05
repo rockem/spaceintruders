@@ -3,16 +3,12 @@ using System.Windows.Forms;
 using GameCommon.manager;
 using GameCommon.manager.xna;
 using Intruders.comp;
-using Intruders.comp.xna;
 using Intruders.logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class MarsIntruders : Game
     {
         private readonly EnemyMatrixLogic r_Monsters;
@@ -82,14 +78,6 @@ namespace Intruders
             base.Initialize();
         }
 
-        protected override void LoadContent()
-        {
-            base.LoadContent();
-            r_Lives.Initialize();
-            r_Monsters.Initialize();
-            r_Walls.Initialize();
-        }
-
         protected override void Update(GameTime gameTime)
         {
             if(m_GameOver)
@@ -98,8 +86,6 @@ namespace Intruders
                 Exit();
             }
             sailMotherShipIfPossible();
-            r_Monsters.Update(gameTime);
-            r_Walls.Update(gameTime);
             base.Update(gameTime);
         }
 

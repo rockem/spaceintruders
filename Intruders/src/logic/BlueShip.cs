@@ -30,8 +30,8 @@ namespace Intruders.logic
 
         protected override void initPosition()
         {
-            float currentY = ViewFactory.ViewHeight - getSprite().Height / 2 - 30;
-            getSprite().Position = new Vector2(0, currentY);
+            float currentY = ViewFactory.ViewHeight - ((ISprite)View).Height / 2 - 30;
+            ((ISprite)View).Position = new Vector2(0, currentY);
         }
 
         protected override bool useMouseForMovement()

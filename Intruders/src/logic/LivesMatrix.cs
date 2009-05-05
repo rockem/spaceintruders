@@ -3,9 +3,8 @@ using Microsoft.Xna.Framework;
 
 namespace Intruders.logic
 {
-    class LivesMatrix : ILogic 
+    class LivesMatrix : Logic 
     {
-        private readonly IViewFactory r_Factory;
         private readonly SmallBlueShip[] r_BlueSouls;
         private readonly SmallGreenShip[] r_GreenSouls;
         private readonly int r_Souls;
@@ -13,9 +12,8 @@ namespace Intruders.logic
         private int m_BlueSouls;
 
 
-        public LivesMatrix(IViewFactory i_Factory, int i_Souls)
+        public LivesMatrix(IViewFactory i_Factory, int i_Souls) : base(i_Factory)
         {
-            r_Factory = i_Factory;
             r_Souls = i_Souls;
             m_BlueSouls = r_Souls;
             m_GreenSouls = r_Souls;
@@ -23,18 +21,19 @@ namespace Intruders.logic
             r_GreenSouls = new SmallGreenShip[m_GreenSouls];
             for(int i = 0; i < r_Souls; i++)
             {
-                r_BlueSouls[i] = new SmallBlueShip(r_Factory);
-                r_GreenSouls[i] = new SmallGreenShip(r_Factory);
+                r_BlueSouls[i] = new SmallBlueShip(ViewFactory);
+                r_GreenSouls[i] = new SmallGreenShip(ViewFactory);
             }
+            CreateView(ViewFactory.CreateComponent());
 
         }
 
-        public void Update(GameTime i_GameTime)
+        public override void Update(GameTime i_GameTime)
         {
             positionSouls();
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             positionSouls();
         }
@@ -43,12 +42,12 @@ namespace Intruders.logic
         {
             for(int i = 0; i < m_BlueSouls; i++)
             {
-                r_BlueSouls[i].Position = new Vector2(r_Factory.ViewWidth - r_BlueSouls[0].Width * (i + 1), 0);
+                r_BlueSouls[i].Position = new Vector2(ViewFactory.ViewWidth - r_BlueSouls[0].Width * (i + 1), 0);
             }
 
             for (int i = 0; i < m_GreenSouls; i++)
             {
-                r_GreenSouls[i].Position = new Vector2(r_Factory.ViewWidth - r_GreenSouls[0].Width * (i + 1), r_BlueSouls[0].Height + 1);
+                r_GreenSouls[i].Position = new Vector2(ViewFactory.ViewWidth - r_GreenSouls[0].Width * (i + 1), r_BlueSouls[0].Height + 1);
             }
         }
 

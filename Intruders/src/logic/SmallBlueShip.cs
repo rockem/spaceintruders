@@ -7,7 +7,7 @@ namespace Intruders.logic
     {
         public SmallBlueShip(IViewFactory i_Factory) : base(i_Factory)
         {
-            getSprite().Scale = 0.5f;
+            ((ISprite)View).Scale = 0.5f;
         }
 
         protected override void CreateAssets()

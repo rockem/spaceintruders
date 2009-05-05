@@ -14,5 +14,7 @@ namespace Intruders.comp
         ISprite CreateSpriteComponent(string[] i_Assets);
 
         IFontComponent CreateFontComponent();
+
+        IComponent CreateComponent();
     }
 }

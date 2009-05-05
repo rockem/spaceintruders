@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Intruders.logic
 {
-    public class EnemyMatrixLogic : ILogic
+    public class EnemyMatrixLogic : Logic
     {
         private const int k_NumOfColumns = 9;
         private const int k_NumOfRows = 5;
@@ -13,18 +13,18 @@ namespace Intruders.logic
         private TimeSpan m_TimeBetweenJumps = TimeSpan.FromSeconds(0.5f);
         private TimeSpan m_TimeLeftToNextJump;
         private float m_Velocity = 1;
-        private readonly IViewFactory r_Factory;
         private int m_StartColumn;
         private int m_EndColumn = k_NumOfColumns - 1;
         private int m_EndRow = k_NumOfRows - 1;
         private int m_NumberOfMonsters;
+        private readonly IComponent r_View;
 
         public event EventHandler MatrixChanged;
 
-        public EnemyMatrixLogic(IViewFactory i_Factory)
+        public EnemyMatrixLogic(IViewFactory i_Factory) : base(i_Factory)
         {
-            r_Factory = i_Factory;
             createMonsters();
+            CreateView(ViewFactory.CreateComponent());
         }
 
         private void createMonsters()
@@ -46,20 +46,20 @@ namespace Intruders.logic
             switch(i_Row)
             {
                 case 0:
-                    monster = new PinkMonster(r_Factory);
+                    monster = new PinkMonster(ViewFactory);
                     break;
                 case 1:
-                    monster = new BlueMonster(r_Factory);
+                    monster = new BlueMonster(ViewFactory);
                     break;
                 case 2:
-                    monster = new BlueMonster(r_Factory);
+                    monster = new BlueMonster(ViewFactory);
                     monster.SwitchLook();
                     break;
                 case 3:
-                    monster = new YellowMonster(r_Factory);
+                    monster = new YellowMonster(ViewFactory);
                     break;
                 default:
-                    monster = new YellowMonster(r_Factory);
+                    monster = new YellowMonster(ViewFactory);
                     monster.SwitchLook();
                     break;
             }
@@ -122,7 +122,7 @@ namespace Intruders.logic
             }
         }
 
-        public void Update(GameTime i_GameTime)
+        public override void Update(GameTime i_GameTime)
         {
             m_TimeLeftToNextJump -= i_GameTime.ElapsedGameTime;
             float yvel = 0;
@@ -160,7 +160,7 @@ namespace Intruders.logic
         private bool matrixTouchedViewBounds()
         {
             return r_Monsters[m_EndColumn, 0].Position.X + r_Monsters[m_EndColumn, 0].Width + m_Velocity >=
-                   r_Factory.ViewWidth ||
+                   ViewFactory.ViewWidth ||
                    r_Monsters[m_StartColumn, 0].Position.X + m_Velocity <= 0;
         }
 
@@ -169,7 +169,7 @@ namespace Intruders.logic
             m_TimeBetweenJumps = TimeSpan.FromSeconds(m_TimeBetweenJumps.TotalSeconds * 0.95);
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             initMatrix();
             m_Velocity = (float) r_Monsters[0, 0].Width / 2;

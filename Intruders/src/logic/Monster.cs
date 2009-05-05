@@ -30,8 +30,8 @@ namespace Intruders.logic
             if(m_TimeLeftToDie.TotalSeconds > 0)
             {
                 m_TimeLeftToDie -= i_GameTime.ElapsedGameTime;
-                getSprite().Scale *= 0.9f;
-                getSprite().Position = new Vector2(Position.X + Width * 0.04f,
+                ((ISprite)View).Scale *= 0.9f;
+                ((ISprite)View).Position = new Vector2(Position.X + Width * 0.04f,
                                                    Position.Y + Height * 0.04f);
             }
             else

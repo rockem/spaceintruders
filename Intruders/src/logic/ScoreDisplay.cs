@@ -4,29 +4,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.logic
 {
-    class ScoreDisplay : ILogic
+    class ScoreDisplay : Logic
     {
-        private readonly IViewFactory r_Factory;
         private readonly IFontComponent r_P1Score;
         private readonly IFontComponent r_P2Score;
         private int m_P1Score;
         private int m_P2Score;
 
-        public ScoreDisplay(IViewFactory i_ViewFactory) 
+        public ScoreDisplay(IViewFactory i_ViewFactory) : base(i_ViewFactory)
         {
-            r_Factory = i_ViewFactory;
-            r_P1Score = r_Factory.CreateFontComponent();
+            r_P1Score = ViewFactory.CreateFontComponent();
             r_P1Score.Logic = this;
-            r_P2Score = r_Factory.CreateFontComponent();
+            r_P2Score = ViewFactory.CreateFontComponent();
             r_P2Score.Logic = this;
         }
 
-        public void Update(GameTime i_GameTime)
-        {
-            
-        }
-
-        public void Initialize()
+        public override void Initialize()
         {
             r_P1Score.Position = Vector2.Zero;
             r_P1Score.Color = Color.Red;
