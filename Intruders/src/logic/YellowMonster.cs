@@ -13,7 +13,12 @@ namespace Intruders.logic
 
         protected override void CreateAssets()
         {
-            Assets = new string[] {"Sprites\\Enemy0301", "Sprites\\Enemy0302"};
+            Assets = new string[] {"Sprites\\Enemy0301_32x32", "Sprites\\Enemy0302_32x32"};
+        }
+
+        protected override void PlayKillCue()
+        {
+            ViewFactory.PlayCue("EnemyKill03");
         }
     }
 }

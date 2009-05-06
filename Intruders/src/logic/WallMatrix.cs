@@ -56,5 +56,6 @@ namespace Intruders.logic
             return (int) (r_Walls[0].Width * k_NumberOfWalls + r_Walls[0].Width * 1.5 * (k_NumberOfWalls - 1));
         }
 
+        
     }
 }

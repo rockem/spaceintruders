@@ -10,10 +10,10 @@ namespace Intruders.comp
     {
         private readonly Dictionary<string, Texture2D> r_Textures = new Dictionary<string, Texture2D>();
         private Vector2 m_Position;
-        private Color m_Color = Color.White;
         private float m_Scale = 1;
         private string m_CurrentAsset;
         private readonly string[] r_Assets;
+        private float m_Opacity;
 
         public SpriteComponent(string[] i_Assets, Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
         {
@@ -83,15 +83,8 @@ namespace Intruders.comp
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch sb = (SpriteBatch) Game.Services.GetService(typeof(SpriteBatch));
-            sb.Draw(r_Textures[m_CurrentAsset], Position, null, m_Color, 0, Vector2.Zero, m_Scale, SpriteEffects.None, 0);
+            sb.Draw(r_Textures[m_CurrentAsset], Position, null, Color, 0, Vector2.Zero, m_Scale, SpriteEffects.None, 0);
             base.Draw(gameTime);
-        }
-
-
-        public Color Color
-        {
-            get { return m_Color; }
-            set { m_Color = value; }
         }
 
         public float Scale
@@ -129,5 +122,6 @@ namespace Intruders.comp
         {
             get { return new Rectangle((int) Position.X, (int) Position.Y, (int) (Width * Scale), (int) (Height * Scale)); }
         }
+
     }
 }

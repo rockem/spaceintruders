@@ -93,6 +93,7 @@ namespace Intruders.logic
             Bullet bullet = findAvailableBullet();
             if(bullet != null)
             {
+                ViewFactory.PlayCue("ShipShot");
                 bullet.Position = new Vector2(Position.X + (float) Width / 2 - (float) bullet.Width / 2,
                                               Position.Y - bullet.Height);
                 bullet.Alive = true;
@@ -154,6 +155,7 @@ namespace Intruders.logic
         {
             if (i_SpriteLogic.Type == eSpriteType.Bomb)
             {
+                ViewFactory.PlayCue("LifeDie");
                 initPosition();
                 m_RemainingSouls--;
                 setNewScore(Score - 2000);

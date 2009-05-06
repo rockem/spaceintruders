@@ -1,5 +1,6 @@
 using GameCommon.manager;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Intruders.comp
 {
@@ -7,6 +8,7 @@ namespace Intruders.comp
     {
         private readonly Game r_Game;
         private int m_Order = 1;
+        private SoundBank m_SoundBank;
 
         public XNAViewFactory(Game i_Game)
         {
@@ -42,5 +44,15 @@ namespace Intruders.comp
         {
             return new Component(r_Game, m_Order++);
         }
+
+        public void PlayCue(string cue)
+        {
+            m_SoundBank.GetCue(cue).Play();
+        }
+
+        public void SetSoundBank(SoundBank i_SoundBank)
+        {
+            m_SoundBank = i_SoundBank;
+        } 
     }
 }

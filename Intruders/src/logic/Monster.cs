@@ -55,6 +55,7 @@ namespace Intruders.logic
 
         private void shootBullet()
         {
+            ViewFactory.PlayCue("EnemyShot");
             r_Bullet.Position = new Vector2(Position.X + (float)Width / 2, Position.Y + Height);
             r_Bullet.Alive = true;
         }
@@ -64,9 +65,15 @@ namespace Intruders.logic
             ISpriteLogic logic = i_SpriteLogic;
             if (logic.Type == eSpriteType.Bullet)
             {
+                PlayKillCue();
                 m_TimeLeftToDie = r_DieDuration;
                 m_Dying = true;
             }
+        }
+
+        protected virtual void PlayKillCue()
+        {
+            throw new NotImplementedException();
         }
 
 

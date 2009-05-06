@@ -16,5 +16,7 @@ namespace Intruders.comp
         IFontComponent CreateFontComponent();
 
         IComponent CreateComponent();
+
+        void PlayCue(string cue);
     }
 }

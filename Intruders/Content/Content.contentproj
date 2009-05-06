@@ -31,85 +31,98 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\Background1.png">
-      <Name>Background1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\Bullet.png">
-      <Name>Bullet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\MotherShip.png">
-      <Name>MotherShip</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sprites\Barrier.png">
-      <Name>Barrier</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sprites\Enemy0101.png">
-      <Name>Enemy0101</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\Enemy0102.png">
-      <Name>Enemy0102</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\Enemy0201.png">
-      <Name>Enemy0201</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\Enemy0202.png">
-      <Name>Enemy0202</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\Enemy0301.png">
-      <Name>Enemy0301</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\Enemy0302.png">
-      <Name>Enemy0302</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sprites\Enemies.png">
-      <Name>Enemies</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sprites\BlueShip.png">
-      <Name>BlueShip</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\GreenShip.png">
-      <Name>GreenShip</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Fonts\ScoreFont.spritefont">
       <Name>ScoreFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Barrier_44x32.png">
+      <Link>Sprites\Barrier_44x32.png</Link>
+      <Name>Barrier_44x32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\BG_Space01_1024x768.png">
+      <Link>Sprites\BG_Space01_1024x768.png</Link>
+      <Name>BG_Space01_1024x768</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Bullet.png">
+      <Link>Sprites\Bullet.png</Link>
+      <Name>Bullet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Enemy0101_32x32.png">
+      <Link>Sprites\Enemy0101_32x32.png</Link>
+      <Name>Enemy0101_32x32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Enemy0102_32x32.png">
+      <Link>Sprites\Enemy0102_32x32.png</Link>
+      <Name>Enemy0102_32x32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Enemy0201_32x32.png">
+      <Link>Sprites\Enemy0201_32x32.png</Link>
+      <Name>Enemy0201_32x32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Enemy0202_32x32.png">
+      <Link>Sprites\Enemy0202_32x32.png</Link>
+      <Name>Enemy0202_32x32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Enemy0301_32x32.png">
+      <Link>Sprites\Enemy0301_32x32.png</Link>
+      <Name>Enemy0301_32x32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Enemy0302_32x32.png">
+      <Link>Sprites\Enemy0302_32x32.png</Link>
+      <Name>Enemy0302_32x32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\MotherShip_32x120.png">
+      <Link>Sprites\MotherShip_32x120.png</Link>
+      <Name>MotherShip_32x120</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Ship01_32x32.png">
+      <Link>Sprites\Ship01_32x32.png</Link>
+      <Name>Ship01_32x32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Ship02_32x32.png">
+      <Link>Sprites\Ship02_32x32.png</Link>
+      <Name>Ship02_32x32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Star.png">
+      <Name>Star</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\GameSounds.xap">
+      <Name>GameSounds</Name>
+      <Importer>XactImporter</Importer>
+      <Processor>XactProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

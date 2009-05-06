@@ -49,11 +49,11 @@ namespace Intruders.logic
         }
 
 
-        public virtual void Update(GameTime i_GameTime)
+        public override void Update(GameTime i_GameTime)
         {
         }
 
-        public virtual void Initialize()
+        public override void Initialize()
         {
         }
 

@@ -11,7 +11,7 @@ namespace Intruders.logic
 
         protected override void CreateAssets()
         {
-            Assets = new string[] { "Sprites\\GreenShip" };
+            Assets = new string[] { "Sprites\\Ship02_32x32" };
         }
 
     }

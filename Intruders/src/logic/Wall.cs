@@ -11,11 +11,12 @@ namespace Intruders.logic
 
         protected override void CreateAssets()
         {
-            Assets = new string[] {"Sprites\\Barrier"};
+            Assets = new string[] {"Sprites\\Barrier_44x32"};
         }
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
+            ViewFactory.PlayCue("BarrierHit");
             if(i_SpriteLogic.Type == eSpriteType.Monster)
             {
                 Alive = false;

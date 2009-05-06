@@ -5,6 +5,7 @@ using GameCommon.manager.xna;
 using Intruders.comp;
 using Intruders.logic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders
@@ -21,28 +22,34 @@ namespace Intruders
         private readonly GreenShip r_GreenShip;
         private readonly LivesMatrix r_Lives;
         private readonly ScoreDisplay r_Score;
+        private AudioEngine m_AudioEngine;
+        private WaveBank m_WaveBank;
+        private SoundBank m_SoundBank;
+        private Cue m_Music;
+        private readonly XNAViewFactory r_Factory;
 
         public MarsIntruders()
         {
             new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IViewFactory factory = new XNAViewFactory(this);
+            r_Factory = new XNAViewFactory(this);
 
             new InputManager(this);
             new CollisionsManager(this);
             new BackgroundComponent(this);
 
-            r_Score = new ScoreDisplay(factory);
-            r_BlueShip = new BlueShip(factory);
+            
+            r_Score = new ScoreDisplay(r_Factory);
+            r_BlueShip = new BlueShip(r_Factory);
             r_BlueShip.ShipHit += MarsIntruders_ShipHit;
             r_BlueShip.ScoreChanged += MarsIntruders_ScoreChanged;
-            r_GreenShip = new GreenShip(factory);
+            r_GreenShip = new GreenShip(r_Factory);
             r_GreenShip.ShipHit += MarsIntruders_ShipHit;
             r_GreenShip.ScoreChanged += MarsIntruders_ScoreChanged;
-            r_Lives = new LivesMatrix(factory, 3);
-            r_Walls = new WallMatrix(factory);
-            r_MotherShip = new MotherShip(factory);
-            r_Monsters = new EnemyMatrixLogic(factory);
+            r_Lives = new LivesMatrix(r_Factory, 3);
+            r_Walls = new WallMatrix(r_Factory);
+            r_MotherShip = new MotherShip(r_Factory);
+            r_Monsters = new EnemyMatrixLogic(r_Factory);
             r_Monsters.MatrixChanged += MarsIntruders_MatrixChanged;
         }
 
@@ -55,10 +62,21 @@ namespace Intruders
         private void MarsIntruders_MatrixChanged(object sender, EventArgs e)
         {
             EnemyMatrixLogic eml = (EnemyMatrixLogic) sender;
-            if (eml.GetLowerBound() >= r_BlueShip.Position.Y || eml.GetNumberOfMonstersAlive() == 0)
+            if (eml.GetLowerBound() >= r_BlueShip.Position.Y)
             {
+                gameOver();
+            }
+                if(eml.GetNumberOfMonstersAlive() == 0)
+            {
+                    r_Factory.PlayCue("LevelWin");
                 m_GameOver = true;
             }
+        }
+
+        private void gameOver()
+        {
+            r_Factory.PlayCue("GameOver");
+            m_GameOver = true;
         }
 
         private void MarsIntruders_ShipHit(object sender, EventArgs e)
@@ -67,10 +85,32 @@ namespace Intruders
             r_Lives.BlueSouls = r_BlueShip.Souls;
             if(r_GreenShip.Souls == 0 && r_BlueShip.Souls == 0)
             {
-                m_GameOver = true;
+                gameOver();
             }
         }
 
+
+        protected override void LoadContent()
+        {
+            m_AudioEngine = new AudioEngine(@"Content\Audio\GameSounds.xgs");
+            m_WaveBank = new WaveBank(m_AudioEngine, @"Content\Audio\Wave Bank.xwb");
+            m_SoundBank = new SoundBank(m_AudioEngine, @"Content\Audio\Sound Bank.xsb");
+            r_Factory.SetSoundBank(m_SoundBank);
+
+            m_Music = m_SoundBank.GetCue("BGMusic");
+
+            m_Music.Play();
+
+            base.LoadContent();
+        }
+
+        protected override void UnloadContent()
+        {
+            m_AudioEngine.Dispose();
+            m_WaveBank.Dispose();
+            m_SoundBank.Dispose();
+            base.UnloadContent();
+        }
         protected override void Initialize()
         {
             r_SpriteBatch = new SpriteBatch(GraphicsDevice);

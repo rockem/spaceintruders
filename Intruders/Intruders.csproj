@@ -59,6 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\comp\animation\Animation.cs" />
+    <Compile Include="src\comp\animation\FadeInAnimation.cs" />
+    <Compile Include="src\comp\animation\FadeOutAnimation.cs" />
+    <Compile Include="src\comp\animation\RotateAnimation.cs" />
+    <Compile Include="src\comp\animation\ShrinkAnimation.cs" />
     <Compile Include="src\comp\BackgroundComponent.cs" />
     <Compile Include="src\comp\Component.cs" />
     <Compile Include="src\comp\eSpriteType.cs" />
@@ -66,6 +71,7 @@
     <Compile Include="src\comp\IComponent.cs" />
     <Compile Include="src\comp\IFontComponent.cs" />
     <Compile Include="src\comp\LoadableDrawableComponent.cs" />
+    <Compile Include="src\comp\StarComponent.cs" />
     <Compile Include="src\comp\XNAViewFactory.cs" />
     <Compile Include="src\logic\BlueMonster.cs" />
     <Compile Include="src\logic\BlueShip.cs" />
@@ -86,6 +92,7 @@
     <Compile Include="src\logic\Ship.cs" />
     <Compile Include="src\logic\SmallBlueShip.cs" />
     <Compile Include="src\logic\SmallGreenShip.cs" />
+    <Compile Include="src\logic\Sprite.cs" />
     <Compile Include="src\logic\SpriteLogic.cs" />
     <Compile Include="src\logic\Wall.cs" />
     <Compile Include="src\logic\WallMatrix.cs" />
