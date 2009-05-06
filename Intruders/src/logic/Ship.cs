@@ -9,17 +9,13 @@ namespace Intruders.logic
 {
     public class Ship : SpriteLogic
     {
-        private readonly List<Bullet> r_Bullets = new List<Bullet>();
-        private const int k_MaxNumOfBullets = 3;
-        private readonly TimeSpan r_MinTimeBetweenBullets = TimeSpan.FromSeconds(0.5f);
-        private TimeSpan m_TimeLeftForNextShoot;
         private const int k_BulletVelocity = -200;
+        private const int k_MaxNumOfBullets = 3;
         private const int k_PxForSecond = 120;
+        private readonly List<Bullet> r_Bullets = new List<Bullet>();
+        private readonly TimeSpan r_MinTimeBetweenBullets = TimeSpan.FromSeconds(0.5f);
         private int m_RemainingSouls = 3;
-
-        public event EventHandler ShipHit;
-
-        public event EventHandler ScoreChanged;
+        private TimeSpan m_TimeLeftForNextShoot;
 
         public Ship(IViewFactory i_Factory) : base(i_Factory)
         {
@@ -28,11 +24,12 @@ namespace Intruders.logic
 
         public int Souls
         {
-            get
-            {
-                return m_RemainingSouls;
-            }
+            get { return m_RemainingSouls; }
         }
+
+        public event EventHandler ShipHit;
+
+        public event EventHandler ScoreChanged;
 
         public override void Update(GameTime time)
         {
@@ -53,16 +50,18 @@ namespace Intruders.logic
             {
                 velocity = k_PxForSecond;
             }
+
             if(inputLeft())
             {
                 velocity = -k_PxForSecond;
             }
 
-            currentX += velocity * (float) time.ElapsedGameTime.TotalSeconds;
-            if (useMouseForMovement())
+            currentX += velocity * (float)time.ElapsedGameTime.TotalSeconds;
+            if(useMouseForMovement())
             {
                 currentX += ViewFactory.InputManager.MousePositionDelta.X;
             }
+
             currentX = MathHelper.Clamp(currentX, 0, ViewFactory.ViewWidth - ((ISprite)View).Width);
             ((ISprite)View).Position = new Vector2(currentX, ((ISprite)View).Position.Y);
         }
@@ -94,8 +93,9 @@ namespace Intruders.logic
             if(bullet != null)
             {
                 ViewFactory.PlayCue("ShipShot");
-                bullet.Position = new Vector2(Position.X + (float) Width / 2 - (float) bullet.Width / 2,
-                                              Position.Y - bullet.Height);
+                bullet.Position = new Vector2(
+                    Position.X + (float)Width / 2 - (float)bullet.Width / 2,
+                    Position.Y - bullet.Height);
                 bullet.Alive = true;
             }
         }
@@ -109,6 +109,7 @@ namespace Intruders.logic
                     return bullet;
                 }
             }
+
             return null;
         }
 
@@ -142,7 +143,7 @@ namespace Intruders.logic
 
         private void Ship_BulletHit(object sender, EventArgs e)
         {
-            setNewScore(Score + ((Bullet) sender).Score);
+            setNewScore(Score + ((Bullet)sender).Score);
         }
 
         private void setNewScore(int score)
@@ -153,18 +154,17 @@ namespace Intruders.logic
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
-            if (i_SpriteLogic.Type == eSpriteType.Bomb)
+            if(i_SpriteLogic.Type == eSpriteType.Bomb)
             {
                 ViewFactory.PlayCue("LifeDie");
                 initPosition();
                 m_RemainingSouls--;
                 setNewScore(Score - 2000);
                 ShipHit(this, EventArgs.Empty);
-                if(m_RemainingSouls ==0)
+                if(m_RemainingSouls == 0)
                 {
                     Alive = false;
                 }
-
             }
         }
     }

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Intruders.logic
 {
-    class BlueShip : Ship
+    internal class BlueShip : Ship
     {
         public BlueShip(IViewFactory i_Factory) : base(i_Factory)
         {
@@ -22,7 +22,6 @@ namespace Intruders.logic
             return ViewFactory.InputManager.KeyHeld(Keys.Left);
         }
 
-
         protected override bool inputRight()
         {
             return ViewFactory.InputManager.KeyHeld(Keys.Right);
@@ -30,7 +29,7 @@ namespace Intruders.logic
 
         protected override void initPosition()
         {
-            float currentY = ViewFactory.ViewHeight - ((ISprite)View).Height / 2 - 30;
+            float currentY = ViewFactory.ViewHeight - (((ISprite)View).Height / 2) - 30;
             ((ISprite)View).Position = new Vector2(0, currentY);
         }
 

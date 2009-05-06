@@ -1,5 +1,6 @@
 using Intruders.comp;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.logic
 {
@@ -7,7 +8,7 @@ namespace Intruders.logic
     {
         public BlueMonster(IViewFactory i_Factory) : base(i_Factory)
         {
-            Color = Microsoft.Xna.Framework.Graphics.Color.LightBlue;
+            Color = Color.LightBlue;
             Score = 200;
         }
 

@@ -2,7 +2,7 @@ using Intruders.comp;
 
 namespace Intruders.logic
 {
-    class SmallGreenShip : SpriteLogic
+    internal class SmallGreenShip : SpriteLogic
     {
         public SmallGreenShip(IViewFactory i_Factory) : base(i_Factory)
         {
@@ -13,6 +13,5 @@ namespace Intruders.logic
         {
             Assets = new Asset("Sprites\\Ship02_32x32");
         }
-
     }
 }

@@ -9,22 +9,22 @@ namespace Intruders.logic
         private const int k_NumOfColumns = 9;
         private const int k_NumOfRows = 5;
 
-        private readonly Monster[,] r_Monsters = new Monster[k_NumOfColumns,k_NumOfRows];
-        private TimeSpan m_TimeBetweenJumps = TimeSpan.FromSeconds(0.5f);
-        private TimeSpan m_TimeLeftToNextJump;
-        private float m_Velocity = 1;
-        private int m_StartColumn;
+        private readonly Monster[,] r_Monsters = new Monster[k_NumOfColumns, k_NumOfRows];
         private int m_EndColumn = k_NumOfColumns - 1;
         private int m_EndRow = k_NumOfRows - 1;
         private int m_NumberOfMonsters;
-
-        public event EventHandler MatrixChanged;
+        private int m_StartColumn;
+        private TimeSpan m_TimeBetweenJumps = TimeSpan.FromSeconds(0.5f);
+        private TimeSpan m_TimeLeftToNextJump;
+        private float m_Velocity = 1;
 
         public EnemyMatrixLogic(IViewFactory i_Factory) : base(i_Factory)
         {
             createMonsters();
             CreateView(ViewFactory.CreateComponent());
         }
+
+        public event EventHandler MatrixChanged;
 
         private void createMonsters()
         {
@@ -62,6 +62,7 @@ namespace Intruders.logic
                     monster.SwitchLook();
                     break;
             }
+
             return monster;
         }
 
@@ -74,22 +75,34 @@ namespace Intruders.logic
 
         private void updateMatrixBounds()
         {
-            if(checkForEmptyColumn(m_StartColumn)) m_StartColumn++;
-            if(checkForEmptyColumn(m_EndColumn)) m_EndColumn--;
-            if (checkForEmptyRow(m_EndRow)) m_EndRow--;
+            if(checkForEmptyColumn(m_StartColumn))
+            {
+                m_StartColumn++;
+            }
+
+            if(checkForEmptyColumn(m_EndColumn))
+            {
+                m_EndColumn--;
+            }
+
+            if(checkForEmptyRow(m_EndRow))
+            {
+                m_EndRow--;
+            }
         }
 
         private bool checkForEmptyRow(int i_Row)
         {
             bool decBound = true;
-            for (int i = 0; i < k_NumOfColumns; i++)
+            for(int i = 0; i < k_NumOfColumns; i++)
             {
-                if (r_Monsters[i, i_Row].Alive)
+                if(r_Monsters[i, i_Row].Alive)
                 {
                     decBound = false;
                     break;
                 }
             }
+
             return decBound;
         }
 
@@ -104,6 +117,7 @@ namespace Intruders.logic
                     break;
                 }
             }
+
             return decBound;
         }
 
@@ -112,11 +126,11 @@ namespace Intruders.logic
             Monster first = r_Monsters[0, 0];
             for(int r = 0; r < k_NumOfRows; r++)
             {
-                float yaxis = (float) (first.Height * 3 + (r * (first.Height + first.Height * 0.6)));
+                float yaxis = (float)(first.Height * 3 + (r * (first.Height + first.Height * 0.6)));
                 for(int i = 0; i < k_NumOfColumns; i++)
                 {
                     Monster att = r_Monsters[i, r];
-                    att.Position = new Vector2((float) (i * (att.Width + att.Width * 0.6)), yaxis);
+                    att.Position = new Vector2((float)(i * (att.Width + att.Width * 0.6)), yaxis);
                 }
             }
         }
@@ -132,9 +146,10 @@ namespace Intruders.logic
                 {
                     tmpVelocity = -tmpVelocity;
                     m_Velocity = 0;
-                    yvel = (float) r_Monsters[0, 0].Width / 2;
+                    yvel = (float)r_Monsters[0, 0].Width / 2;
                     fasterTimeBetweenJumps();
                 }
+
                 m_NumberOfMonsters = 0;
                 foreach(Monster mon in r_Monsters)
                 {
@@ -142,10 +157,10 @@ namespace Intruders.logic
                     if(mon.Alive)
                     {
                         mon.SwitchLook();
-                        m_NumberOfMonsters++;    
+                        m_NumberOfMonsters++;
                     }
-                    
                 }
+
                 resetTimeForNextJump();
                 m_Velocity = tmpVelocity;
             }
@@ -171,7 +186,7 @@ namespace Intruders.logic
         public override void Initialize()
         {
             initMatrix();
-            m_Velocity = (float) r_Monsters[0, 0].Width / 2;
+            m_Velocity = (float)r_Monsters[0, 0].Width / 2;
         }
 
         public float GetLowerBound()
@@ -181,7 +196,7 @@ namespace Intruders.logic
 
         public int GetNumberOfMonstersAlive()
         {
-            return m_NumberOfMonsters;        
+            return m_NumberOfMonsters;
         }
     }
 }

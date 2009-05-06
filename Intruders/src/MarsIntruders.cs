@@ -12,21 +12,21 @@ namespace Intruders
 {
     public class MarsIntruders : Game
     {
-        private readonly EnemyMatrixLogic r_Monsters;
-        private SpriteBatch r_SpriteBatch;
         private readonly Ship r_BlueShip;
-        private bool m_GameOver;
-        private readonly Random r_Random = new Random();
-        private readonly MotherShip r_MotherShip;
-        private readonly WallMatrix r_Walls;
+        private readonly XNAViewFactory r_Factory;
         private readonly GreenShip r_GreenShip;
         private readonly LivesMatrix r_Lives;
+        private readonly EnemyMatrixLogic r_Monsters;
+        private readonly MotherShip r_MotherShip;
+        private readonly Random r_Random = new Random();
         private readonly ScoreDisplay r_Score;
+        private readonly WallMatrix r_Walls;
         private AudioEngine m_AudioEngine;
-        private WaveBank m_WaveBank;
-        private SoundBank m_SoundBank;
+        private bool m_GameOver;
         private Cue m_Music;
-        private readonly XNAViewFactory r_Factory;
+        private SoundBank m_SoundBank;
+        private WaveBank m_WaveBank;
+        private SpriteBatch r_SpriteBatch;
 
         public MarsIntruders()
         {
@@ -38,7 +38,6 @@ namespace Intruders
             new CollisionsManager(this);
             new BackgroundComponent(this);
 
-            
             r_Score = new ScoreDisplay(r_Factory);
             r_BlueShip = new BlueShip(r_Factory);
             r_BlueShip.ShipHit += MarsIntruders_ShipHit;
@@ -47,7 +46,8 @@ namespace Intruders
             r_GreenShip.ShipHit += MarsIntruders_ShipHit;
             r_GreenShip.ScoreChanged += MarsIntruders_ScoreChanged;
             r_Lives = new LivesMatrix(r_Factory, 3);
-            r_Walls = new WallMatrix(r_Factory);
+            // r_Walls = new WallMatrix(r_Factory);
+            new Wall(r_Factory);
             r_MotherShip = new MotherShip(r_Factory);
             r_Monsters = new EnemyMatrixLogic(r_Factory);
             r_Monsters.MatrixChanged += MarsIntruders_MatrixChanged;
@@ -61,14 +61,15 @@ namespace Intruders
 
         private void MarsIntruders_MatrixChanged(object sender, EventArgs e)
         {
-            EnemyMatrixLogic eml = (EnemyMatrixLogic) sender;
-            if (eml.GetLowerBound() >= r_BlueShip.Position.Y)
+            EnemyMatrixLogic eml = (EnemyMatrixLogic)sender;
+            if(eml.GetLowerBound() >= r_BlueShip.Position.Y)
             {
                 gameOver();
             }
-                if(eml.GetNumberOfMonstersAlive() == 0)
+
+            if(eml.GetNumberOfMonstersAlive() == 0)
             {
-                    r_Factory.PlayCue("LevelWin");
+                r_Factory.PlayCue("LevelWin");
                 m_GameOver = true;
             }
         }
@@ -88,7 +89,6 @@ namespace Intruders
                 gameOver();
             }
         }
-
 
         protected override void LoadContent()
         {
@@ -111,6 +111,7 @@ namespace Intruders
             m_SoundBank.Dispose();
             base.UnloadContent();
         }
+
         protected override void Initialize()
         {
             r_SpriteBatch = new SpriteBatch(GraphicsDevice);
@@ -125,6 +126,7 @@ namespace Intruders
                 DisplayScoreMessage();
                 Exit();
             }
+
             sailMotherShipIfPossible();
             base.Update(gameTime);
         }
@@ -147,7 +149,10 @@ namespace Intruders
 
         private void DisplayScoreMessage()
         {
-            string scoreMessage = string.Format("Blue score: {0}\nGreen score: {1}\n", r_BlueShip.Score, r_GreenShip.Score);
+            string scoreMessage = string.Format(
+                "Blue score: {0}\nGreen score: {1}\n", 
+                r_BlueShip.Score,
+                r_GreenShip.Score);
             scoreMessage += string.Format("You are a {0}\n", isAWinner() ? "winner" : "loser, you died");
 
             MessageBox.Show(scoreMessage, "Game Over!");

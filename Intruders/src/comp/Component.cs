@@ -6,27 +6,43 @@ namespace Intruders.comp
 {
     public class Component : LoadableDrawableComponent, IComponent
     {
+        private Color m_Color = Color.White;
         private ILogic m_Logic;
         private float m_Opacity;
-        private Color m_Color = Color.White;
-
 
         public Component(Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
         {
-            
         }
 
         public Component(Game game) : base(game)
         {
-
         }
 
+        public float Opacity
+        {
+            get { return m_Opacity; }
+            set
+            {
+                m_Opacity = value;
+                UpdateOpacity();
+            }
+        }
+
+        public Color Color
+        {
+            get { return m_Color; }
+            set { m_Color = value; }
+        }
+
+        #region IComponent Members
 
         public ILogic Logic
         {
             get { return m_Logic; }
             set { m_Logic = value; }
         }
+
+        #endregion
 
         protected override void LoadContent()
         {
@@ -40,29 +56,11 @@ namespace Intruders.comp
             base.Update(i_GameTime);
         }
 
-        public float Opacity
-        {
-            get { return m_Opacity; }
-            set
-            {
-                m_Opacity = value;
-                UpdateOpacity();
-            }
-        }
-
         private void UpdateOpacity()
         {
             Vector4 tintColor = m_Color.ToVector4();
             tintColor.W = m_Opacity / 100f;
             m_Color = new Color(tintColor);
         }
-
-        public Color Color
-        {
-            get { return m_Color; }
-            set { m_Color = value; }
-        }
-
-        
     }
 }

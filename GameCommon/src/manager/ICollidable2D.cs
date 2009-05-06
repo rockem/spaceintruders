@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace GameCommon.manager
 {
@@ -8,6 +9,8 @@ namespace GameCommon.manager
         {
             get;
         }
+
+        Color[] GetPixelArray();
     }
 }
 

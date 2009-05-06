@@ -6,29 +6,17 @@ namespace Intruders.comp
 {
     public class FontComponent : LoadableDrawableComponent, IFontComponent
     {
-        private SpriteFont m_Font;
         private Color m_Color;
+        private SpriteFont m_Font;
+        private ILogic m_Logic;
         private Vector2 m_Position;
         private string m_Text;
-        private ILogic m_Logic;
 
-        public FontComponent(Game game, int i_UpdateOrder): base(game, i_UpdateOrder)
+        public FontComponent(Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
         {
         }
 
-        protected override void LoadContent()
-        {
-            base.LoadContent();
-            m_Font = Game.Content.Load<SpriteFont>(@"Fonts\ScoreFont");
-            m_Logic.Initialize();
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-            SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
-            sb.DrawString(m_Font, Text, Position, Color);
-            base.Draw(gameTime);
-        }
+        #region IFontComponent Members
 
         public string Text
         {
@@ -44,7 +32,7 @@ namespace Intruders.comp
 
         public int Height
         {
-            get { return (int) m_Font.MeasureString(Text).Y; }
+            get { return (int)m_Font.MeasureString(Text).Y; }
         }
 
         public Color Color
@@ -57,6 +45,22 @@ namespace Intruders.comp
         {
             get { return m_Logic; }
             set { m_Logic = value; }
+        }
+
+        #endregion
+
+        protected override void LoadContent()
+        {
+            base.LoadContent();
+            m_Font = Game.Content.Load<SpriteFont>(@"Fonts\ScoreFont");
+            m_Logic.Initialize();
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
+            sb.DrawString(m_Font, Text, Position, Color);
+            base.Draw(gameTime);
         }
     }
 }

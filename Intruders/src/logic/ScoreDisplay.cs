@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.logic
 {
-    class ScoreDisplay : Logic
+    internal class ScoreDisplay : Logic
     {
         private readonly IFontComponent r_P1Score;
         private readonly IFontComponent r_P2Score;
@@ -17,17 +17,6 @@ namespace Intruders.logic
             r_P1Score.Logic = this;
             r_P2Score = ViewFactory.CreateFontComponent();
             r_P2Score.Logic = this;
-        }
-
-        public override void Initialize()
-        {
-            r_P1Score.Position = Vector2.Zero;
-            r_P1Score.Color = Color.Red;
-            r_P1Score.Text = "P1 Score: " + P1Score;
-            r_P2Score.Position = new Vector2(0, r_P1Score.Height + 2);
-            r_P2Score.Color = Color.Green;
-            r_P2Score.Text = "P2 Score: " + P2Score;
-
         }
 
         public int P1Score
@@ -43,11 +32,21 @@ namespace Intruders.logic
         public int P2Score
         {
             get { return m_P2Score; }
-            set 
+            set
             {
                 m_P2Score = value;
                 r_P2Score.Text = "P2 Score: " + m_P2Score;
             }
+        }
+
+        public override void Initialize()
+        {
+            r_P1Score.Position = Vector2.Zero;
+            r_P1Score.Color = Color.Red;
+            r_P1Score.Text = "P1 Score: " + P1Score;
+            r_P2Score.Position = new Vector2(0, r_P1Score.Height + 2);
+            r_P2Score.Color = Color.Green;
+            r_P2Score.Text = "P2 Score: " + P2Score;
         }
     }
 }

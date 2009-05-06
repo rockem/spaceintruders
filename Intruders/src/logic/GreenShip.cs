@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Intruders.logic
 {
-    class GreenShip : Ship
+    internal class GreenShip : Ship
     {
         public GreenShip(IViewFactory i_Factory) : base(i_Factory)
         {
@@ -13,7 +13,6 @@ namespace Intruders.logic
         protected override bool inputFire()
         {
             return ViewFactory.InputManager.KeyPressed(Keys.Space);
-                   
         }
 
         protected override bool inputLeft()
@@ -34,9 +33,7 @@ namespace Intruders.logic
 
         protected override void CreateAssets()
         {
-            Assets = new Asset("Sprites\\Ship02_32x32" );
+            Assets = new Asset("Sprites\\Ship02_32x32");
         }
-
-
     }
 }

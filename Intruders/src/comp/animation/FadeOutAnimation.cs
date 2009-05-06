@@ -24,7 +24,7 @@ namespace Intruders.comp.animation
 
         protected override void Play(GameTime i_GameTime)
         {
-            m_BoundSprite.Opacity = (float)((m_TimeLeft.TotalSeconds) / m_AnimationTime.TotalSeconds) * 100;
+            m_BoundSprite.Opacity = (float)(m_TimeLeft.TotalSeconds / m_AnimationTime.TotalSeconds) * 100;
         }
     }
 }

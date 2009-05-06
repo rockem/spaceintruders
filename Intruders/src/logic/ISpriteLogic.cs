@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Intruders.comp;
 
 namespace Intruders.logic

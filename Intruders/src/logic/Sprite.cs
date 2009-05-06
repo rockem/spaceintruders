@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.logic
 {
-    class Sprite : Logic 
+    internal class Sprite : Logic
     {
         public Sprite(IViewFactory i_Factory) : base(i_Factory)
         {
@@ -24,12 +24,10 @@ namespace Intruders.logic
 
         public void Update(GameTime i_GameTime)
         {
-            
         }
 
         public void Initialize()
         {
-            
         }
     }
 }

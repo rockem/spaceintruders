@@ -1,16 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Intruders.logic;
 using Microsoft.Xna.Framework;
 
 namespace Intruders.comp.animation
 {
     public class RotateAnimation : Animation
     {
-        private readonly TimeSpan r_FadeEffectTimeSpan = TimeSpan.FromSeconds(0.25f);
-
         private const float m_RotationAngle = MathHelper.PiOver4;
+        private readonly TimeSpan r_FadeEffectTimeSpan = TimeSpan.FromSeconds(0.25f);
 
         public RotateAnimation(SpriteComponent i_BoundSprite)
             : base(i_BoundSprite)
@@ -33,12 +29,12 @@ namespace Intruders.comp.animation
         {
             base.Reset();
 
-           /* m_BoundSprite.Rotation = 0;*/
+            /* m_BoundSprite.Rotation = 0;*/
         }
 
         protected override void Play(GameTime i_GameTime)
         {
-           /* m_BoundSprite.Rotation += m_RotationAngle;*/
+            /* m_BoundSprite.Rotation += m_RotationAngle;*/
         }
     }
 }

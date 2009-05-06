@@ -6,11 +6,11 @@ namespace Intruders.comp
 {
     internal class BackgroundComponent : LoadableDrawableComponent
     {
-        private Texture2D m_TextureBackground;
-        private readonly StarComponent[,] r_Stars = new StarComponent[2, 50];
         private readonly Random r_Random = new Random();
-        private TimeSpan m_TimeToSwitch = TimeSpan.FromSeconds(1);
+        private readonly StarComponent[,] r_Stars = new StarComponent[2, 50];
         private int m_CurrentSet;
+        private Texture2D m_TextureBackground;
+        private TimeSpan m_TimeToSwitch = TimeSpan.FromSeconds(1);
 
         public BackgroundComponent(Game game) : base(game)
         {
@@ -23,9 +23,9 @@ namespace Intruders.comp
                 r_Stars[0, i] = new StarComponent(Game);
                 r_Stars[1, i] = new StarComponent(Game);
             }
+
             base.Initialize();
         }
-
 
         protected override void LoadContent()
         {
@@ -43,8 +43,8 @@ namespace Intruders.comp
                 positionStars();
                 m_TimeToSwitch = TimeSpan.FromSeconds(1);
             }
-            base.Update(gameTime);
 
+            base.Update(gameTime);
         }
 
         private void getNextSet()
@@ -52,7 +52,8 @@ namespace Intruders.comp
             if(m_CurrentSet == 0)
             {
                 m_CurrentSet = 1;
-            } else
+            }
+            else
             {
                 m_CurrentSet = 0;
             }
@@ -74,19 +75,20 @@ namespace Intruders.comp
             retrievedColor[0] = Color.White;
             float x = 0;
             float y = 0;
-            while (retrievedColor[0] != Color.Black)
+            while(retrievedColor[0] != Color.Black)
             {
                 int place = r_Random.Next(m_TextureBackground.Width * 500);
                 x = place % m_TextureBackground.Width;
                 y = place / m_TextureBackground.Width;
-                m_TextureBackground.GetData(0, new Rectangle((int) x, (int) y, 1, 1), retrievedColor, 0, 1);
+                m_TextureBackground.GetData(0, new Rectangle((int)x, (int)y, 1, 1), retrievedColor, 0, 1);
             }
+
             return new Vector2(x, y);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            SpriteBatch sb = (SpriteBatch) Game.Services.GetService(typeof(SpriteBatch));
+            SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
             sb.Draw(m_TextureBackground, Vector2.Zero, Color.Brown);
             base.Draw(gameTime);
         }

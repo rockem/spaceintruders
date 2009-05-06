@@ -15,6 +15,8 @@ namespace Intruders.comp
             r_Game = i_Game;
         }
 
+        #region IViewFactory Members
+
         public int ViewHeight
         {
             get { return r_Game.GraphicsDevice.Viewport.Height; }
@@ -27,7 +29,7 @@ namespace Intruders.comp
 
         public IInputManager InputManager
         {
-            get { return (IInputManager) r_Game.Services.GetService(typeof(IInputManager)); }
+            get { return (IInputManager)r_Game.Services.GetService(typeof(IInputManager)); }
         }
 
         public ISprite CreateSpriteComponent(Asset i_Asset)
@@ -50,9 +52,11 @@ namespace Intruders.comp
             m_SoundBank.GetCue(cue).Play();
         }
 
+        #endregion
+
         public void SetSoundBank(SoundBank i_SoundBank)
         {
             m_SoundBank = i_SoundBank;
-        } 
+        }
     }
 }

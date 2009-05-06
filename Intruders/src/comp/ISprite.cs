@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Intruders.logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -22,5 +20,7 @@ namespace Intruders.comp
         float Scale { get; set; }
 
         int CurrentAsset { set; }
+
+        Color[] Pixels { get; set; }
     }
 }

@@ -3,14 +3,13 @@ using Microsoft.Xna.Framework;
 
 namespace Intruders.comp.animation
 {
-    public class ShrinkAnimation : Intruders.comp.animation.Animation
+    public class ShrinkAnimation : Animation
     {
         private const float k_ScaleFactor = 0.9f;
         private readonly TimeSpan r_ShrinkEffectTimeSpan = TimeSpan.FromSeconds(0.5f);
 
-        private float m_ScaleFactor;
-
         private Vector2 m_OriginalPosition;
+        private float m_ScaleFactor;
 
         public ShrinkAnimation(Component i_BoundSprite)
             : base(i_BoundSprite)
@@ -41,7 +40,7 @@ namespace Intruders.comp.animation
 
             Vector2 curPosition = m_OriginalPosition;
 
-           /* curPosition.X += (m_BoundSprite.WidthBeforeScale - m_BoundSprite.WidthAfterScale) / 2;
+            /* curPosition.X += (m_BoundSprite.WidthBeforeScale - m_BoundSprite.WidthAfterScale) / 2;
             curPosition.Y += (m_BoundSprite.HeightBeforeScale - m_BoundSprite.HeightAfterScale) / 2;
 
             m_BoundSprite.PositionOfOrigin = curPosition;*/

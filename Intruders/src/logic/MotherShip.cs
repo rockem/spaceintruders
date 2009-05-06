@@ -1,21 +1,21 @@
 using Intruders.comp;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.logic
 {
-    class MotherShip : SpriteLogic 
+    internal class MotherShip : SpriteLogic
     {
         public MotherShip(IViewFactory i_Factory) : base(i_Factory)
         {
-            Color = Microsoft.Xna.Framework.Graphics.Color.Red;
+            Color = Color.Red;
             Alive = false;
             Score = 500;
-
         }
 
         public override void Update(GameTime i_GameTime)
         {
-            Position = 
+            Position =
                 new Vector2(Position.X + (float)Width / 2 * (float)i_GameTime.ElapsedGameTime.TotalSeconds, Position.Y);
 
             if(Position.X >= ViewFactory.ViewWidth + Width)
@@ -23,7 +23,6 @@ namespace Intruders.logic
                 Alive = false;
             }
         }
-
 
         protected override void CreateAssets()
         {

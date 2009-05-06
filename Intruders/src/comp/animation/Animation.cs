@@ -1,29 +1,28 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Intruders.logic;
 using Microsoft.Xna.Framework;
 
 namespace Intruders.comp.animation
 {
     public abstract class Animation
     {
-        public event EventHandler AnimationFinished;
-
         protected TimeSpan m_AnimationTime;
-        protected TimeSpan m_TimeLeft;
+        protected Component m_BoundSprite;
         private bool m_Enabled;
         protected bool m_IsFinished;
         protected bool m_IsInitiated;
         protected bool m_NeedToReset;
-        protected Component m_BoundSprite;
+        protected TimeSpan m_TimeLeft;
+
+        protected Animation(Component i_BoundSprite)
+        {
+            m_BoundSprite = i_BoundSprite;
+            m_IsInitiated = false;
+            m_NeedToReset = true;
+        }
 
         public bool IsFinished
         {
-            get
-            {
-                return this.m_IsFinished;
-            }
+            get { return m_IsFinished; }
 
             protected set
             {
@@ -31,7 +30,7 @@ namespace Intruders.comp.animation
                 {
                     m_IsFinished = value;
 
-                    if(m_IsFinished == true)
+                    if(m_IsFinished)
                     {
                         OnAnimationFinished();
                     }
@@ -41,22 +40,11 @@ namespace Intruders.comp.animation
 
         public bool Enabled
         {
-            get
-            {
-                return m_Enabled;
-            }
-            set
-            {
-                m_Enabled = value;
-            }
+            get { return m_Enabled; }
+            set { m_Enabled = value; }
         }
 
-        protected Animation(Component i_BoundSprite)
-        {
-            m_BoundSprite = i_BoundSprite;
-            m_IsInitiated = false;
-            m_NeedToReset = true;
-        }
+        public event EventHandler AnimationFinished;
 
         public virtual void Initialize()
         {

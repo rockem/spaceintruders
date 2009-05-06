@@ -38,12 +38,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\Barrier_44x32.png">
-      <Link>Sprites\Barrier_44x32.png</Link>
-      <Name>Barrier_44x32</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="C:\temp\XNA_Assets\Ex04\Sprites\BG_Space01_1024x768.png">
       <Link>Sprites\BG_Space01_1024x768.png</Link>
       <Name>BG_Space01_1024x768</Name>
@@ -92,6 +86,13 @@
   <ItemGroup>
     <Compile Include="Sprites\Enemies_96x64.png">
       <Name>Enemies_96x64</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Barrier_374x32.png">
+      <Name>Barrier_374x32</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -1,5 +1,6 @@
 using Intruders.comp;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.logic
 {
@@ -8,7 +9,7 @@ namespace Intruders.logic
         public YellowMonster(IViewFactory i_Factory)
             : base(i_Factory)
         {
-            Color = Microsoft.Xna.Framework.Graphics.Color.LightYellow;
+            Color = Color.LightYellow;
             Score = 100;
         }
 

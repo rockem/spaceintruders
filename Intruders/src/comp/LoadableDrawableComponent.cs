@@ -15,7 +15,5 @@ namespace Intruders.comp
             Game.Components.Add(this);
             UpdateOrder = int.MaxValue;
         }
-
-
     }
 }

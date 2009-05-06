@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Intruders.comp.animation
 {
-    class FadeInAnimation : Animation
+    public class FadeInAnimation : Animation
     {
         private readonly TimeSpan r_FadeEffectTimeSpan = TimeSpan.FromSeconds(0.1f);
 
@@ -23,7 +23,7 @@ namespace Intruders.comp.animation
 
         protected override void Play(GameTime i_GameTime)
         {
-            m_BoundSprite.Opacity = (float)((m_AnimationTime.TotalSeconds) / m_TimeLeft.TotalSeconds) * 100;
+            m_BoundSprite.Opacity = (float)(m_AnimationTime.TotalSeconds / m_TimeLeft.TotalSeconds) * 100;
         }
     }
 }

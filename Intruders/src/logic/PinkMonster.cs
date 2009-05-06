@@ -1,5 +1,6 @@
 using Intruders.comp;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.logic
 {
@@ -7,7 +8,7 @@ namespace Intruders.logic
     {
         public PinkMonster(IViewFactory i_Factory) : base(i_Factory)
         {
-            Color = Microsoft.Xna.Framework.Graphics.Color.LightPink;
+            Color = Color.LightPink;
             Score = 300;
         }
 
@@ -22,6 +23,5 @@ namespace Intruders.logic
         {
             ViewFactory.PlayCue("EnemyKill02");
         }
-
     }
 }

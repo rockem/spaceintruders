@@ -5,19 +5,47 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.comp
 {
-    class StarComponent : Component 
+    internal class StarComponent : Component
     {
-        private Texture2D m_TextureBackground;
-        private float m_Scale;
-        private Vector2 m_Position;
-        private FadeOutAnimation m_FadingOutAnimation;
-        private TimeSpan m_TimeTillFade = TimeSpan.FromSeconds(1);
+        private readonly FadeInAnimation m_FadingInAnimation;
         private bool m_Alive;
-        private FadeInAnimation m_FadingInAnimation;
+        private FadeOutAnimation m_FadingOutAnimation;
+        private Vector2 m_Position;
+        private float m_Scale;
+        private Texture2D m_TextureBackground;
+        private TimeSpan m_TimeTillFade = TimeSpan.FromSeconds(1);
 
         public StarComponent(Game game) : base(game)
         {
             m_FadingInAnimation = new FadeInAnimation(this);
+        }
+
+        public Vector2 Position
+        {
+            get { return m_Position; }
+            set { m_Position = value; }
+        }
+
+        public float Scale
+        {
+            get { return m_Scale; }
+            set { m_Scale = value; }
+        }
+
+        public bool Alive
+        {
+            get { return m_Alive; }
+            set
+            {
+                m_Alive = value;
+                Enabled = m_Alive;
+                Visible = m_Alive;
+                if(m_Alive)
+                {
+                    m_FadingInAnimation.Enabled = true;
+                    m_TimeTillFade = TimeSpan.FromSeconds(1);
+                }
+            }
         }
 
         public override void Initialize()
@@ -36,6 +64,7 @@ namespace Intruders.comp
             {
                 m_FadingOutAnimation.Enabled = true;
             }
+
             m_FadingOutAnimation.Animate(gameTime);
             m_FadingInAnimation.Animate(gameTime);
         }
@@ -48,7 +77,6 @@ namespace Intruders.comp
         protected override void LoadContent()
         {
             m_TextureBackground = Game.Content.Load<Texture2D>(@"Sprites\Star");
-            // base.LoadContent();
         }
 
         public override void Draw(GameTime gameTime)
@@ -56,34 +84,6 @@ namespace Intruders.comp
             SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
             sb.Draw(m_TextureBackground, Position, null, Color, 0, Vector2.Zero, m_Scale, SpriteEffects.None, 0);
             base.Draw(gameTime);
-        }
-
-        public Vector2 Position
-        {
-            get { return m_Position; }
-            set { m_Position = value;}
-        }
-
-        public float Scale
-        {
-            get { return m_Scale; }
-            set{ m_Scale = value;}
-        }
-
-        public bool Alive
-        {
-            get { return m_Alive; }
-            set
-            {
-                m_Alive = value;
-                Enabled = m_Alive;
-                Visible = m_Alive;
-                if(m_Alive)
-                {
-                    m_FadingInAnimation.Enabled = true;
-                    m_TimeTillFade = TimeSpan.FromSeconds(1);
-                }
-            }
         }
     }
 }

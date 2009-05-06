@@ -10,7 +10,7 @@ namespace Intruders.logic
 
         protected Logic(IViewFactory i_Factory)
         {
-            r_ViewFactory = i_Factory;             
+            r_ViewFactory = i_Factory;
         }
 
         protected IViewFactory ViewFactory
@@ -18,25 +18,27 @@ namespace Intruders.logic
             get { return r_ViewFactory; }
         }
 
+        protected IComponent View
+        {
+            get { return r_View; }
+        }
+
+        #region ILogic Members
+
         public virtual void Update(GameTime i_GameTime)
         {
-            
         }
 
         public virtual void Initialize()
         {
-            
         }
+
+        #endregion
 
         protected void CreateView(IComponent m_View)
         {
             r_View = m_View;
             r_View.Logic = this;
-        }
-
-        protected IComponent View
-        {
-            get { return r_View; }
         }
     }
 }
