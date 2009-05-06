@@ -30,9 +30,9 @@ namespace Intruders.comp
             get { return (IInputManager) r_Game.Services.GetService(typeof(IInputManager)); }
         }
 
-        public ISprite CreateSpriteComponent(string[] i_Assets)
+        public ISprite CreateSpriteComponent(Asset i_Asset)
         {
-            return new SpriteComponent(i_Assets, r_Game, m_Order++);
+            return new SpriteComponent(i_Asset, r_Game, m_Order++);
         }
 
         public IFontComponent CreateFontComponent()

@@ -1,4 +1,5 @@
 using Intruders.comp;
+using Microsoft.Xna.Framework;
 
 namespace Intruders.logic
 {
@@ -13,7 +14,9 @@ namespace Intruders.logic
 
         protected override void CreateAssets()
         {
-            Assets = new string[] {"Sprites\\Enemy0301_32x32", "Sprites\\Enemy0302_32x32"};
+            Assets = new Asset("Sprites\\Enemies_96x64");
+            Assets.addBounds(new Rectangle(64, 0, 32, 32));
+            Assets.addBounds(new Rectangle(64, 32, 32, 32));
         }
 
         protected override void PlayKillCue()

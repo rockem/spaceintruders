@@ -44,7 +44,7 @@ namespace Intruders.logic
 
         protected override void CreateAssets()
         {
-            Assets = new string[] {"Sprites\\Bullet"};
+            Assets = new Asset("Sprites\\Bullet");
         }
     }
 }

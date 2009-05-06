@@ -27,7 +27,7 @@ namespace Intruders.logic
 
         protected override void CreateAssets()
         {
-            Assets = new string[] {"Sprites\\MotherShip_32x120"};
+            Assets = new Asset("Sprites\\MotherShip_32x120");
         }
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)

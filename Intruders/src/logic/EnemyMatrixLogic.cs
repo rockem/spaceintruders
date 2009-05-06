@@ -17,7 +17,6 @@ namespace Intruders.logic
         private int m_EndColumn = k_NumOfColumns - 1;
         private int m_EndRow = k_NumOfRows - 1;
         private int m_NumberOfMonsters;
-        private readonly IComponent r_View;
 
         public event EventHandler MatrixChanged;
 

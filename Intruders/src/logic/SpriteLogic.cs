@@ -11,7 +11,7 @@ namespace Intruders.logic
         private int m_XVelocity;
         private int m_YVelocity;
         private bool m_Alive = true;
-        protected string[] m_Assets;
+        protected Asset m_Assets;
         private int m_CurrentAsset;
         private eSpriteType m_SpriteType;
         private int m_Score;
@@ -99,7 +99,7 @@ namespace Intruders.logic
             }
         }
 
-        public string[] Assets
+        public Asset Assets
         {
             get { return m_Assets; }
             set { m_Assets = value; }
@@ -111,7 +111,7 @@ namespace Intruders.logic
             set
             {
                 m_CurrentAsset = value;
-                ((ISprite)View).CurrentAsset = m_Assets[m_CurrentAsset];
+                ((ISprite)View).CurrentAsset = m_CurrentAsset;
             }
         }
     }

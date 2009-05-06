@@ -21,6 +21,6 @@ namespace Intruders.comp
 
         float Scale { get; set; }
 
-        string CurrentAsset { set; }
+        int CurrentAsset { set; }
     }
 }

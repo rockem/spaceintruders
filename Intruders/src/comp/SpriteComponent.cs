@@ -11,13 +11,14 @@ namespace Intruders.comp
         private readonly Dictionary<string, Texture2D> r_Textures = new Dictionary<string, Texture2D>();
         private Vector2 m_Position;
         private float m_Scale = 1;
-        private string m_CurrentAsset;
-        private readonly string[] r_Assets;
+        private int m_CurrentAsset;
+        private readonly Asset r_Assets;
         private float m_Opacity;
+        private Texture2D r_Texture;
 
-        public SpriteComponent(string[] i_Assets, Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
+        public SpriteComponent(Asset i_Assets, Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
         {
-            m_CurrentAsset = i_Assets[0];
+            m_CurrentAsset = 0;
             r_Assets = i_Assets;
         }
 
@@ -65,10 +66,9 @@ namespace Intruders.comp
 
         protected override void LoadContent()
         {
-            foreach(string asset in r_Assets)
-            {
-                r_Textures.Add(asset, Game.Content.Load<Texture2D>(asset));
-            }
+            r_Texture = Game.Content.Load<Texture2D>(r_Assets.GetAssetName());
+            r_Assets.addBounds(new Rectangle(0, 0, r_Texture.Width, r_Texture.Height));
+            
             // m_TextureShip = Game.Content.Load<Texture2D>(r_AssetPath);
             base.LoadContent();
             Logic.Initialize();
@@ -83,7 +83,7 @@ namespace Intruders.comp
         public override void Draw(GameTime gameTime)
         {
             SpriteBatch sb = (SpriteBatch) Game.Services.GetService(typeof(SpriteBatch));
-            sb.Draw(r_Textures[m_CurrentAsset], Position, null, Color, 0, Vector2.Zero, m_Scale, SpriteEffects.None, 0);
+            sb.Draw(r_Texture, Position, r_Assets.GetBoundsAt(m_CurrentAsset), Color, 0, Vector2.Zero, m_Scale, SpriteEffects.None, 0);
             base.Draw(gameTime);
         }
 
@@ -93,19 +93,19 @@ namespace Intruders.comp
             set { m_Scale = value; }
         }
 
-        public string CurrentAsset
+        public int CurrentAsset
         {
             set { m_CurrentAsset = value; }
         }
 
         public int Width
         {
-            get { return (int) (r_Textures[m_CurrentAsset].Width * m_Scale); }
+            get { return (int)(r_Assets.GetBoundsAt(m_CurrentAsset).Width * m_Scale); }
         }
 
         public int Height
         {
-            get { return (int) (r_Textures[m_CurrentAsset].Height * m_Scale); }
+            get { return (int)(r_Assets.GetBoundsAt(m_CurrentAsset).Height * m_Scale); }
         }
 
         public Vector2 Position

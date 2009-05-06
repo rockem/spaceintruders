@@ -64,6 +64,7 @@
     <Compile Include="src\comp\animation\FadeOutAnimation.cs" />
     <Compile Include="src\comp\animation\RotateAnimation.cs" />
     <Compile Include="src\comp\animation\ShrinkAnimation.cs" />
+    <Compile Include="src\comp\Asset.cs" />
     <Compile Include="src\comp\BackgroundComponent.cs" />
     <Compile Include="src\comp\Component.cs" />
     <Compile Include="src\comp\eSpriteType.cs" />
