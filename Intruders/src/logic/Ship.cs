@@ -94,7 +94,7 @@ namespace Intruders.logic
             {
                 ViewFactory.PlayCue("ShipShot");
                 bullet.Position = new Vector2(
-                    Position.X + (float)Width / 2 - (float)bullet.Width / 2,
+                    Position.X + ((float)Width / 2) - ((float)bullet.Width / 2),
                     Position.Y - bullet.Height);
                 bullet.Alive = true;
             }
@@ -121,7 +121,7 @@ namespace Intruders.logic
 
         protected virtual void initPosition()
         {
-            float currentY = ViewFactory.ViewHeight - ((ISprite)View).Height / 2 - 30;
+            float currentY = ViewFactory.ViewHeight - (((ISprite)View).Height / 2) - 30;
             ((ISprite)View).Position = new Vector2(0, currentY);
         }
 
@@ -157,14 +157,19 @@ namespace Intruders.logic
             if(i_SpriteLogic.Type == eSpriteType.Bomb)
             {
                 ViewFactory.PlayCue("LifeDie");
-                initPosition();
-                m_RemainingSouls--;
-                setNewScore(Score - 2000);
-                ShipHit(this, EventArgs.Empty);
-                if(m_RemainingSouls == 0)
-                {
-                    Alive = false;
-                }
+                (View as ISprite).StartAnimation();
+            }
+        }
+
+        public override void AnimationEnded()
+        {
+            initPosition();
+            m_RemainingSouls--;
+            setNewScore(Score - 2000);
+            ShipHit(this, EventArgs.Empty);
+            if (m_RemainingSouls == 0)
+            {
+                Alive = false;
             }
         }
     }

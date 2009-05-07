@@ -7,6 +7,8 @@ namespace Intruders.logic
 {
     internal class Wall : SpriteLogic
     {
+        private const int k_WallWidth = 44;
+
         private int m_StartLeftPosision;
         private int m_Velocity = 50;
 
@@ -22,9 +24,8 @@ namespace Intruders.logic
 
         public override void Initialize()
         {
-            m_StartLeftPosision = ViewFactory.ViewWidth / 2 - Width / 2;
-            Position = new Vector2(m_StartLeftPosision, ViewFactory.ViewHeight - 64 - Height * 2);
-            
+            m_StartLeftPosision = (ViewFactory.ViewWidth / 2) - (Width / 2);
+            Position = new Vector2(m_StartLeftPosision, ViewFactory.ViewHeight - 64 - (Height * 2));
         }
 
         public override void Update(GameTime i_GameTime)
@@ -35,26 +36,44 @@ namespace Intruders.logic
             }
 
              Position = new Vector2(
-                 Position.X + m_Velocity * (float)i_GameTime.ElapsedGameTime.TotalSeconds,
+                 Position.X + (m_Velocity * (float)i_GameTime.ElapsedGameTime.TotalSeconds),
                  Position.Y);
-            
         }
 
         private bool matrixTouchBounds()
         {
-            return Position.X >= m_StartLeftPosision + 44 / 2 ||
-                   Position.X <= m_StartLeftPosision - 44 / 2;
+            return Position.X >= m_StartLeftPosision + (k_WallWidth / 2) ||
+                   Position.X <= m_StartLeftPosision - (k_WallWidth / 2);
         }
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
-            ViewFactory.PlayCue("BarrierHit");
-            Color[] pixel = (View as ICollidable2D).GetPixelArray();
-            pixel[30] = Color.White;
-            (View as SpriteComponent).Pixels = pixel;
-            if(i_SpriteLogic.Type == eSpriteType.Monster)
+            if (i_SpriteLogic.Type == eSpriteType.Bullet ||
+                i_SpriteLogic.Type == eSpriteType.Bomb)
             {
-                Alive = false;
+                ViewFactory.PlayCue("BarrierHit");
+            }
+
+            Color[] pixels = (View as ICollidable2D).GetPixelArray();
+            Rectangle e = i_SpriteLogic.Bounds;
+            clearPixelsOn(pixels, new Rectangle(e.Top - Bounds.Top, e.Left - Bounds.Left, e.Width, e.Height));
+            (View as ISprite).Pixels = pixels;
+        }
+
+        private void clearPixelsOn(Color[] pixels, Rectangle rectangle)
+        {
+            for (int x = rectangle.Left; x < rectangle.Height + rectangle.Left; x++)
+            {
+                for (int y = rectangle.Top; y < rectangle.Width + rectangle.Top; y++)
+                {
+                    int offset = (x * Bounds.Width) + y;
+                    if(offset < pixels.Length && offset >= 0)
+                    {
+                        Vector4 transparentColor = pixels[offset].ToVector4();
+                        transparentColor.W = 0;
+                        pixels[offset] = new Color(transparentColor);
+                    }
+                }
             }
         }
     }

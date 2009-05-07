@@ -30,31 +30,31 @@ namespace Intruders.logic
             for(int i = 0; i < k_NumberOfWalls; i++)
             {
                 r_Walls[i].Position = new Vector2(
-                    r_Walls[i].Position.X + m_Velocity * (float)i_GameTime.ElapsedGameTime.TotalSeconds,
+                    r_Walls[i].Position.X + (m_Velocity * (float)i_GameTime.ElapsedGameTime.TotalSeconds),
                     r_Walls[i].Position.Y);
             }
         }
 
         private bool matrixTouchBounds()
         {
-            return r_Walls[0].Position.X >= m_StartLeftPosision + r_Walls[0].Width / 2 ||
-                   r_Walls[0].Position.X <= m_StartLeftPosision - r_Walls[0].Width / 2;
+            return r_Walls[0].Position.X >= m_StartLeftPosision + (r_Walls[0].Width / 2) ||
+                   r_Walls[0].Position.X <= m_StartLeftPosision - (r_Walls[0].Width / 2);
         }
 
         public override void Initialize()
         {
-            m_StartLeftPosision = ViewFactory.ViewWidth / 2 - matrixWidth() / 2;
+            m_StartLeftPosision = (ViewFactory.ViewWidth / 2) - (matrixWidth() / 2);
             for(int i = 0; i < k_NumberOfWalls; i++)
             {
                 r_Walls[i].Position = new Vector2(
-                    m_StartLeftPosision + (float)(r_Walls[0].Width + r_Walls[0].Width * 1.5) * i,
-                    ViewFactory.ViewHeight - 64 - r_Walls[0].Height * 2);
+                    m_StartLeftPosision + ((float)(r_Walls[0].Width + (r_Walls[0].Width * 1.5)) * i),
+                    ViewFactory.ViewHeight - 64 - (r_Walls[0].Height * 2));
             }
         }
 
         private int matrixWidth()
         {
-            return (int)(r_Walls[0].Width * k_NumberOfWalls + r_Walls[0].Width * 1.5 * (k_NumberOfWalls - 1));
+            return (int)((r_Walls[0].Width * k_NumberOfWalls) + (r_Walls[0].Width * 1.5 * (k_NumberOfWalls - 1)));
         }
     }
 }

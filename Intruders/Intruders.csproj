@@ -63,7 +63,6 @@
     <Compile Include="src\comp\animation\FadeInAnimation.cs" />
     <Compile Include="src\comp\animation\FadeOutAnimation.cs" />
     <Compile Include="src\comp\animation\RotateAnimation.cs" />
-    <Compile Include="src\comp\animation\ShrinkAnimation.cs" />
     <Compile Include="src\comp\Asset.cs" />
     <Compile Include="src\comp\BackgroundComponent.cs" />
     <Compile Include="src\comp\Component.cs" />
@@ -93,7 +92,6 @@
     <Compile Include="src\logic\Ship.cs" />
     <Compile Include="src\logic\SmallBlueShip.cs" />
     <Compile Include="src\logic\SmallGreenShip.cs" />
-    <Compile Include="src\logic\Sprite.cs" />
     <Compile Include="src\logic\SpriteLogic.cs" />
     <Compile Include="src\logic\Wall.cs" />
     <Compile Include="src\logic\WallMatrix.cs" />

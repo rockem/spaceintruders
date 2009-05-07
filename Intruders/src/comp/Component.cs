@@ -9,6 +9,8 @@ namespace Intruders.comp
         private Color m_Color = Color.White;
         private ILogic m_Logic;
         private float m_Opacity;
+        private Vector2 m_RotateOrigin;
+        private float m_Rotation;
 
         public Component(Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
         {
@@ -40,6 +42,18 @@ namespace Intruders.comp
         {
             get { return m_Logic; }
             set { m_Logic = value; }
+        }
+
+        public Vector2 RotationOrigin
+        {
+            get { return m_RotateOrigin;  }
+            set { m_RotateOrigin = value; }
+        }
+
+        public float Rotation
+        {
+            get { return m_Rotation; }
+            set { m_Rotation = value; }
         }
 
         #endregion

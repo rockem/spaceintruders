@@ -19,22 +19,22 @@ namespace Intruders.comp.animation
         {
             base.Initialize();
 
-            /*m_BoundSprite.RotationOrigin = 
+            m_BoundSprite.RotationOrigin = 
                 new Vector2(
-                    m_BoundSprite.Width / 2, 
-                    m_BoundSprite.Height / 2);*/
+                    (m_BoundSprite as SpriteComponent).Width / 2, 
+                    (m_BoundSprite as SpriteComponent).Height / 2);
         }
 
         public override void Reset()
         {
             base.Reset();
 
-            /* m_BoundSprite.Rotation = 0;*/
+            m_BoundSprite.Rotation = 0;
         }
 
         protected override void Play(GameTime i_GameTime)
         {
-            /* m_BoundSprite.Rotation += m_RotationAngle;*/
+            m_BoundSprite.Rotation += m_RotationAngle;
         }
     }
 }

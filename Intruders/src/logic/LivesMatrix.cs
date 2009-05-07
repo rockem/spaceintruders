@@ -65,13 +65,13 @@ namespace Intruders.logic
         {
             for(int i = 0; i < m_BlueSouls; i++)
             {
-                r_BlueSouls[i].Position = new Vector2(ViewFactory.ViewWidth - r_BlueSouls[0].Width * (i + 1), 0);
+                r_BlueSouls[i].Position = new Vector2(ViewFactory.ViewWidth - (r_BlueSouls[0].Width * (i + 1)), 0);
             }
 
             for(int i = 0; i < m_GreenSouls; i++)
             {
                 r_GreenSouls[i].Position = new Vector2(
-                    ViewFactory.ViewWidth - r_GreenSouls[0].Width * (i + 1), 
+                    ViewFactory.ViewWidth - (r_GreenSouls[0].Width * (i + 1)), 
                     r_BlueSouls[0].Height + 1);
             }
         }

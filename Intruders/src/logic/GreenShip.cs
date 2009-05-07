@@ -27,7 +27,7 @@ namespace Intruders.logic
 
         protected override void initPosition()
         {
-            float currentY = ViewFactory.ViewHeight - ((ISprite)View).Height / 2 - 30;
+            float currentY = ViewFactory.ViewHeight - (((ISprite)View).Height / 2) - 30;
             ((ISprite)View).Position = new Vector2(((ISprite)View).Width, currentY);
         }
 

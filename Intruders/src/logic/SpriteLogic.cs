@@ -1,4 +1,5 @@
 using System;
+using GameCommon.manager;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -107,6 +108,11 @@ namespace Intruders.logic
 
         public virtual void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
+        }
+
+        public Rectangle Bounds
+        {
+            get { return (View as ICollidable2D).Bounds; }
         }
 
         #endregion

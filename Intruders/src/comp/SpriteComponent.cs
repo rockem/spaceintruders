@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using GameCommon.manager;
+using Intruders.comp.animation;
 using Intruders.logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,6 +17,8 @@ namespace Intruders.comp
         private Texture2D r_Texture;
         private Color[] m_Pixels;
         private bool m_ShouldUpdateData;
+        private FadeOutAnimation m_FadingAnimation;
+        private RotateAnimation m_RotatingAnimation;
 
         public SpriteComponent(Asset i_Assets, Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
         {
@@ -116,6 +120,21 @@ namespace Intruders.comp
             {
                 collisionMgr.AddObjectToMonitor(this);
             }
+
+            m_FadingAnimation = new FadeOutAnimation(this);
+            m_FadingAnimation.AnimationFinished += FadingAnimation_AnimationFinished;
+
+            m_RotatingAnimation = new RotateAnimation(this);
+            m_RotatingAnimation.AnimationFinished += RotatingAnimation_AnimationFinished;
+        }
+
+        private void RotatingAnimation_AnimationFinished(object sender, EventArgs e)
+        {
+        }
+
+        private void FadingAnimation_AnimationFinished(object sender, EventArgs e)
+        {
+            Logic.AnimationEnded();
         }
 
         protected override void LoadContent()
@@ -136,6 +155,10 @@ namespace Intruders.comp
                 r_Texture.SetData(m_Pixels);
                 m_ShouldUpdateData = false;
             }
+
+            m_FadingAnimation.Animate(gameTime);
+            m_RotatingAnimation.Animate(gameTime);
+
             Logic.Update(gameTime);
             base.Update(gameTime);
         }
@@ -148,7 +171,7 @@ namespace Intruders.comp
                 Position, 
                 r_Assets.GetBoundsAt(m_CurrentAsset), 
                 Color, 
-                0, 
+                Rotation, 
                 Vector2.Zero, 
                 m_Scale,
                 SpriteEffects.None, 
@@ -164,6 +187,12 @@ namespace Intruders.comp
                 m_Pixels = value;
                 m_ShouldUpdateData = true;
             }
+        }
+
+        public void StartAnimation()
+        {
+            m_FadingAnimation.Enabled = true;
+            m_RotatingAnimation.Enabled = true;
         }
     }
 }

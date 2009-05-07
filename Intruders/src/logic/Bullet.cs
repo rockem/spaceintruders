@@ -56,7 +56,8 @@ namespace Intruders.logic
                 {
                     m_SavePos = Position;
                     m_InsideWall = true;
-                } else
+                } 
+                else
                 {
                     m_NumberOfSteps -= Math.Abs(Position.Y - m_SavePos.Y);
                     if(m_NumberOfSteps <= 0)
@@ -64,7 +65,6 @@ namespace Intruders.logic
                         die(i_SpriteLogic);
                     }
                 }
-
             }
         }
 

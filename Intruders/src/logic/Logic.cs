@@ -33,6 +33,10 @@ namespace Intruders.logic
         {
         }
 
+        public virtual void AnimationEnded()
+        {
+        }
+
         #endregion
 
         protected void CreateView(IComponent m_View)

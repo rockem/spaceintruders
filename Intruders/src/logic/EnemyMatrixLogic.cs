@@ -126,11 +126,11 @@ namespace Intruders.logic
             Monster first = r_Monsters[0, 0];
             for(int r = 0; r < k_NumOfRows; r++)
             {
-                float yaxis = (float)(first.Height * 3 + (r * (first.Height + first.Height * 0.6)));
+                float yaxis = (float)((first.Height * 3) + (r * (first.Height + (first.Height * 0.6))));
                 for(int i = 0; i < k_NumOfColumns; i++)
                 {
                     Monster att = r_Monsters[i, r];
-                    att.Position = new Vector2((float)(i * (att.Width + att.Width * 0.6)), yaxis);
+                    att.Position = new Vector2((float)(i * (att.Width + (att.Width * 0.6))), yaxis);
                 }
             }
         }

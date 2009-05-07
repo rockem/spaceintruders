@@ -7,5 +7,7 @@ namespace Intruders.logic
         void Update(GameTime i_GameTime);
 
         void Initialize();
+
+        void AnimationEnded();
     }
 }

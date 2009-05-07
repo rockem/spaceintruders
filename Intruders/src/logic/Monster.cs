@@ -32,8 +32,8 @@ namespace Intruders.logic
                 m_TimeLeftToDie -= i_GameTime.ElapsedGameTime;
                 ((ISprite)View).Scale *= 0.9f;
                 ((ISprite)View).Position = new Vector2(
-                    Position.X + Width * 0.04f,
-                    Position.Y + Height * 0.04f);
+                    Position.X + (Width * 0.04f),
+                    Position.Y + (Height * 0.04f));
             }
             else
             {
@@ -58,7 +58,7 @@ namespace Intruders.logic
         private void shootBullet()
         {
             ViewFactory.PlayCue("EnemyShot");
-            r_Bullet.Position = new Vector2(Position.X + (float)Width / 2, Position.Y + Height);
+            r_Bullet.Position = new Vector2(Position.X + ((float)Width / 2), Position.Y + Height);
             r_Bullet.Alive = true;
         }
 

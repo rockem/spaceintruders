@@ -22,5 +22,7 @@ namespace Intruders.comp
         int CurrentAsset { set; }
 
         Color[] Pixels { get; set; }
+
+        void StartAnimation();
     }
 }

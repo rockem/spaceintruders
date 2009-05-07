@@ -20,7 +20,6 @@ namespace Intruders
         private readonly MotherShip r_MotherShip;
         private readonly Random r_Random = new Random();
         private readonly ScoreDisplay r_Score;
-        private readonly WallMatrix r_Walls;
         private AudioEngine m_AudioEngine;
         private bool m_GameOver;
         private Cue m_Music;
@@ -46,7 +45,6 @@ namespace Intruders
             r_GreenShip.ShipHit += MarsIntruders_ShipHit;
             r_GreenShip.ScoreChanged += MarsIntruders_ScoreChanged;
             r_Lives = new LivesMatrix(r_Factory, 3);
-            // r_Walls = new WallMatrix(r_Factory);
             new Wall(r_Factory);
             r_MotherShip = new MotherShip(r_Factory);
             r_Monsters = new EnemyMatrixLogic(r_Factory);
