@@ -19,8 +19,7 @@ namespace Intruders.logic
 
         protected SpriteLogic(IViewFactory i_Factory) : base(i_Factory)
         {
-            CreateAssets();
-            CreateView(ViewFactory.CreateSpriteComponent(m_Assets));
+            CreateView(ViewFactory.CreateSpriteComponent());
         }
 
         public Color Color
@@ -59,7 +58,14 @@ namespace Intruders.logic
         public Asset Assets
         {
             get { return m_Assets; }
-            set { m_Assets = value; }
+            set
+            {
+                m_Assets = value;
+                if(View != null)
+                {
+                    (View as ISprite).Assets = m_Assets;
+                }
+            }
         }
 
         protected int CurrentAsset
@@ -117,8 +123,5 @@ namespace Intruders.logic
 
         #endregion
 
-        protected virtual void CreateAssets()
-        {
-        }
     }
 }

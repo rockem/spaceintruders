@@ -23,6 +23,8 @@ namespace Intruders.comp
 
         Color[] Pixels { get; set; }
 
+        Asset Assets { get; set; }
+
         void StartAnimation();
     }
 }

@@ -8,6 +8,7 @@ namespace Intruders.logic
     {
         public GreenShip(IViewFactory i_Factory) : base(i_Factory)
         {
+            Assets = new Asset("Sprites\\Ship02_32x32");
         }
 
         protected override bool inputFire()
@@ -29,11 +30,6 @@ namespace Intruders.logic
         {
             float currentY = ViewFactory.ViewHeight - (((ISprite)View).Height / 2) - 30;
             ((ISprite)View).Position = new Vector2(((ISprite)View).Width, currentY);
-        }
-
-        protected override void CreateAssets()
-        {
-            Assets = new Asset("Sprites\\Ship02_32x32");
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Intruders.comp
 {
     public class SpriteComponent : Component, ISprite, ICollidable2D
     {
-        private readonly Asset r_Assets;
         private int m_CurrentAsset;
         private Vector2 m_Position;
         private float m_Scale = 1;
@@ -19,11 +18,11 @@ namespace Intruders.comp
         private bool m_ShouldUpdateData;
         private FadeOutAnimation m_FadingAnimation;
         private RotateAnimation m_RotatingAnimation;
+        private Asset m_Asset;
 
-        public SpriteComponent(Asset i_Assets, Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
+        public SpriteComponent(Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
         {
             m_CurrentAsset = 0;
-            r_Assets = i_Assets;
         }
 
         #region ICollidable2D Members
@@ -61,7 +60,7 @@ namespace Intruders.comp
 
         private Rectangle currentAssetBounds()
         {
-            return r_Assets.GetBoundsAt(m_CurrentAsset);
+            return m_Asset.GetBoundsAt(m_CurrentAsset);
         }
 
         #endregion
@@ -126,6 +125,7 @@ namespace Intruders.comp
 
             m_RotatingAnimation = new RotateAnimation(this);
             m_RotatingAnimation.AnimationFinished += RotatingAnimation_AnimationFinished;
+            Logic.Initialize();
         }
 
         private void RotatingAnimation_AnimationFinished(object sender, EventArgs e)
@@ -139,13 +139,12 @@ namespace Intruders.comp
 
         protected override void LoadContent()
         {
-            r_Texture = Game.Content.Load<Texture2D>(r_Assets.GetAssetName());
-            r_Assets.addBounds(new Rectangle(0, 0, r_Texture.Width, r_Texture.Height));
+            r_Texture = Game.Content.Load<Texture2D>(m_Asset.GetAssetName());
+            m_Asset.addBounds(new Rectangle(0, 0, r_Texture.Width, r_Texture.Height));
             m_Pixels = new Color[r_Texture.Width * r_Texture.Height];
             r_Texture.GetData(m_Pixels);
 
             base.LoadContent();
-            Logic.Initialize();
         }
 
         public override void Update(GameTime gameTime)
@@ -169,7 +168,7 @@ namespace Intruders.comp
             sb.Draw(
                 r_Texture, 
                 Position, 
-                r_Assets.GetBoundsAt(m_CurrentAsset), 
+                m_Asset.GetBoundsAt(m_CurrentAsset), 
                 Color, 
                 Rotation, 
                 Vector2.Zero, 
@@ -187,6 +186,12 @@ namespace Intruders.comp
                 m_Pixels = value;
                 m_ShouldUpdateData = true;
             }
+        }
+
+        public Asset Assets
+        {
+            get { return m_Asset; }
+            set { m_Asset = value; }
         }
 
         public void StartAnimation()

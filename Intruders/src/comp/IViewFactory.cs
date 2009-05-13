@@ -10,7 +10,7 @@ namespace Intruders.comp
 
         IInputManager InputManager { get; }
 
-        ISprite CreateSpriteComponent(Asset i_Asset);
+        ISprite CreateSpriteComponent();
 
         IFontComponent CreateFontComponent();
 

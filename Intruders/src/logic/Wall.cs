@@ -14,12 +14,8 @@ namespace Intruders.logic
 
         public Wall(IViewFactory i_Factory) : base(i_Factory)
         {
-            Type = eSpriteType.Wall;
-        }
-
-        protected override void CreateAssets()
-        {
             Assets = new Asset("Sprites\\Barrier_374x32");
+            Type = eSpriteType.Wall;
         }
 
         public override void Initialize()

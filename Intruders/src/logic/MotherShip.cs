@@ -8,6 +8,7 @@ namespace Intruders.logic
     {
         public MotherShip(IViewFactory i_Factory) : base(i_Factory)
         {
+            Assets = new Asset("Sprites\\MotherShip_32x120");
             Color = Color.Red;
             Alive = false;
             Score = 500;
@@ -22,11 +23,6 @@ namespace Intruders.logic
             {
                 Alive = false;
             }
-        }
-
-        protected override void CreateAssets()
-        {
-            Assets = new Asset("Sprites\\MotherShip_32x120");
         }
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)

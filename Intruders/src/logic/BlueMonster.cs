@@ -8,15 +8,12 @@ namespace Intruders.logic
     {
         public BlueMonster(IViewFactory i_Factory) : base(i_Factory)
         {
-            Color = Color.LightBlue;
-            Score = 200;
-        }
-
-        protected override void CreateAssets()
-        {
             Assets = new Asset("Sprites\\Enemies_96x64");
             Assets.addBounds(new Rectangle(32, 0, 32, 32));
             Assets.addBounds(new Rectangle(32, 32, 32, 32));
+
+            Color = Color.LightBlue;
+            Score = 200;
         }
 
         protected override void PlayKillCue()

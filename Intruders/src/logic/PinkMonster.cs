@@ -8,15 +8,11 @@ namespace Intruders.logic
     {
         public PinkMonster(IViewFactory i_Factory) : base(i_Factory)
         {
-            Color = Color.LightPink;
-            Score = 300;
-        }
-
-        protected override void CreateAssets()
-        {
             Assets = new Asset("Sprites\\Enemies_96x64");
             Assets.addBounds(new Rectangle(0, 0, 32, 32));
             Assets.addBounds(new Rectangle(0, 32, 32, 32));
+            Color = Color.LightPink;
+            Score = 300;
         }
 
         protected override void PlayKillCue()

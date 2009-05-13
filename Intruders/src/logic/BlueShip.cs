@@ -9,6 +9,7 @@ namespace Intruders.logic
     {
         public BlueShip(IViewFactory i_Factory) : base(i_Factory)
         {
+            Assets = new Asset("Sprites\\Ship01_32x32");
         }
 
         protected override bool inputFire()
@@ -38,9 +39,5 @@ namespace Intruders.logic
             return true;
         }
 
-        protected override void CreateAssets()
-        {
-            Assets = new Asset("Sprites\\Ship01_32x32");
-        }
     }
 }

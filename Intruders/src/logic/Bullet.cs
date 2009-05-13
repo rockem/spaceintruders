@@ -12,6 +12,7 @@ namespace Intruders.logic
 
         public Bullet(IViewFactory i_Factory, eSpriteType i_Type) : base(i_Factory)
         {
+            Assets = new Asset("Sprites\\Bullet");
             Alive = false;
             Type = i_Type;
             BulletHit += Bullet_Dummy;
@@ -75,9 +76,5 @@ namespace Intruders.logic
             BulletHit(this, EventArgs.Empty);
         }
 
-        protected override void CreateAssets()
-        {
-            Assets = new Asset("Sprites\\Bullet");
-        }
     }
 }
