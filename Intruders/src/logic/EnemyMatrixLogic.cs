@@ -9,7 +9,7 @@ namespace Intruders.logic
         private const int k_NumOfColumns = 9;
         private const int k_NumOfRows = 5;
 
-        private readonly Monster[,] r_Monsters = new Monster[k_NumOfColumns, k_NumOfRows];
+        private readonly Monster[,] r_Monsters = new Monster[k_NumOfColumns,k_NumOfRows];
         private int m_EndColumn = k_NumOfColumns - 1;
         private int m_EndRow = k_NumOfRows - 1;
         private int m_NumberOfMonsters;
@@ -21,7 +21,7 @@ namespace Intruders.logic
         public EnemyMatrixLogic(IViewFactory i_Factory) : base(i_Factory)
         {
             createMonsters();
-            CreateView(ViewFactory.CreateComponent());
+            CreateView(ViewFactory.CreateComponent(null));
         }
 
         public event EventHandler MatrixChanged;
@@ -146,7 +146,7 @@ namespace Intruders.logic
                 {
                     tmpVelocity = -tmpVelocity;
                     m_Velocity = 0;
-                    yvel = (float)r_Monsters[0, 0].Width / 2;
+                    yvel = r_Monsters[0, 0].Width / 2;
                     fasterTimeBetweenJumps();
                 }
 
@@ -186,7 +186,7 @@ namespace Intruders.logic
         public override void Initialize()
         {
             initMatrix();
-            m_Velocity = (float)r_Monsters[0, 0].Width / 2;
+            m_Velocity = r_Monsters[0, 0].Width / 2;
         }
 
         public float GetLowerBound()

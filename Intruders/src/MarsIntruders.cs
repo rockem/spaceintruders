@@ -4,6 +4,7 @@ using GameCommon.manager;
 using GameCommon.manager.xna;
 using Intruders.comp;
 using Intruders.logic;
+using Intruders.screen;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -31,13 +32,10 @@ namespace Intruders
         {
             new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            r_Factory = new XNAViewFactory(this);
 
             new InputManager(this);
-            new CollisionsManager(this);
-            new BackgroundComponent(this);
 
-            r_Score = new ScoreDisplay(r_Factory);
+            /*r_Score = new ScoreDisplay(r_Factory);
             r_BlueShip = new BlueShip(r_Factory);
             r_BlueShip.ShipHit += MarsIntruders_ShipHit;
             r_BlueShip.ScoreChanged += MarsIntruders_ScoreChanged;
@@ -48,7 +46,11 @@ namespace Intruders
             new Wall(r_Factory);
             r_MotherShip = new MotherShip(r_Factory);
             r_Monsters = new EnemyMatrixLogic(r_Factory);
-            r_Monsters.MatrixChanged += MarsIntruders_MatrixChanged;
+            r_Monsters.MatrixChanged += MarsIntruders_MatrixChanged;*/
+
+            ScreensMananger screensMananger = new ScreensMananger(this);
+            screensMananger.Push(new WelcomeScreen(this));
+            screensMananger.SetCurrentScreen(new PlayScreen(this));
         }
 
         private void MarsIntruders_ScoreChanged(object sender, EventArgs e)
@@ -88,7 +90,7 @@ namespace Intruders
             }
         }
 
-        protected override void LoadContent()
+        /*protected override void LoadContent()
         {
             m_AudioEngine = new AudioEngine(@"Content\Audio\GameSounds.xgs");
             m_WaveBank = new WaveBank(m_AudioEngine, @"Content\Audio\Wave Bank.xwb");
@@ -101,8 +103,8 @@ namespace Intruders
 
             base.LoadContent();
         }
-
-        protected override void UnloadContent()
+*/
+        /*protected override void UnloadContent()
         {
             m_AudioEngine.Dispose();
             m_WaveBank.Dispose();
@@ -115,9 +117,9 @@ namespace Intruders
             r_SpriteBatch = new SpriteBatch(GraphicsDevice);
             Services.AddService(typeof(SpriteBatch), r_SpriteBatch);
             base.Initialize();
-        }
+        }*/
 
-        protected override void Update(GameTime gameTime)
+        /*protected override void Update(GameTime gameTime)
         {
             if(m_GameOver)
             {
@@ -127,7 +129,7 @@ namespace Intruders
 
             sailMotherShipIfPossible();
             base.Update(gameTime);
-        }
+        }*/
 
         private void sailMotherShipIfPossible()
         {
@@ -138,17 +140,17 @@ namespace Intruders
             }
         }
 
-        protected override void Draw(GameTime gameTime)
+        /*protected override void Draw(GameTime gameTime)
         {
             r_SpriteBatch.Begin();
             base.Draw(gameTime);
             r_SpriteBatch.End();
-        }
+        }*/
 
         private void DisplayScoreMessage()
         {
             string scoreMessage = string.Format(
-                "Blue score: {0}\nGreen score: {1}\n", 
+                "Blue score: {0}\nGreen score: {1}\n",
                 r_BlueShip.Score,
                 r_GreenShip.Score);
             scoreMessage += string.Format("You are a {0}\n", isAWinner() ? "winner" : "loser, you died");

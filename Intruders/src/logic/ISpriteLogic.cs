@@ -13,8 +13,8 @@ namespace Intruders.logic
 
         int Score { get; set; }
 
-        void CollidedWith(ISpriteLogic i_SpriteLogic);
-
         Rectangle Bounds { get; }
+
+        void CollidedWith(ISpriteLogic i_SpriteLogic);
     }
 }

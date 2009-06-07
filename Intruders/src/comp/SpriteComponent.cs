@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using GameCommon.comp;
 using GameCommon.manager;
 using Intruders.comp.animation;
 using Intruders.logic;
@@ -11,46 +11,29 @@ namespace Intruders.comp
     public class SpriteComponent : Component, ISprite, ICollidable2D
     {
         private int m_CurrentAsset;
-        private Vector2 m_Position;
-        private float m_Scale = 1;
-        private Texture2D r_Texture;
-        private Color[] m_Pixels;
-        private bool m_ShouldUpdateData;
         private FadeOutAnimation m_FadingAnimation;
+        private Color[] m_Pixels;
         private RotateAnimation m_RotatingAnimation;
-        private Asset m_Asset;
+        private bool m_ShouldUpdateData;
 
-        public SpriteComponent(Game game, int i_UpdateOrder) : base(game, i_UpdateOrder)
+        public SpriteComponent(string i_AssetName, Game i_Game) : base(i_AssetName, i_Game)
         {
-            m_CurrentAsset = 0;
         }
 
         #region ICollidable2D Members
 
-        public event PositionChangedEventHandler PositionChanged;
-
-        public bool CheckCollision(ICollidable i_Source)
-        {
-            bool collided = false;
-
-            ICollidable2D source = i_Source as ICollidable2D;
-
-            if(source != null && source.Visible)
-            {
-                collided = source.Bounds.Intersects(Bounds);
-            }
-
-            return collided;
-        }
-
-        public void Collided(ICollidable i_Collidable)
+        public override void Collided(ICollidable i_Collidable)
         {
             ((ISpriteLogic)Logic).CollidedWith((ISpriteLogic)((IComponent)i_Collidable).Logic);
         }
 
         public Rectangle Bounds
         {
-            get { return new Rectangle((int)Position.X, (int)Position.Y, (int)(Width * Scale), (int)(Height * Scale)); }
+            get
+            {
+                return new Rectangle((int)PositionOfOrigin.X, (int)PositionOfOrigin.Y,
+                                     (int)(((Sprite)this).WidthAfterScale), (int)(((Sprite)this).HeightAfterScale));
+            }
         }
 
         public Color[] GetPixelArray()
@@ -58,19 +41,18 @@ namespace Intruders.comp
             return m_Pixels;
         }
 
-        private Rectangle currentAssetBounds()
-        {
-            return m_Asset.GetBoundsAt(m_CurrentAsset);
-        }
-
         #endregion
 
         #region ISprite Members
 
-        public float Scale
+        public float WidthAfterScale
         {
-            get { return m_Scale; }
-            set { m_Scale = value; }
+            get { return ((Sprite)this).WidthAfterScale; }
+        }
+
+        public float HeightAfterScale
+        {
+            get { return ((Sprite)this).HeightAfterScale; }
         }
 
         public int CurrentAsset
@@ -78,35 +60,23 @@ namespace Intruders.comp
             set { m_CurrentAsset = value; }
         }
 
-        public int Width
+        public Color[] Pixels
         {
-            get { return (int)(currentAssetBounds().Width * m_Scale); }
-        }
-
-        public int Height
-        {
-            get { return (int)(currentAssetBounds().Height * m_Scale); }
-        }
-
-        public Vector2 Position
-        {
-            get { return m_Position; }
+            get { return m_Pixels; }
             set
             {
-                m_Position = value;
-                OnPositionChanged();
+                m_Pixels = value;
+                m_ShouldUpdateData = true;
             }
+        }
+
+        public void StartAnimation()
+        {
+            m_FadingAnimation.Enabled = true;
+            m_RotatingAnimation.Enabled = true;
         }
 
         #endregion
-
-        protected virtual void OnPositionChanged()
-        {
-            if(PositionChanged != null)
-            {
-                PositionChanged(this);
-            }
-        }
 
         public override void Initialize()
         {
@@ -139,19 +109,18 @@ namespace Intruders.comp
 
         protected override void LoadContent()
         {
-            r_Texture = Game.Content.Load<Texture2D>(m_Asset.GetAssetName());
-            m_Asset.addBounds(new Rectangle(0, 0, r_Texture.Width, r_Texture.Height));
-            m_Pixels = new Color[r_Texture.Width * r_Texture.Height];
-            r_Texture.GetData(m_Pixels);
-
             base.LoadContent();
+            // r_Texture = Game.Content.Load<Texture2D>(m_Asset.GetAssetName());
+            // m_Asset.addBounds(new Rectangle(0, 0, r_Texture.WidthAfterScale, r_Texture.HeightAfterScale));
+            m_Pixels = new Color[Texture.Width * Texture.Height];
+            Texture.GetData(m_Pixels);
         }
 
         public override void Update(GameTime gameTime)
         {
             if(m_ShouldUpdateData)
             {
-                r_Texture.SetData(m_Pixels);
+                Texture.SetData(m_Pixels);
                 m_ShouldUpdateData = false;
             }
 
@@ -162,12 +131,12 @@ namespace Intruders.comp
             base.Update(gameTime);
         }
 
-        public override void Draw(GameTime gameTime)
+        /*public override void Draw(GameTime gameTime)
         {
             SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
             sb.Draw(
                 r_Texture, 
-                Position, 
+                PositionOfOrigin, 
                 m_Asset.GetBoundsAt(m_CurrentAsset), 
                 Color, 
                 Rotation, 
@@ -176,28 +145,6 @@ namespace Intruders.comp
                 SpriteEffects.None, 
                 0);
             base.Draw(gameTime);
-        }
-
-        public Color[] Pixels
-        {
-            get { return m_Pixels; }
-            set
-            {
-                m_Pixels = value;
-                m_ShouldUpdateData = true;
-            }
-        }
-
-        public Asset Assets
-        {
-            get { return m_Asset; }
-            set { m_Asset = value; }
-        }
-
-        public void StartAnimation()
-        {
-            m_FadingAnimation.Enabled = true;
-            m_RotatingAnimation.Enabled = true;
-        }
+        }*/
     }
 }

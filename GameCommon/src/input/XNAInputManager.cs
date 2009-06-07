@@ -1,4 +1,5 @@
 using System.Text;
+using GameCommon.input;
 using GameCommon.manager;
 using GameCommon.service;
 using Microsoft.Xna.Framework;

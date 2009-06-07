@@ -12,28 +12,28 @@ namespace Intruders.logic
         private int m_StartLeftPosision;
         private int m_Velocity = 50;
 
-        public Wall(IViewFactory i_Factory) : base(i_Factory)
+        public Wall(IViewFactory i_Factory)
+            : base(i_Factory, @"Sprites\Barrier_374x32")
         {
-            Assets = new Asset("Sprites\\Barrier_374x32");
             Type = eSpriteType.Wall;
         }
 
         public override void Initialize()
         {
-            m_StartLeftPosision = (ViewFactory.ViewWidth / 2) - (Width / 2);
+            m_StartLeftPosision = (ViewFactory.ViewWidth / 2) - ((int)Width / 2);
             Position = new Vector2(m_StartLeftPosision, ViewFactory.ViewHeight - 64 - (Height * 2));
         }
 
         public override void Update(GameTime i_GameTime)
         {
-            if (matrixTouchBounds())
+            if(matrixTouchBounds())
             {
                 m_Velocity *= -1;
             }
 
-             Position = new Vector2(
-                 Position.X + (m_Velocity * (float)i_GameTime.ElapsedGameTime.TotalSeconds),
-                 Position.Y);
+            Position = new Vector2(
+                Position.X + (m_Velocity * (float)i_GameTime.ElapsedGameTime.TotalSeconds),
+                Position.Y);
         }
 
         private bool matrixTouchBounds()
@@ -44,8 +44,8 @@ namespace Intruders.logic
 
         public override void CollidedWith(ISpriteLogic i_SpriteLogic)
         {
-            if (i_SpriteLogic.Type == eSpriteType.Bullet ||
-                i_SpriteLogic.Type == eSpriteType.Bomb)
+            if(i_SpriteLogic.Type == eSpriteType.Bullet ||
+               i_SpriteLogic.Type == eSpriteType.Bomb)
             {
                 ViewFactory.PlayCue("BarrierHit");
             }
@@ -58,9 +58,9 @@ namespace Intruders.logic
 
         private void clearPixelsOn(Color[] pixels, Rectangle rectangle)
         {
-            for (int x = rectangle.Left; x < rectangle.Height + rectangle.Left; x++)
+            for(int x = rectangle.Left; x < rectangle.Height + rectangle.Left; x++)
             {
-                for (int y = rectangle.Top; y < rectangle.Width + rectangle.Top; y++)
+                for(int y = rectangle.Top; y < rectangle.Width + rectangle.Top; y++)
                 {
                     int offset = (x * Bounds.Width) + y;
                     if(offset < pixels.Length && offset >= 0)

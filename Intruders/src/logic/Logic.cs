@@ -18,12 +18,12 @@ namespace Intruders.logic
             get { return r_ViewFactory; }
         }
 
-        protected IComponent View
+        #region ILogic Members
+
+        public IComponent View
         {
             get { return r_View; }
         }
-
-        #region ILogic Members
 
         public virtual void Update(GameTime i_GameTime)
         {

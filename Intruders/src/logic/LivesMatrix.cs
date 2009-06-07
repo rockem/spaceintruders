@@ -24,7 +24,7 @@ namespace Intruders.logic
                 r_GreenSouls[i] = new SmallGreenShip(ViewFactory);
             }
 
-            CreateView(ViewFactory.CreateComponent());
+            CreateView(ViewFactory.CreateComponent(null));
         }
 
         public int GreenSouls
@@ -71,7 +71,7 @@ namespace Intruders.logic
             for(int i = 0; i < m_GreenSouls; i++)
             {
                 r_GreenSouls[i].Position = new Vector2(
-                    ViewFactory.ViewWidth - (r_GreenSouls[0].Width * (i + 1)), 
+                    ViewFactory.ViewWidth - (r_GreenSouls[0].Width * (i + 1)),
                     r_BlueSouls[0].Height + 1);
             }
         }

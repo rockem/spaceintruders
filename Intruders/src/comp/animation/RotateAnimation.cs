@@ -19,10 +19,10 @@ namespace Intruders.comp.animation
         {
             base.Initialize();
 
-            m_BoundSprite.RotationOrigin = 
+            m_BoundSprite.RotationOrigin =
                 new Vector2(
-                    (m_BoundSprite as SpriteComponent).Width / 2, 
-                    (m_BoundSprite as SpriteComponent).Height / 2);
+                    (m_BoundSprite as SpriteComponent).WidthAfterScale / 2,
+                    (m_BoundSprite as SpriteComponent).HeightAfterScale / 2);
         }
 
         public override void Reset()

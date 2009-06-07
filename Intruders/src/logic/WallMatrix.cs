@@ -17,7 +17,7 @@ namespace Intruders.logic
                 r_Walls[i] = new Wall(ViewFactory);
             }
 
-            CreateView(ViewFactory.CreateComponent());
+            // CreateView(ViewFactory.CreateComponent());
         }
 
         public override void Update(GameTime i_GameTime)

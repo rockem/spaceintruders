@@ -1,4 +1,5 @@
-using GameCommon.manager;
+using GameCommon.input;
+using Infrastructure.ObjectModel.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 
@@ -7,12 +8,14 @@ namespace Intruders.comp
     internal class XNAViewFactory : IViewFactory
     {
         private readonly Game r_Game;
+        private readonly GameScreen r_Screen;
         private int m_Order = 1;
         private SoundBank m_SoundBank;
 
-        public XNAViewFactory(Game i_Game)
+        public XNAViewFactory(Game i_Game, GameScreen i_Screen)
         {
             r_Game = i_Game;
+            r_Screen = i_Screen;
         }
 
         #region IViewFactory Members
@@ -32,19 +35,25 @@ namespace Intruders.comp
             get { return (IInputManager)r_Game.Services.GetService(typeof(IInputManager)); }
         }
 
-        public ISprite CreateSpriteComponent()
+        public ISprite CreateSpriteComponent(string i_AssetName)
         {
-            return new SpriteComponent(r_Game, m_Order++);
+            SpriteComponent component = new SpriteComponent(i_AssetName, r_Game);
+            r_Screen.Add(component);
+            return component;
         }
 
         public IFontComponent CreateFontComponent()
         {
-            return new FontComponent(r_Game, m_Order++);
+            FontComponent component = new FontComponent(r_Game, m_Order++);
+            r_Screen.Add(component);
+            return component;
         }
 
-        public IComponent CreateComponent()
+        public IComponent CreateComponent(string i_AssetName)
         {
-            return new Component(r_Game, m_Order++);
+            Component component = new Component(i_AssetName, r_Game, m_Order++);
+            r_Screen.Add(component);
+            return component;
         }
 
         public void PlayCue(string cue)

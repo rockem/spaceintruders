@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using GameCommon.manager;
+using GameCommon.input;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -17,7 +17,8 @@ namespace Intruders.logic
         private int m_RemainingSouls = 3;
         private TimeSpan m_TimeLeftForNextShoot;
 
-        public Ship(IViewFactory i_Factory) : base(i_Factory)
+        public Ship(IViewFactory i_Factory, string i_AssetName)
+            : base(i_Factory, i_AssetName)
         {
             Type = eSpriteType.Ship;
         }
@@ -34,7 +35,7 @@ namespace Intruders.logic
         public override void Update(GameTime time)
         {
             int velocity = 0;
-            float currentX = ((ISprite)View).Position.X;
+            float currentX = ((ISprite)View).PositionOfOrigin.X;
             m_TimeLeftForNextShoot -= time.ElapsedGameTime;
 
             if(inputFire())
@@ -62,8 +63,8 @@ namespace Intruders.logic
                 currentX += ViewFactory.InputManager.MousePositionDelta.X;
             }
 
-            currentX = MathHelper.Clamp(currentX, 0, ViewFactory.ViewWidth - ((ISprite)View).Width);
-            ((ISprite)View).Position = new Vector2(currentX, ((ISprite)View).Position.Y);
+            currentX = MathHelper.Clamp(currentX, 0, ViewFactory.ViewWidth - ((ISprite)View).WidthAfterScale);
+            ((ISprite)View).PositionOfOrigin = new Vector2(currentX, ((ISprite)View).PositionOfOrigin.Y);
         }
 
         protected virtual bool inputFire()
@@ -94,7 +95,7 @@ namespace Intruders.logic
             {
                 ViewFactory.PlayCue("ShipShot");
                 bullet.Position = new Vector2(
-                    Position.X + ((float)Width / 2) - ((float)bullet.Width / 2),
+                    Position.X + (Width / 2) - (bullet.Width / 2),
                     Position.Y - bullet.Height);
                 bullet.Alive = true;
             }
@@ -121,8 +122,8 @@ namespace Intruders.logic
 
         protected virtual void initPosition()
         {
-            float currentY = ViewFactory.ViewHeight - (((ISprite)View).Height / 2) - 30;
-            ((ISprite)View).Position = new Vector2(0, currentY);
+            float currentY = ViewFactory.ViewHeight - (((ISprite)View).HeightAfterScale / 2) - 30;
+            ((ISprite)View).PositionOfOrigin = new Vector2(0, currentY);
         }
 
         private void buildBulletsArray()
@@ -167,7 +168,7 @@ namespace Intruders.logic
             m_RemainingSouls--;
             setNewScore(Score - 2000);
             ShipHit(this, EventArgs.Empty);
-            if (m_RemainingSouls == 0)
+            if(m_RemainingSouls == 0)
             {
                 Alive = false;
             }

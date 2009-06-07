@@ -1,7 +1,6 @@
 using System;
 using Intruders.comp.animation;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.comp
 {
@@ -10,26 +9,11 @@ namespace Intruders.comp
         private readonly FadeInAnimation m_FadingInAnimation;
         private bool m_Alive;
         private FadeOutAnimation m_FadingOutAnimation;
-        private Vector2 m_Position;
-        private float m_Scale;
-        private Texture2D m_TextureBackground;
         private TimeSpan m_TimeTillFade = TimeSpan.FromSeconds(1);
 
-        public StarComponent(Game game) : base(game)
+        public StarComponent(Game game) : base(@"Sprites\Star", game)
         {
             m_FadingInAnimation = new FadeInAnimation(this);
-        }
-
-        public Vector2 Position
-        {
-            get { return m_Position; }
-            set { m_Position = value; }
-        }
-
-        public float Scale
-        {
-            get { return m_Scale; }
-            set { m_Scale = value; }
         }
 
         public bool Alive
@@ -72,18 +56,6 @@ namespace Intruders.comp
         private void FadingAnimation_AnimationFinished(object sender, EventArgs e)
         {
             Alive = false;
-        }
-
-        protected override void LoadContent()
-        {
-            m_TextureBackground = Game.Content.Load<Texture2D>(@"Sprites\Star");
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-            SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
-            sb.Draw(m_TextureBackground, Position, null, Color, 0, Vector2.Zero, m_Scale, SpriteEffects.None, 0);
-            base.Draw(gameTime);
         }
     }
 }

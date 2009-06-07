@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 
@@ -10,11 +11,14 @@ namespace Intruders.logic
         private readonly TimeSpan r_DieDuration = TimeSpan.FromSeconds(0.5f);
         private readonly TimeSpan r_MinTimeBetweenBullets = TimeSpan.FromSeconds(0.5f);
         private readonly Random r_Random;
+        private readonly List<Rectangle> r_SourceRectangles = new List<Rectangle>();
+        private int m_CurrentRect;
         private bool m_Dying;
         private TimeSpan m_TimeLeftToDie;
         private TimeSpan m_TimeLeftToNextBullet;
 
-        public Monster(IViewFactory i_Factory) : base(i_Factory)
+        public Monster(IViewFactory i_Factory, string i_AssetName)
+            : base(i_Factory, i_AssetName)
         {
             r_Bullet = new Bullet(ViewFactory, eSpriteType.Bomb);
             r_Bullet.YVelocity = 200;
@@ -31,7 +35,7 @@ namespace Intruders.logic
             {
                 m_TimeLeftToDie -= i_GameTime.ElapsedGameTime;
                 ((ISprite)View).Scale *= 0.9f;
-                ((ISprite)View).Position = new Vector2(
+                ((ISprite)View).PositionOfOrigin = new Vector2(
                     Position.X + (Width * 0.04f),
                     Position.Y + (Height * 0.04f));
             }
@@ -58,7 +62,7 @@ namespace Intruders.logic
         private void shootBullet()
         {
             ViewFactory.PlayCue("EnemyShot");
-            r_Bullet.Position = new Vector2(Position.X + ((float)Width / 2), Position.Y + Height);
+            r_Bullet.Position = new Vector2(Position.X + (Width / 2), Position.Y + Height);
             r_Bullet.Alive = true;
         }
 
@@ -80,14 +84,24 @@ namespace Intruders.logic
 
         public void SwitchLook()
         {
-            if(CurrentAsset == 0)
+            m_CurrentRect++;
+            if(m_CurrentRect >= r_SourceRectangles.Count)
             {
-                CurrentAsset = 1;
+                m_CurrentRect = 0;
             }
-            else
-            {
-                CurrentAsset = 0;
-            }
+
+            ((ISprite)View).SourceRectangle = r_SourceRectangles[m_CurrentRect];
+        }
+
+        protected void AddSourceRectangle(Rectangle i_Rect)
+        {
+            r_SourceRectangles.Add(i_Rect);
+        }
+
+        public override void Initialize()
+        {
+            ((ISprite)View).SourceRectangle = r_SourceRectangles[m_CurrentRect];
+            base.Initialize();
         }
     }
 }

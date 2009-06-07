@@ -41,10 +41,10 @@ namespace Intruders.logic
 
         public override void Initialize()
         {
-            r_P1Score.Position = Vector2.Zero;
+            r_P1Score.PositionOfOrigin = Vector2.Zero;
             r_P1Score.Color = Color.Red;
             r_P1Score.Text = "P1 Score: " + P1Score;
-            r_P2Score.Position = new Vector2(0, r_P1Score.Height + 2);
+            r_P2Score.PositionOfOrigin = new Vector2(0, r_P1Score.Height + 2);
             r_P2Score.Color = Color.Green;
             r_P2Score.Text = "P2 Score: " + P2Score;
         }

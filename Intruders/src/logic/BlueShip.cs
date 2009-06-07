@@ -1,4 +1,4 @@
-using GameCommon.manager;
+using GameCommon.input;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -7,9 +7,9 @@ namespace Intruders.logic
 {
     internal class BlueShip : Ship
     {
-        public BlueShip(IViewFactory i_Factory) : base(i_Factory)
+        public BlueShip(IViewFactory i_Factory)
+            : base(i_Factory, "Sprites\\Ship01_32x32")
         {
-            Assets = new Asset("Sprites\\Ship01_32x32");
         }
 
         protected override bool inputFire()
@@ -30,14 +30,13 @@ namespace Intruders.logic
 
         protected override void initPosition()
         {
-            float currentY = ViewFactory.ViewHeight - (((ISprite)View).Height / 2) - 30;
-            ((ISprite)View).Position = new Vector2(0, currentY);
+            float currentY = ViewFactory.ViewHeight - (((ISprite)View).HeightAfterScale / 2) - 30;
+            ((ISprite)View).PositionOfOrigin = new Vector2(0, currentY);
         }
 
         protected override bool useMouseForMovement()
         {
             return true;
         }
-
     }
 }

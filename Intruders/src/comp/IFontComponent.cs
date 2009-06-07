@@ -6,7 +6,7 @@ namespace Intruders.comp
 {
     public interface IFontComponent
     {
-        Vector2 Position { get; set; }
+        Vector2 PositionOfOrigin { get; set; }
 
         int Height { get; }
 

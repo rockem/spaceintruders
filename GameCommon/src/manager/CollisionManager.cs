@@ -18,14 +18,14 @@ namespace GameCommon.manager
 
         protected override void RegisterAsService()
         {
-            this.Game.Services.AddService(typeof(ICollisionsManager), this);
+            Game.Services.AddService(typeof(ICollisionsManager), this);
         }
 
         public void AddObjectToMonitor(ICollidable i_Collidable)
         {
-            if (!this.m_Collidables.Contains(i_Collidable))
+            if (!m_Collidables.Contains(i_Collidable))
             {
-                this.m_Collidables.Add(i_Collidable);
+                m_Collidables.Add(i_Collidable);
                 i_Collidable.PositionChanged += collidable_PositionChanged;
                 i_Collidable.Disposed += collidable_Disposed;
             }
@@ -33,10 +33,7 @@ namespace GameCommon.manager
 
         private void collidable_PositionChanged(object i_Collidable)
         {
-            if (i_Collidable is ICollidable)
-            {// to be on the safe side :)
-                CheckCollision(i_Collidable as ICollidable);
-            }
+            CheckCollision(i_Collidable as ICollidable);
         }
 
         private void collidable_Disposed(object sender, EventArgs e)

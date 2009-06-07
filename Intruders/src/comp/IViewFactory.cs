@@ -1,4 +1,4 @@
-using GameCommon.manager;
+using GameCommon.input;
 
 namespace Intruders.comp
 {
@@ -10,11 +10,11 @@ namespace Intruders.comp
 
         IInputManager InputManager { get; }
 
-        ISprite CreateSpriteComponent();
+        ISprite CreateSpriteComponent(string i_AssetName);
 
         IFontComponent CreateFontComponent();
 
-        IComponent CreateComponent();
+        IComponent CreateComponent(string i_AssetName);
 
         void PlayCue(string cue);
     }

@@ -6,14 +6,13 @@ namespace Intruders.logic
 {
     internal class BlueMonster : Monster
     {
-        public BlueMonster(IViewFactory i_Factory) : base(i_Factory)
+        public BlueMonster(IViewFactory i_Factory)
+            : base(i_Factory, @"Sprites\Enemies_96x64")
         {
-            Assets = new Asset("Sprites\\Enemies_96x64");
-            Assets.addBounds(new Rectangle(32, 0, 32, 32));
-            Assets.addBounds(new Rectangle(32, 32, 32, 32));
-
             Color = Color.LightBlue;
             Score = 200;
+            AddSourceRectangle(new Rectangle(32, 0, 32, 32));
+            AddSourceRectangle(new Rectangle(32, 32, 32, 32));
         }
 
         protected override void PlayKillCue()

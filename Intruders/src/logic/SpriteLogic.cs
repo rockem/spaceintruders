@@ -17,9 +17,9 @@ namespace Intruders.logic
         private int m_XVelocity;
         private int m_YVelocity;
 
-        protected SpriteLogic(IViewFactory i_Factory) : base(i_Factory)
+        protected SpriteLogic(IViewFactory i_Factory, string i_AssetName) : base(i_Factory)
         {
-            CreateView(ViewFactory.CreateSpriteComponent());
+            CreateView(ViewFactory.CreateSpriteComponent(i_AssetName));
         }
 
         public Color Color
@@ -28,20 +28,20 @@ namespace Intruders.logic
             set { ((ISprite)View).Color = value; }
         }
 
-        public int Width
+        public float Width
         {
-            get { return ((ISprite)View).Width; }
+            get { return ((ISprite)View).WidthAfterScale; }
         }
 
-        public int Height
+        public float Height
         {
-            get { return ((ISprite)View).Height; }
+            get { return ((ISprite)View).HeightAfterScale; }
         }
 
         public Vector2 Position
         {
-            get { return ((ISprite)View).Position; }
-            set { ((ISprite)View).Position = value; }
+            get { return ((ISprite)View).PositionOfOrigin; }
+            set { ((ISprite)View).PositionOfOrigin = value; }
         }
 
         public bool Alive
@@ -52,19 +52,6 @@ namespace Intruders.logic
                 m_Alive = value;
                 ((ISprite)View).Enabled = value;
                 ((ISprite)View).Visible = value;
-            }
-        }
-
-        public Asset Assets
-        {
-            get { return m_Assets; }
-            set
-            {
-                m_Assets = value;
-                if(View != null)
-                {
-                    (View as ISprite).Assets = m_Assets;
-                }
             }
         }
 
@@ -122,6 +109,5 @@ namespace Intruders.logic
         }
 
         #endregion
-
     }
 }

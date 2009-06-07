@@ -6,13 +6,13 @@ namespace Intruders.logic
 {
     public class Bullet : SpriteLogic
     {
-        private float m_NumberOfSteps;
         private bool m_InsideWall;
+        private float m_NumberOfSteps;
         private Vector2 m_SavePos;
 
-        public Bullet(IViewFactory i_Factory, eSpriteType i_Type) : base(i_Factory)
+        public Bullet(IViewFactory i_Factory, eSpriteType i_Type)
+            : base(i_Factory, @"Sprites\Bullet")
         {
-            Assets = new Asset("Sprites\\Bullet");
             Alive = false;
             Type = i_Type;
             BulletHit += Bullet_Dummy;
@@ -53,11 +53,11 @@ namespace Intruders.logic
 
             if(i_SpriteLogic.Type == eSpriteType.Wall)
             {
-                if (!m_InsideWall)
+                if(!m_InsideWall)
                 {
                     m_SavePos = Position;
                     m_InsideWall = true;
-                } 
+                }
                 else
                 {
                     m_NumberOfSteps -= Math.Abs(Position.Y - m_SavePos.Y);
@@ -75,6 +75,5 @@ namespace Intruders.logic
             Score = i_SpriteLogic.Score;
             BulletHit(this, EventArgs.Empty);
         }
-
     }
 }

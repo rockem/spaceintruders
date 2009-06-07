@@ -55,14 +55,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\animation\AnimationsManager.cs" />
+    <Compile Include="src\animation\types\BlinkAnimation.cs" />
+    <Compile Include="src\animation\types\CelAnimation.cs" />
+    <Compile Include="src\animation\types\FadeAnimation.cs" />
+    <Compile Include="src\animation\types\PulseAnimation.cs" />
+    <Compile Include="src\animation\types\RotationAnimation.cs" />
+    <Compile Include="src\animation\types\SequencialAnimations.cs" />
+    <Compile Include="src\animation\SpriteAnimation.cs" />
+    <Compile Include="src\animation\types\WaypointsAnymation.cs" />
+    <Compile Include="src\input\DummyInputManager.cs" />
     <Compile Include="src\manager\CollisionManager.cs" />
     <Compile Include="src\manager\ICollidable.cs" />
     <Compile Include="src\manager\ICollidable2D.cs" />
     <Compile Include="src\manager\ICollisionsManager.cs" />
-    <Compile Include="src\manager\IInputManager.cs" />
-    <Compile Include="src\manager\xna\XNAInputManager.cs" />
+    <Compile Include="src\input\IInputManager.cs" />
+    <Compile Include="src\manager\ScreenManager.cs" />
+    <Compile Include="src\input\XNAInputManager.cs" />
+    <Compile Include="src\screen\GameScreen.cs" />
+    <Compile Include="src\screen\IScreenManager.cs" />
+    <Compile Include="src\comp\CompositeDrawableComponent.cs" />
     <Compile Include="src\service\GameService.cs" />
+    <Compile Include="src\comp\LoadableDrawableComponent.cs" />
     <Compile Include="src\service\RegisteredComponent.cs" />
+    <Compile Include="src\comp\Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
     <NestedContentProject Include="Content\Content.contentproj">

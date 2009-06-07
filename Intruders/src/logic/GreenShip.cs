@@ -6,9 +6,9 @@ namespace Intruders.logic
 {
     internal class GreenShip : Ship
     {
-        public GreenShip(IViewFactory i_Factory) : base(i_Factory)
+        public GreenShip(IViewFactory i_Factory)
+            : base(i_Factory, @"Sprites\Ship02_32x32")
         {
-            Assets = new Asset("Sprites\\Ship02_32x32");
         }
 
         protected override bool inputFire()
@@ -28,8 +28,8 @@ namespace Intruders.logic
 
         protected override void initPosition()
         {
-            float currentY = ViewFactory.ViewHeight - (((ISprite)View).Height / 2) - 30;
-            ((ISprite)View).Position = new Vector2(((ISprite)View).Width, currentY);
+            float currentY = ViewFactory.ViewHeight - (((ISprite)View).HeightAfterScale / 2) - 30;
+            ((ISprite)View).PositionOfOrigin = new Vector2(((ISprite)View).WidthAfterScale, currentY);
         }
     }
 }

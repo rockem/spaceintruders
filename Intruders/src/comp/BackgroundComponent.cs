@@ -1,19 +1,23 @@
 using System;
+using GameCommon.comp;
+using Infrastructure.ObjectModel.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.comp
 {
-    internal class BackgroundComponent : LoadableDrawableComponent
+    internal class BackgroundComponent : Sprite
     {
         private readonly Random r_Random = new Random();
-        private readonly StarComponent[,] r_Stars = new StarComponent[2, 50];
+        private readonly GameScreen r_Screen;
+        private readonly StarComponent[,] r_Stars = new StarComponent[2,50];
         private int m_CurrentSet;
-        private Texture2D m_TextureBackground;
         private TimeSpan m_TimeToSwitch = TimeSpan.FromSeconds(1);
 
-        public BackgroundComponent(Game game) : base(game)
+        public BackgroundComponent(Game game, GameScreen i_Screen)
+            : base(@"Sprites\BG_Space01_1024x768", game)
         {
+            r_Screen = i_Screen;
         }
 
         public override void Initialize()
@@ -21,17 +25,13 @@ namespace Intruders.comp
             for(int i = 0; i < 50; i++)
             {
                 r_Stars[0, i] = new StarComponent(Game);
+                r_Screen.Add(r_Stars[0, i]);
                 r_Stars[1, i] = new StarComponent(Game);
+                r_Screen.Add(r_Stars[1, i]);
             }
 
             base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            m_TextureBackground = Game.Content.Load<Texture2D>(@"Sprites\BG_Space01_1024x768");
             positionStars();
-            base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
@@ -63,7 +63,7 @@ namespace Intruders.comp
         {
             for(int i = 0; i < 50; i++)
             {
-                r_Stars[m_CurrentSet, i].Position = getRandomPlace();
+                r_Stars[m_CurrentSet, i].PositionOfOrigin = getRandomPlace();
                 r_Stars[m_CurrentSet, i].Scale = r_Random.Next(6) + 1;
                 r_Stars[m_CurrentSet, i].Alive = true;
             }
@@ -77,20 +77,20 @@ namespace Intruders.comp
             float y = 0;
             while(retrievedColor[0] != Color.Black)
             {
-                int place = r_Random.Next(m_TextureBackground.Width * 500);
-                x = place % m_TextureBackground.Width;
-                y = place / m_TextureBackground.Width;
-                m_TextureBackground.GetData(0, new Rectangle((int)x, (int)y, 1, 1), retrievedColor, 0, 1);
+                int place = r_Random.Next(Texture.Width * 500);
+                x = place % Texture.Width;
+                y = place / Texture.Width;
+                Texture.GetData(0, new Rectangle((int)x, (int)y, 1, 1), retrievedColor, 0, 1);
             }
 
             return new Vector2(x, y);
         }
 
-        public override void Draw(GameTime gameTime)
+        /*public override void Draw(GameTime gameTime)
         {
             SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
             sb.Draw(m_TextureBackground, Vector2.Zero, Color.Brown);
             base.Draw(gameTime);
-        }
+        }*/
     }
 }

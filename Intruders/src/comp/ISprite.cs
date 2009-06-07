@@ -5,15 +5,15 @@ namespace Intruders.comp
 {
     public interface ISprite : IComponent
     {
+        float WidthAfterScale { get; }
+
+        float HeightAfterScale { get; }
+
         bool Enabled { get; set; }
 
         bool Visible { get; set; }
 
-        int Width { get; }
-
-        int Height { get; }
-
-        Vector2 Position { get; set; }
+        Vector2 PositionOfOrigin { get; set; }
 
         Color Color { get; set; }
 
@@ -23,7 +23,7 @@ namespace Intruders.comp
 
         Color[] Pixels { get; set; }
 
-        Asset Assets { get; set; }
+        Rectangle SourceRectangle { get; set; }
 
         void StartAnimation();
     }
