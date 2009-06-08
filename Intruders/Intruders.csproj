@@ -64,7 +64,7 @@
     <Compile Include="src\comp\animation\FadeOutAnimation.cs" />
     <Compile Include="src\comp\animation\RotateAnimation.cs" />
     <Compile Include="src\comp\Asset.cs" />
-    <Compile Include="src\comp\BackgroundComponent.cs" />
+    <Compile Include="src\comp\StaryBackground.cs" />
     <Compile Include="src\comp\BackgroundSprite.cs" />
     <Compile Include="src\comp\Component.cs" />
     <Compile Include="src\comp\eSpriteType.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="src\logic\YellowMonster.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\MarsIntruders.cs" />
+    <Compile Include="src\screen\GameOverScreen.cs" />
     <Compile Include="src\screen\PauseScreen.cs" />
     <Compile Include="src\screen\PlayScreen.cs" />
     <Compile Include="src\screen\WelcomeScreen.cs" />

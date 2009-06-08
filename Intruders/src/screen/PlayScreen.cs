@@ -27,7 +27,7 @@ namespace Intruders.screen
         private SoundBank m_SoundBank;
         private WaveBank m_WaveBank;
         private SpriteBatch r_SpriteBatch;
-        private PauseScreen r_PauseScreen;
+        private readonly PauseScreen r_PauseScreen;
 
         public PlayScreen(Game i_Game) : base(i_Game)
         {
@@ -35,8 +35,7 @@ namespace Intruders.screen
 
             r_PauseScreen = new PauseScreen(i_Game);
             new CollisionsManager(Game);
-            BackgroundComponent bg = new BackgroundComponent(Game, this);
-            Add(bg);
+            Add(new StaryBackground(Game, this));
 
             r_Score = new ScoreDisplay(r_Factory);
 

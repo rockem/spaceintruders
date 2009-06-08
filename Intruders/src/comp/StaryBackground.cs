@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.comp
 {
-    internal class BackgroundComponent : Sprite
+    internal class StaryBackground : Sprite
     {
         private readonly Random r_Random = new Random();
         private readonly GameScreen r_Screen;
@@ -14,7 +14,7 @@ namespace Intruders.comp
         private int m_CurrentSet;
         private TimeSpan m_TimeToSwitch = TimeSpan.FromSeconds(1);
 
-        public BackgroundComponent(Game game, GameScreen i_Screen)
+        public StaryBackground(Game game, GameScreen i_Screen)
             : base(@"Sprites\BG_Space01_1024x768", game)
         {
             r_Screen = i_Screen;

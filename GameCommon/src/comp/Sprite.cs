@@ -294,7 +294,7 @@ namespace GameCommon.comp
 
             base.Update(gameTime);
 
-            // this.Animations.Animate(gameTime);
+            this.Animations.Animate(gameTime);
         }
 
         protected float m_LayerDepth;

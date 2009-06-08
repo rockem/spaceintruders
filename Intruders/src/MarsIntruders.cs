@@ -49,8 +49,8 @@ namespace Intruders
             r_Monsters.MatrixChanged += MarsIntruders_MatrixChanged;*/
 
             ScreensMananger screensMananger = new ScreensMananger(this);
-            screensMananger.Push(new WelcomeScreen(this));
-            screensMananger.SetCurrentScreen(new PlayScreen(this));
+            screensMananger.Push(new PlayScreen(this));
+            screensMananger.SetCurrentScreen(new WelcomeScreen(this));
         }
 
         private void MarsIntruders_ScoreChanged(object sender, EventArgs e)
