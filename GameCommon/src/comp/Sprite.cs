@@ -1,5 +1,5 @@
+using GameCommon.animation;
 using GameCommon.manager;
-using Infrastructure.ObjectModel.Animations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -90,13 +90,13 @@ namespace GameCommon.comp
 
         public Vector2 PositionForDraw
         {
-            get { return this.PositionOfOrigin - this.PositionOrigin + this.RotationOrigin; }
+            get { return PositionOfOrigin - PositionOrigin + RotationOrigin; }
         }
 
         public Vector2 TopLeftPosition
         {
-            get { return this.PositionOfOrigin - this.PositionOrigin; }
-            set { this.PositionOfOrigin = value + this.PositionOrigin; }
+            get { return PositionOfOrigin - PositionOrigin; }
+            set { PositionOfOrigin = value + PositionOrigin; }
         }
 
         public Rectangle ScreenBoundsAfterScale
@@ -106,8 +106,8 @@ namespace GameCommon.comp
                 return new Rectangle(
                     (int)TopLeftPosition.X,
                     (int)TopLeftPosition.Y,
-                    (int)this.WidthAfterScale,
-                    (int)this.HeightAfterScale);
+                    (int)WidthAfterScale,
+                    (int)HeightAfterScale);
             }
         }
 
@@ -118,8 +118,8 @@ namespace GameCommon.comp
                 return new Rectangle(
                     (int)TopLeftPosition.X,
                     (int)TopLeftPosition.Y,
-                    (int)this.WidthBeforeScale,
-                    (int)this.HeightBeforeScale);
+                    (int)WidthBeforeScale,
+                    (int)HeightBeforeScale);
             }
         }
 
@@ -137,7 +137,7 @@ namespace GameCommon.comp
                 if (m_SourceRectangle != value)
                 {
                     m_SourceRectangle = value;
-                    this.WidthBeforeScale = m_SourceRectangle.Width;
+                    WidthBeforeScale = m_SourceRectangle.Width;
                     HeightBeforeScale = m_SourceRectangle.Height;
                 }
             }
@@ -171,7 +171,7 @@ namespace GameCommon.comp
         }
 
         protected Color m_TintColor = Color.White;
-        public Color Color
+        public Color TintColor
         {
             get { return m_TintColor; }
             set
@@ -255,6 +255,13 @@ namespace GameCommon.comp
             base.LoadContent();
         }
 
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            m_Animations = new AnimationsManager(this);
+        }
+
         protected override void InitBounds()
         {
             if (AssetName != null)
@@ -307,7 +314,7 @@ namespace GameCommon.comp
             if (AssetName != null)
             {
                 SpriteBatch.Draw(m_Texture, this.PositionForDraw,
-                                 this.SourceRectangle, this.Color,
+                                 this.SourceRectangle, this.TintColor,
                                  this.Rotation, this.RotationOrigin, this.Scale,
                                  SpriteEffects.None, this.LayerDepth);
             }

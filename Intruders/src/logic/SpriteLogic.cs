@@ -24,8 +24,8 @@ namespace Intruders.logic
 
         public Color Color
         {
-            get { return ((ISprite)View).Color; }
-            set { ((ISprite)View).Color = value; }
+            get { return ((ISprite)View).TintColor; }
+            set { ((ISprite)View).TintColor = value; }
         }
 
         public float Width

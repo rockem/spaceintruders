@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using GameCommon.comp;
+using Infrastructure.ObjectModel.Animations;
 using Microsoft.Xna.Framework;
 
-namespace Infrastructure.ObjectModel.Animations
+namespace GameCommon.animation
 {
     public class AnimationsManager : SpriteAnimation
     {

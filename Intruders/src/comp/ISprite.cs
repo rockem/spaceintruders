@@ -15,7 +15,7 @@ namespace Intruders.comp
 
         Vector2 PositionOfOrigin { get; set; }
 
-        Color Color { get; set; }
+        Color TintColor { get; set; }
 
         float Scale { get; set; }
 

@@ -138,7 +138,7 @@ namespace Intruders.comp
                 r_Texture, 
                 PositionOfOrigin, 
                 m_Asset.GetBoundsAt(m_CurrentAsset), 
-                Color, 
+                TintColor, 
                 Rotation, 
                 Vector2.Zero, 
                 m_Scale,

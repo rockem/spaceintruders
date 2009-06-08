@@ -12,7 +12,7 @@ namespace Intruders.comp
 
         ISprite CreateSpriteComponent(string i_AssetName);
 
-        IFontComponent CreateFontComponent();
+        IFontComponent CreateFontComponent(string i_FontName);
 
         IComponent CreateComponent(string i_AssetName);
 

@@ -99,6 +99,7 @@
     <Compile Include="src\logic\YellowMonster.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\MarsIntruders.cs" />
+    <Compile Include="src\screen\PauseScreen.cs" />
     <Compile Include="src\screen\PlayScreen.cs" />
     <Compile Include="src\screen\WelcomeScreen.cs" />
   </ItemGroup>

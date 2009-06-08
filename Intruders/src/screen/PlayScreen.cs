@@ -7,6 +7,7 @@ using Intruders.logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Keys=Microsoft.Xna.Framework.Input.Keys;
 
 namespace Intruders.screen
 {
@@ -26,11 +27,13 @@ namespace Intruders.screen
         private SoundBank m_SoundBank;
         private WaveBank m_WaveBank;
         private SpriteBatch r_SpriteBatch;
+        private PauseScreen r_PauseScreen;
 
         public PlayScreen(Game i_Game) : base(i_Game)
         {
             r_Factory = new XNAViewFactory(Game, this);
 
+            r_PauseScreen = new PauseScreen(i_Game);
             new CollisionsManager(Game);
             BackgroundComponent bg = new BackgroundComponent(Game, this);
             Add(bg);
@@ -139,13 +142,6 @@ namespace Intruders.screen
             return r_BlueShip.Souls > 0 && r_Monsters.GetNumberOfMonstersAlive() == 0;
         }
 
-        public override void Initialize()
-        {
-            base.Initialize();
-            /*r_SpriteBatch = new SpriteBatch(GraphicsDevice);
-            Game.Services.AddService(typeof(SpriteBatch), r_SpriteBatch);*/
-        }
-
         public override void Update(GameTime gameTime)
         {
             if(m_GameOver)
@@ -154,15 +150,13 @@ namespace Intruders.screen
                 Game.Exit();
             }
 
-            sailMotherShipIfPossible();
+            sailMotherShipIfPossible(); 
+            if (InputManager.KeyPressed(Keys.P))
+            {
+                ScreensManager.SetCurrentScreen(r_PauseScreen);
+            }
             base.Update(gameTime);
         }
 
-        /*public override void Draw(GameTime gameTime)
-        {
-            r_SpriteBatch.Begin();
-            base.Draw(gameTime);
-            r_SpriteBatch.End();
-        }*/
     }
 }

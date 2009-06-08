@@ -42,9 +42,9 @@ namespace Intruders.comp
             return component;
         }
 
-        public IFontComponent CreateFontComponent()
+        public IFontComponent CreateFontComponent(string i_Font)
         {
-            FontComponent component = new FontComponent(r_Game, m_Order++);
+            FontComponent component = new FontComponent(i_Font, r_Game, m_Order++);
             r_Screen.Add(component);
             return component;
         }

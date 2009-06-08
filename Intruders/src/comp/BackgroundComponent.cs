@@ -89,7 +89,7 @@ namespace Intruders.comp
         /*public override void Draw(GameTime gameTime)
         {
             SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
-            sb.Draw(m_TextureBackground, Vector2.Zero, Color.Brown);
+            sb.Draw(m_TextureBackground, Vector2.Zero, TintColor.Brown);
             base.Draw(gameTime);
         }*/
     }

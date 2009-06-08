@@ -10,7 +10,9 @@ namespace Intruders.comp
 
         int Height { get; }
 
-        Color Color { get; set; }
+        int Width { get; }
+
+        Color TintColor { get; set; }
 
         string Text { get; set; }
 

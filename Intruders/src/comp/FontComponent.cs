@@ -6,11 +6,12 @@ namespace Intruders.comp
     public class FontComponent : Component, IFontComponent
     {
         private SpriteFont m_Font;
-        private Vector2 m_Position;
         private string m_Text;
+        private readonly string r_FontName;
 
-        public FontComponent(Game game, int i_UpdateOrder) : base(null, game, i_UpdateOrder)
+        public FontComponent(string i_FontName, Game i_Game, int i_UpdateOrder) : base(null, i_Game, i_UpdateOrder)
         {
+            r_FontName = i_FontName;
         }
 
         #region IFontComponent Members
@@ -26,11 +27,16 @@ namespace Intruders.comp
             get { return (int)m_Font.MeasureString(Text).Y; }
         }
 
+        public int Width
+        {
+            get { return (int)m_Font.MeasureString(Text).X; }
+        }
+
         #endregion
 
         protected override void LoadContent()
         {
-            m_Font = Game.Content.Load<SpriteFont>(@"Fonts\ScoreFont");
+            m_Font = Game.Content.Load<SpriteFont>(r_FontName);
             base.LoadContent();
         }
 
@@ -41,7 +47,7 @@ namespace Intruders.comp
         public override void Draw(GameTime gameTime)
         {
             //SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
-            SpriteBatch.DrawString(m_Font, Text, PositionOfOrigin, Color);
+            SpriteBatch.DrawString(m_Font, Text, PositionOfOrigin, TintColor);
             base.Draw(gameTime);
         }
     }
