@@ -46,7 +46,6 @@ namespace Intruders.comp
 
         public override void Draw(GameTime gameTime)
         {
-            //SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
             SpriteBatch.DrawString(m_Font, Text, PositionOfOrigin, TintColor);
             base.Draw(gameTime);
         }

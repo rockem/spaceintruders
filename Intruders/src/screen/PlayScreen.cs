@@ -1,12 +1,11 @@
 using System;
 using System.Windows.Forms;
 using GameCommon.manager;
-using Infrastructure.ObjectModel.Screens;
+using GameCommon.screen;
 using Intruders.comp;
 using Intruders.logic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
 using Keys=Microsoft.Xna.Framework.Input.Keys;
 
 namespace Intruders.screen
@@ -21,19 +20,16 @@ namespace Intruders.screen
         private readonly MotherShip r_MotherShip;
         private readonly Random r_Random = new Random();
         private readonly ScoreDisplay r_Score;
-        private AudioEngine m_AudioEngine;
         private bool m_GameOver;
-        private Cue m_Music;
-        private SoundBank m_SoundBank;
-        private WaveBank m_WaveBank;
-        private SpriteBatch r_SpriteBatch;
         private readonly PauseScreen r_PauseScreen;
+        private LevelScreen r_LevelScreen;
 
         public PlayScreen(Game i_Game) : base(i_Game)
         {
             r_Factory = new XNAViewFactory(Game, this);
 
             r_PauseScreen = new PauseScreen(i_Game);
+            r_LevelScreen = new LevelScreen(i_Game);
             new CollisionsManager(Game);
             Add(new StaryBackground(Game, this));
 
@@ -94,28 +90,6 @@ namespace Intruders.screen
             }
         }
 
-        protected override void LoadContent()
-        {
-            m_AudioEngine = new AudioEngine(@"Content\Audio\GameSounds.xgs");
-            m_WaveBank = new WaveBank(m_AudioEngine, @"Content\Audio\Wave Bank.xwb");
-            m_SoundBank = new SoundBank(m_AudioEngine, @"Content\Audio\Sound Bank.xsb");
-            r_Factory.SetSoundBank(m_SoundBank);
-
-            m_Music = m_SoundBank.GetCue("BGMusic");
-
-            m_Music.Play();
-
-            base.LoadContent();
-        }
-
-        protected override void UnloadContent()
-        {
-            m_AudioEngine.Dispose();
-            m_WaveBank.Dispose();
-            m_SoundBank.Dispose();
-            base.UnloadContent();
-        }
-
         private void sailMotherShipIfPossible()
         {
             if(r_Random.Next(2000) == 1329 && !r_MotherShip.Alive)
@@ -143,6 +117,7 @@ namespace Intruders.screen
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             if(m_GameOver)
             {
                 DisplayScoreMessage();
@@ -154,7 +129,6 @@ namespace Intruders.screen
             {
                 ScreensManager.SetCurrentScreen(r_PauseScreen);
             }
-            base.Update(gameTime);
         }
 
     }

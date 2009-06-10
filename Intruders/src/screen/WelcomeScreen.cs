@@ -1,7 +1,7 @@
 using System;
 using GameCommon.comp;
+using GameCommon.screen;
 using Infrastructure.ObjectModel.Animations.ConcreteAnimations;
-using Infrastructure.ObjectModel.Screens;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -17,7 +17,7 @@ namespace Intruders.screen
         public WelcomeScreen(Game i_Game) : base(i_Game)
         {
             r_Factory = new XNAViewFactory(i_Game, this);
-            Add(new Sprite(@"Sprites\BG_Space01_1024x768", Game));
+            Add(new Background(Game));
             r_WelcomeMessage = new Sprite(@"Sprites\MarsIntruders", i_Game);
             Add(r_WelcomeMessage);
             r_Instructions = createInstructions();

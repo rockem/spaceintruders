@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using GameCommon.comp;
 using GameCommon.screen;
-using Infrastructure.ObjectModel.Screens;
 using Microsoft.Xna.Framework;
 
 namespace GameCommon.manager

@@ -1,4 +1,4 @@
-using Infrastructure.ObjectModel.Screens;
+using GameCommon.screen;
 using Microsoft.Xna.Framework;
 
 namespace Intruders.screen

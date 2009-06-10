@@ -1,5 +1,3 @@
-using Infrastructure.ObjectModel.Screens;
-
 namespace GameCommon.screen
 {
     public interface IScreensMananger

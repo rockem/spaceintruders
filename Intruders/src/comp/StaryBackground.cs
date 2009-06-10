@@ -1,12 +1,11 @@
 using System;
-using GameCommon.comp;
-using Infrastructure.ObjectModel.Screens;
+using GameCommon.screen;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.comp
 {
-    internal class StaryBackground : Sprite
+    internal class StaryBackground : Background
     {
         private readonly Random r_Random = new Random();
         private readonly GameScreen r_Screen;
@@ -15,7 +14,7 @@ namespace Intruders.comp
         private TimeSpan m_TimeToSwitch = TimeSpan.FromSeconds(1);
 
         public StaryBackground(Game game, GameScreen i_Screen)
-            : base(@"Sprites\BG_Space01_1024x768", game)
+            : base(game)
         {
             r_Screen = i_Screen;
         }
@@ -86,11 +85,5 @@ namespace Intruders.comp
             return new Vector2(x, y);
         }
 
-        /*public override void Draw(GameTime gameTime)
-        {
-            SpriteBatch sb = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
-            sb.Draw(m_TextureBackground, Vector2.Zero, TintColor.Brown);
-            base.Draw(gameTime);
-        }*/
     }
 }

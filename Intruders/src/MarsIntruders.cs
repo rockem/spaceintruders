@@ -30,10 +30,11 @@ namespace Intruders
 
         public MarsIntruders()
         {
-            new GraphicsDeviceManager(this);
+            GraphicsDeviceManager deviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
             new InputManager(this);
+            new SoundManager(this);
 
             /*r_Score = new ScoreDisplay(r_Factory);
             r_BlueShip = new BlueShip(r_Factory);
@@ -50,6 +51,8 @@ namespace Intruders
 
             ScreensMananger screensMananger = new ScreensMananger(this);
             screensMananger.Push(new PlayScreen(this));
+            screensMananger.Push(new LevelScreen(this));
+            screensMananger.Push(new MenuScreen(this, deviceManager));
             screensMananger.SetCurrentScreen(new WelcomeScreen(this));
         }
 

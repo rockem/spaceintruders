@@ -241,7 +241,7 @@ namespace GameCommon.comp
         }
 
         public Sprite(string i_AssetName, Game i_Game)
-           : base(i_Game, int.MinValue)
+           : base(i_Game, int.MaxValue)
         {
             AssetName = i_AssetName;
         }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using GameCommon.comp;
 using GameCommon.input;
-using GameCommon.screen;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Infrastructure.ObjectModel.Screens
+namespace GameCommon.screen
 {
     public abstract class GameScreen
         : CompositeDrawableComponent<IGameComponent>
@@ -179,7 +178,7 @@ namespace Infrastructure.ObjectModel.Screens
 
         public void FadeBackBufferToBlack(byte i_Alpha)
         {
-            Viewport viewport = this.GraphicsDevice.Viewport;
+            Viewport viewport = GraphicsDevice.Viewport;
 
             Texture2D background = UseGradientBackground ? m_GradientTexture : m_BlankTexture;
 

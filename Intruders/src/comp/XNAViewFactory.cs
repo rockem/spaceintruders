@@ -1,5 +1,5 @@
 using GameCommon.input;
-using Infrastructure.ObjectModel.Screens;
+using GameCommon.screen;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 
@@ -58,7 +58,8 @@ namespace Intruders.comp
 
         public void PlayCue(string cue)
         {
-            m_SoundBank.GetCue(cue).Play();
+            ((SoundManager)r_Game.Services.GetService(typeof(SoundManager))).PlayCue(cue);
+            // m_SoundBank.GetCue(cue).Play();
         }
 
         #endregion

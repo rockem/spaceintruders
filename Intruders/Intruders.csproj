@@ -59,13 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\GameOptions.cs" />
     <Compile Include="src\comp\animation\Animation.cs" />
     <Compile Include="src\comp\animation\FadeInAnimation.cs" />
     <Compile Include="src\comp\animation\FadeOutAnimation.cs" />
     <Compile Include="src\comp\animation\RotateAnimation.cs" />
     <Compile Include="src\comp\Asset.cs" />
     <Compile Include="src\comp\StaryBackground.cs" />
-    <Compile Include="src\comp\BackgroundSprite.cs" />
+    <Compile Include="src\comp\Background.cs" />
     <Compile Include="src\comp\Component.cs" />
     <Compile Include="src\comp\eSpriteType.cs" />
     <Compile Include="src\comp\FontComponent.cs" />
@@ -97,12 +98,37 @@
     <Compile Include="src\logic\Wall.cs" />
     <Compile Include="src\logic\WallMatrix.cs" />
     <Compile Include="src\logic\YellowMonster.cs" />
+    <Compile Include="src\menu\eMenu.cs" />
+    <Compile Include="src\menu\IMenu.cs" />
+    <Compile Include="src\menu\items\Done.cs" />
+    <Compile Include="src\menu\items\EffectsVolume.cs" />
+    <Compile Include="src\menu\items\FullScreenMode.cs" />
+    <Compile Include="src\menu\items\IMenuItem.cs" />
+    <Compile Include="src\menu\items\MouseVisability.cs" />
+    <Compile Include="src\menu\items\MusicVolume.cs" />
+    <Compile Include="src\menu\items\NumberOfPlayers.cs" />
+    <Compile Include="src\menu\items\Play.cs" />
+    <Compile Include="src\menu\items\Quit.cs" />
+    <Compile Include="src\menu\items\ScreenOptions.cs" />
+    <Compile Include="src\menu\items\SoundOptions.cs" />
+    <Compile Include="src\menu\items\ToggleSound.cs" />
+    <Compile Include="src\menu\items\WindowResizing.cs" />
+    <Compile Include="src\menu\MainMenu.cs" />
+    <Compile Include="src\menu\items\MenuItem.cs" />
+    <Compile Include="src\menu\MenuEventListener.cs" />
+    <Compile Include="src\menu\MenuManager.cs" />
+    <Compile Include="src\menu\ScreenOptionsMenu.cs" />
+    <Compile Include="src\menu\SoundOptionsMenu.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\MarsIntruders.cs" />
+    <Compile Include="src\screen\GameEventListener.cs" />
     <Compile Include="src\screen\GameOverScreen.cs" />
+    <Compile Include="src\screen\LevelScreen.cs" />
+    <Compile Include="src\screen\MenuScreen.cs" />
     <Compile Include="src\screen\PauseScreen.cs" />
     <Compile Include="src\screen\PlayScreen.cs" />
     <Compile Include="src\screen\WelcomeScreen.cs" />
+    <Compile Include="src\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

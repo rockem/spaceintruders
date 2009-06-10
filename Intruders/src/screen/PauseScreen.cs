@@ -1,5 +1,5 @@
 using GameCommon.comp;
-using Infrastructure.ObjectModel.Screens;
+using GameCommon.screen;
 using Intruders.comp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
