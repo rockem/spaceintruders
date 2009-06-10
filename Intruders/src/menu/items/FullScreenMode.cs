@@ -2,7 +2,7 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class FullScreenMode : MenuItem
+    internal class FullScreenMode : MenuItem
     {
         public FullScreenMode(GameEventListener i_Listener) : base(i_Listener)
         {
@@ -22,6 +22,5 @@ namespace Intruders.menu.items
         {
             GameListener().ToggleFullScreen();
         }
-
     }
 }

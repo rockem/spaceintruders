@@ -4,8 +4,10 @@ using Intruders.screen;
 
 namespace Intruders.menu
 {
-    class ScreenOptionsMenu : IMenu
+    internal class ScreenOptionsMenu : IMenu
     {
+        #region IMenu Members
+
         public List<IMenuItem> CreateMenuList(GameEventListener i_MenuManager)
         {
             List<IMenuItem> menuItems = new List<IMenuItem>();
@@ -20,5 +22,7 @@ namespace Intruders.menu
         {
             return "Screen Options";
         }
+
+        #endregion
     }
 }

@@ -5,9 +5,9 @@ namespace Intruders.comp
 {
     public class FontComponent : Component, IFontComponent
     {
+        private readonly string r_FontName;
         private SpriteFont m_Font;
         private string m_Text;
-        private readonly string r_FontName;
 
         public FontComponent(string i_FontName, Game i_Game, int i_UpdateOrder) : base(null, i_Game, i_UpdateOrder)
         {

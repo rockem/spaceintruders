@@ -1,6 +1,6 @@
 namespace Intruders.menu
 {
-    enum eMenu
+    internal enum eMenu
     {
         MainMenu,
         ScreenOptions,

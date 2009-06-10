@@ -1,9 +1,12 @@
+using Microsoft.Xna.Framework;
+
 namespace Intruders
 {
-    class GameOptions
+    internal class GameOptions
     {
-        private int m_NumberOfPlayers = 1;
+        private GraphicsDeviceManager m_DeviceManager;
         private int m_LevelNumber = 1;
+        private int m_NumberOfPlayers = 1;
 
         public int NumberOfPlayers
         {
@@ -17,14 +20,24 @@ namespace Intruders
             set { m_LevelNumber = value; }
         }
 
+        public GraphicsDeviceManager DeviceManager
+        {
+            get { return m_DeviceManager; }
+            set { m_DeviceManager = value; }
+        }
+
         public static GameOptions GetInstance()
         {
             return InstanceHolder.Instance;
         }
 
+        #region Nested type: InstanceHolder
+
         private static class InstanceHolder
         {
             public static readonly GameOptions Instance = new GameOptions();
         }
+
+        #endregion
     }
 }

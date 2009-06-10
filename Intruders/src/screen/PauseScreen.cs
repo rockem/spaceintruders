@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Intruders.screen
 {
-    class PauseScreen : GameScreen
+    internal class PauseScreen : GameScreen
     {
         private readonly XNAViewFactory r_Factory;
         private readonly Sprite r_PauseMessage;
@@ -38,7 +38,7 @@ namespace Intruders.screen
         private void initResumeMessage()
         {
             r_ResumeMessage.PositionOfOrigin = new Vector2(
-                CenterOfViewPort.X - r_ResumeMessage.Width / 2, 
+                CenterOfViewPort.X - r_ResumeMessage.Width / 2,
                 CenterOfViewPort.Y + r_PauseMessage.HeightAfterScale / 2);
             r_ResumeMessage.TintColor = Color.Gray;
         }
@@ -53,7 +53,7 @@ namespace Intruders.screen
 
         public override void Update(GameTime gameTime)
         {
-            if (r_Factory.InputManager.KeyPressed(Keys.R))
+            if(r_Factory.InputManager.KeyPressed(Keys.R))
             {
                 ExitScreen();
             }

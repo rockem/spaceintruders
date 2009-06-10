@@ -2,7 +2,7 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class SoundOptions :MenuItem
+    internal class SoundOptions : MenuItem
     {
         public SoundOptions(GameEventListener i_MenuManager)
             : base(i_MenuManager)

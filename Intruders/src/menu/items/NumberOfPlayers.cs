@@ -2,14 +2,13 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class NumberOfPlayers : MenuItem
+    internal class NumberOfPlayers : MenuItem
     {
         private int m_NumPlayers = 1;
 
         public NumberOfPlayers(GameEventListener i_Manager)
             : base(i_Manager)
         {
-            
         }
 
         protected override string GetItemText()

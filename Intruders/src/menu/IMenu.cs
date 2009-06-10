@@ -4,7 +4,7 @@ using Intruders.screen;
 
 namespace Intruders.menu
 {
-    interface IMenu
+    internal interface IMenu
     {
         List<IMenuItem> CreateMenuList(GameEventListener i_MenuManager);
 

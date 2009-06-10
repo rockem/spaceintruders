@@ -2,7 +2,7 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class MusicVolume : MenuItem 
+    internal class MusicVolume : MenuItem
     {
         public MusicVolume(GameEventListener i_Listener) : base(i_Listener)
         {

@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using GameCommon.screen;
 using Intruders.menu.items;
 using Intruders.screen;
 
 namespace Intruders.menu
 {
-    class MenuManager
+    internal class MenuManager
     {
+        private readonly GameEventListener r_EventListener;
         private readonly Dictionary<eMenu, IMenu> r_MenusMap = new Dictionary<eMenu, IMenu>();
+        private eMenu m_CurrentMenu = eMenu.MainMenu;
         private List<IMenuItem> m_CurrentMenuItems;
         private string m_MenuTitle;
-        private int m_SelectedItem;
-        private readonly GameEventListener r_EventListener;
         private eMenu m_PreviousMenu = eMenu.MainMenu;
-        private eMenu m_CurrentMenu = eMenu.MainMenu;
+        private int m_SelectedItem;
 
         public MenuManager(GameEventListener i_Listener)
         {
@@ -56,7 +55,7 @@ namespace Intruders.menu
         public void SelectNext()
         {
             m_SelectedItem++;
-            if (m_SelectedItem == m_CurrentMenuItems.Count)
+            if(m_SelectedItem == m_CurrentMenuItems.Count)
             {
                 m_SelectedItem = 0;
             }

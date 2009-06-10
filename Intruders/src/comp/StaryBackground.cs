@@ -84,6 +84,5 @@ namespace Intruders.comp
 
             return new Vector2(x, y);
         }
-
     }
 }

@@ -18,6 +18,12 @@ namespace Intruders.logic
             Type = eSpriteType.Wall;
         }
 
+        public int Velocity
+        {
+            get { return m_Velocity; }
+            set { m_Velocity = value; }
+        }
+
         public override void Initialize()
         {
             m_StartLeftPosision = (ViewFactory.ViewWidth / 2) - ((int)Width / 2);

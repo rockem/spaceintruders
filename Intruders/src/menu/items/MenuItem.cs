@@ -2,7 +2,7 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    abstract class MenuItem : IMenuItem 
+    internal abstract class MenuItem : IMenuItem
     {
         private readonly GameEventListener r_GameListener;
 
@@ -11,19 +11,15 @@ namespace Intruders.menu.items
             r_GameListener = i_Listener;
         }
 
-        protected GameEventListener GameListener()
-        {
-            return r_GameListener;
-        }
-
         public string Text
         {
             get { return ""; }
         }
 
+        #region IMenuItem Members
+
         public virtual void Select()
         {
-            
         }
 
         public virtual void RiseValue()
@@ -37,6 +33,13 @@ namespace Intruders.menu.items
         public string ItemText
         {
             get { return GetItemText(); }
+        }
+
+        #endregion
+
+        protected GameEventListener GameListener()
+        {
+            return r_GameListener;
         }
 
         protected abstract string GetItemText();

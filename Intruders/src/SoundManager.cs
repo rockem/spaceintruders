@@ -4,21 +4,20 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace Intruders
 {
-    class SoundManager : GameService 
+    internal class SoundManager : GameService
     {
         private AudioEngine m_AudioEngine;
-        private Cue m_Music;
-        private SoundBank m_SoundBank;
-        private WaveBank m_WaveBank;
-        private AudioCategory m_MusicCategory;
         private AudioCategory m_EffectsCategory;
-        private float m_MusicVolume = 1.0f;
         private float m_EffectsVolume = 1.0f;
+        private Cue m_Music;
+        private AudioCategory m_MusicCategory;
+        private float m_MusicVolume = 1.0f;
+        private SoundBank m_SoundBank;
         private bool m_SoundEnabled = true;
+        private WaveBank m_WaveBank;
 
         public SoundManager(Game i_Game) : base(i_Game)
         {
-            
         }
 
         public int SoundVolume
@@ -43,7 +42,7 @@ namespace Intruders
 
         public bool SoundEnabled
         {
-            get { return m_SoundEnabled;  }
+            get { return m_SoundEnabled; }
         }
 
         public void ToggleSound()
@@ -76,7 +75,6 @@ namespace Intruders
             m_Music = m_SoundBank.GetCue("BGMusic");
 
             m_Music.Play();
-
         }
 
         protected override void Dispose(bool disposing)

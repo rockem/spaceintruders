@@ -2,16 +2,8 @@ using Intruders.menu;
 
 namespace Intruders.screen
 {
-    interface GameEventListener
+    internal interface GameEventListener
     {
-        void ExitCurrentScreen();
-
-        void ExitGame();
-
-        void GoToMenu(eMenu options);
-
-        void GoToPreviousMenu();
-
         int SoundVolume { get; set; }
 
         int MusicVolume { get; set; }
@@ -24,11 +16,20 @@ namespace Intruders.screen
 
         bool MouseVisibilty { get; set; }
 
-        int NumberOfPlayers { get; set;}
+        int NumberOfPlayers { get; set; }
+
+        void ExitCurrentScreen();
+
+        void ExitGame();
+
+        void GoToMenu(eMenu options);
+
+        void GoToPreviousMenu();
 
         void ToggleSound();
 
         void ToggleFullScreen();
 
+        void GoToPlayScreen();
     }
 }

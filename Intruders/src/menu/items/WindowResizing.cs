@@ -2,7 +2,7 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class WindowResizing : MenuItem
+    internal class WindowResizing : MenuItem
     {
         public WindowResizing(GameEventListener i_Listener) : base(i_Listener)
         {

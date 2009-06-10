@@ -2,7 +2,7 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class Play : MenuItem
+    internal class Play : MenuItem
     {
         public Play(GameEventListener i_MenuManager)
             : base(i_MenuManager)
@@ -16,7 +16,7 @@ namespace Intruders.menu.items
 
         public override void Select()
         {
-            GameListener().ExitCurrentScreen();
+            GameListener().GoToPlayScreen();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GameCommon.input;
 using GameCommon.screen;
 using Microsoft.Xna.Framework;
@@ -11,6 +12,7 @@ namespace Intruders.comp
         private readonly GameScreen r_Screen;
         private int m_Order = 1;
         private SoundBank m_SoundBank;
+        private List<IGameComponent> r_Components = new List<IGameComponent>();
 
         public XNAViewFactory(Game i_Game, GameScreen i_Screen)
         {

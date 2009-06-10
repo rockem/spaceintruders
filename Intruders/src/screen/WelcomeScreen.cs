@@ -11,8 +11,8 @@ namespace Intruders.screen
     internal class WelcomeScreen : GameScreen
     {
         private readonly XNAViewFactory r_Factory;
-        private readonly Sprite r_WelcomeMessage;
         private readonly IFontComponent r_Instructions;
+        private readonly Sprite r_WelcomeMessage;
 
         public WelcomeScreen(Game i_Game) : base(i_Game)
         {
@@ -36,7 +36,7 @@ namespace Intruders.screen
             initWelcomeMessage();
 
             r_Instructions.PositionOfOrigin = new Vector2(
-                CenterOfViewPort.X - r_Instructions.Width / 2, 
+                CenterOfViewPort.X - r_Instructions.Width / 2,
                 CenterOfViewPort.Y + r_WelcomeMessage.HeightAfterScale / 2);
         }
 
@@ -53,13 +53,17 @@ namespace Intruders.screen
         {
             base.Update(gameTime);
 
-            if (InputManager.KeyPressed(Keys.Enter))
+            if(InputManager.KeyPressed(Keys.Enter))
             {
                 ExitScreen();
             }
             if(InputManager.KeyPressed(Keys.Escape))
             {
                 Game.Exit();
+            }
+            if(InputManager.KeyPressed(Keys.O))
+            {
+                ScreensManager.SetCurrentScreen(new MenuScreen(Game));
             }
         }
     }

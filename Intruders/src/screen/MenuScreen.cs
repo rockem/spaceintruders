@@ -9,25 +9,125 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Intruders.screen
 {
-    class MenuScreen : GameScreen, GameEventListener
+    internal class MenuScreen : GameScreen, GameEventListener
     {
-        private readonly MenuManager r_MenuManager;
-        private readonly List<IFontComponent> r_MenuEntries = new List<IFontComponent>();
         private readonly XNAViewFactory r_Factory;
+        private readonly List<IFontComponent> r_MenuEntries = new List<IFontComponent>();
+        private readonly MenuManager r_MenuManager;
         private bool m_FullScreenEnabled;
-        private GraphicsDeviceManager r_DeviceManager;
 
 
-        public MenuScreen(Game i_Game, GraphicsDeviceManager i_Manager)
+        public MenuScreen(Game i_Game)
             : base(i_Game)
         {
-            r_DeviceManager = i_Manager;
             r_Factory = new XNAViewFactory(i_Game, this);
             Add(new Background(i_Game));
 
             r_MenuManager = new MenuManager(this);
             r_MenuManager.SetCurrentMenu(eMenu.MainMenu);
         }
+
+        #region GameEventListener Members
+
+        public void ExitCurrentScreen()
+        {
+            ExitScreen();
+        }
+
+        public void ExitGame()
+        {
+            Game.Exit();
+        }
+
+        public void GoToMenu(eMenu i_Menu)
+        {
+            r_MenuManager.SetCurrentMenu(i_Menu);
+            updateMenuDisplay();
+        }
+
+        public void GoToPreviousMenu()
+        {
+            r_MenuManager.SetPreviousMenuAsCurrent();
+        }
+
+        public int SoundVolume
+        {
+            get { return getSoundManager().SoundVolume; }
+            set
+            {
+                getSoundManager().SoundVolume = value;
+                updateMenuDisplay();
+            }
+        }
+
+        public int MusicVolume
+        {
+            get { return getSoundManager().MusicVolume; }
+            set
+            {
+                getSoundManager().MusicVolume = value;
+                updateMenuDisplay();
+            }
+        }
+
+        public bool SoundEnabled
+        {
+            get { return getSoundManager().SoundEnabled; }
+        }
+
+        public bool FullScreenMode
+        {
+            get { return m_FullScreenEnabled; }
+        }
+
+        public bool AllowWindowResizing
+        {
+            get { return Game.Window.AllowUserResizing; }
+            set
+            {
+                Game.Window.AllowUserResizing = value;
+                updateMenuDisplay();
+            }
+        }
+
+        public bool MouseVisibilty
+        {
+            get { return Game.IsMouseVisible; }
+            set
+            {
+                Game.IsMouseVisible = value;
+                updateMenuDisplay();
+            }
+        }
+
+        public int NumberOfPlayers
+        {
+            get { return GameOptions.GetInstance().NumberOfPlayers; }
+            set
+            {
+                GameOptions.GetInstance().NumberOfPlayers = value;
+                updateMenuDisplay();
+            }
+        }
+
+        public void ToggleSound()
+        {
+            ((SoundManager)Game.Services.GetService(typeof(SoundManager))).ToggleSound();
+            updateMenuDisplay();
+        }
+
+        public void ToggleFullScreen()
+        {
+            m_FullScreenEnabled = !m_FullScreenEnabled;
+            GameOptions.GetInstance().DeviceManager.ToggleFullScreen();
+        }
+
+        public void GoToPlayScreen()
+        {
+            ScreensManager.SetCurrentScreen(new LevelScreen(Game));
+        }
+
+        #endregion
 
         public override void Initialize()
         {
@@ -76,10 +176,12 @@ namespace Intruders.screen
             if(InputManager.KeyPressed(Keys.PageUp))
             {
                 r_MenuManager.RiseCurrentValue();
+                getSoundManager().PlayCue("ShipShot");
             }
             if(InputManager.KeyPressed(Keys.PageDown))
             {
                 r_MenuManager.LowerCurrentValue();
+                getSoundManager().PlayCue("ShipShot");
             }
             if(InputManager.KeyPressed(Keys.Enter))
             {
@@ -88,108 +190,21 @@ namespace Intruders.screen
             }
             if(InputManager.KeyPressed(Keys.Up))
             {
-                r_MenuManager.SelectPrevious();  
+                r_MenuManager.SelectPrevious();
+                getSoundManager().PlayCue("ShipShot");
                 updateMenuDisplay();
             }
             if(InputManager.KeyPressed(Keys.Down))
             {
                 r_MenuManager.SelectNext();
+                getSoundManager().PlayCue("ShipShot");
                 updateMenuDisplay();
             }
         }
 
-        public void ExitCurrentScreen()
+        private SoundManager getSoundManager()
         {
-            ExitScreen();
+            return ((SoundManager)Game.Services.GetService(typeof(SoundManager)));
         }
-
-        public void ExitGame()
-        {
-            Game.Exit();
-        }
-
-        public void GoToMenu(eMenu i_Menu)
-        {
-            r_MenuManager.SetCurrentMenu(i_Menu);
-            updateMenuDisplay();
-        }
-
-        public void GoToPreviousMenu()
-        {
-            r_MenuManager.SetPreviousMenuAsCurrent();
-        }
-
-        public int SoundVolume
-        {
-            get { return ((SoundManager)Game.Services.GetService(typeof(SoundManager))).SoundVolume; }
-            set
-            {
-                ((SoundManager)Game.Services.GetService(typeof(SoundManager))).SoundVolume = value;
-                updateMenuDisplay();
-            }
-        }
-
-        public int MusicVolume
-        {
-            get { return ((SoundManager)Game.Services.GetService(typeof(SoundManager))).MusicVolume; }
-            set
-            {
-                ((SoundManager)Game.Services.GetService(typeof(SoundManager))).MusicVolume = value;
-                updateMenuDisplay();
-            }
-        }
-
-        public bool SoundEnabled
-        {
-            get { return ((SoundManager)Game.Services.GetService(typeof(SoundManager))).SoundEnabled; }
-        }
-
-        public bool FullScreenMode
-        {
-            get { return m_FullScreenEnabled; }
-        }
-
-        public bool AllowWindowResizing
-        {
-            get { return Game.Window.AllowUserResizing; }
-            set
-            {
-                Game.Window.AllowUserResizing = value;
-                updateMenuDisplay();
-            }
-        }
-
-        public bool MouseVisibilty
-        {
-            get { return Game.IsMouseVisible; }
-            set 
-            { 
-                Game.IsMouseVisible = value;
-                updateMenuDisplay();
-            }
-        }
-
-        public int NumberOfPlayers
-        {
-            get { return GameOptions.GetInstance().NumberOfPlayers; }
-            set
-            {
-                GameOptions.GetInstance().NumberOfPlayers = value;
-                updateMenuDisplay();
-            }
-        }
-
-        public void ToggleSound()
-        {
-            ((SoundManager)Game.Services.GetService(typeof(SoundManager))).ToggleSound();
-            updateMenuDisplay();
-        }
-
-        public void ToggleFullScreen()
-        {
-            m_FullScreenEnabled = !m_FullScreenEnabled;
-            r_DeviceManager.ToggleFullScreen();
-        }
-
     }
 }

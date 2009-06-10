@@ -2,7 +2,7 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class EffectsVolume : MenuItem
+    internal class EffectsVolume : MenuItem
     {
         public EffectsVolume(GameEventListener i_Listener) : base(i_Listener)
         {
@@ -22,7 +22,5 @@ namespace Intruders.menu.items
         {
             GameListener().SoundVolume -= 10;
         }
-
-
     }
 }

@@ -6,11 +6,11 @@ namespace Intruders.logic
 {
     public class EnemyMatrixLogic : Logic
     {
-        private const int k_NumOfColumns = 9;
         private const int k_NumOfRows = 5;
 
-        private readonly Monster[,] r_Monsters = new Monster[k_NumOfColumns,k_NumOfRows];
-        private int m_EndColumn = k_NumOfColumns - 1;
+        private readonly int m_NumOfColumns = 5;
+        private readonly Monster[,] r_Monsters;
+        private int m_EndColumn;
         private int m_EndRow = k_NumOfRows - 1;
         private int m_NumberOfMonsters;
         private int m_StartColumn;
@@ -18,8 +18,11 @@ namespace Intruders.logic
         private TimeSpan m_TimeLeftToNextJump;
         private float m_Velocity = 1;
 
-        public EnemyMatrixLogic(IViewFactory i_Factory) : base(i_Factory)
+        public EnemyMatrixLogic(IViewFactory i_Factory, int i_Columns) : base(i_Factory)
         {
+            m_NumOfColumns = i_Columns;
+            m_EndColumn = m_NumOfColumns - 1;
+            r_Monsters = new Monster[i_Columns,k_NumOfRows];
             createMonsters();
             CreateView(ViewFactory.CreateComponent(null));
         }
@@ -28,7 +31,7 @@ namespace Intruders.logic
 
         private void createMonsters()
         {
-            for(int i = 0; i < k_NumOfColumns; i++)
+            for(int i = 0; i < m_NumOfColumns; i++)
             {
                 for(int j = 0; j < k_NumOfRows; j++)
                 {
@@ -94,7 +97,7 @@ namespace Intruders.logic
         private bool checkForEmptyRow(int i_Row)
         {
             bool decBound = true;
-            for(int i = 0; i < k_NumOfColumns; i++)
+            for(int i = 0; i < m_NumOfColumns; i++)
             {
                 if(r_Monsters[i, i_Row].Alive)
                 {
@@ -127,7 +130,7 @@ namespace Intruders.logic
             for(int r = 0; r < k_NumOfRows; r++)
             {
                 float yaxis = (float)((first.Height * 3) + (r * (first.Height + (first.Height * 0.6))));
-                for(int i = 0; i < k_NumOfColumns; i++)
+                for(int i = 0; i < m_NumOfColumns; i++)
                 {
                     Monster att = r_Monsters[i, r];
                     att.Position = new Vector2((float)(i * (att.Width + (att.Width * 0.6))), yaxis);

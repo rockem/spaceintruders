@@ -2,12 +2,11 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class ScreenOptions : MenuItem
+    internal class ScreenOptions : MenuItem
     {
         public ScreenOptions(GameEventListener i_MenuManager)
             : base(i_MenuManager)
         {
-
         }
 
         protected override string GetItemText()

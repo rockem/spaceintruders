@@ -7,14 +7,15 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Intruders.screen
 {
-    class LevelScreen : GameScreen 
+    internal class LevelScreen : GameScreen
     {
-        private readonly XNAViewFactory r_Factory;
         private readonly IFontComponent m_LevelMessage;
-        private int m_LevelNumber = 1;
-        private TimeSpan m_TimeLeftForNextSecong;
         private readonly IFontComponent m_NumberMessage;
+        private readonly XNAViewFactory r_Factory;
+        private readonly PlayScreen r_PlayScreen;
+        private int m_LevelNumber = 1;
         private int m_SecondNumber = 1;
+        private TimeSpan m_TimeLeftForNextSecong;
 
         public LevelScreen(Game i_Game) : base(i_Game)
         {
@@ -25,7 +26,7 @@ namespace Intruders.screen
             Add(background);
             m_LevelMessage = r_Factory.CreateFontComponent(@"Fonts\LevelFont");
             m_NumberMessage = r_Factory.CreateFontComponent(@"Fonts\LevelFont");
-            
+            r_PlayScreen = new PlayScreen(i_Game);
         }
 
         public void SetLevelNumber(int i_Level)
@@ -36,13 +37,12 @@ namespace Intruders.screen
         public override void Initialize()
         {
             base.Initialize();
-            
+
             initLevelMessage();
             m_NumberMessage.Text = "" + m_SecondNumber;
             m_NumberMessage.PositionOfOrigin = new Vector2(
                 CenterOfViewPort.X - m_NumberMessage.Width / 2,
-                CenterOfViewPort.Y - m_NumberMessage.Height / 2 + m_LevelMessage.Height );
-
+                CenterOfViewPort.Y - m_NumberMessage.Height / 2 + m_LevelMessage.Height);
         }
 
         private void initLevelMessage()
@@ -61,13 +61,12 @@ namespace Intruders.screen
             {
                 m_NumberMessage.Text = "" + m_SecondNumber;
                 m_SecondNumber++;
-                if (m_SecondNumber == 3)
+                if(m_SecondNumber == 3)
                 {
-                    ExitScreen();
+                    ScreensManager.SetCurrentScreen(r_PlayScreen);
                 }
                 m_TimeLeftForNextSecong = TimeSpan.FromSeconds(3);
             }
         }
-        
     }
 }

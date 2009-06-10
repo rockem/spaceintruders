@@ -2,7 +2,7 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class Quit : MenuItem
+    internal class Quit : MenuItem
     {
         public Quit(GameEventListener i_MenuManager)
             : base(i_MenuManager)

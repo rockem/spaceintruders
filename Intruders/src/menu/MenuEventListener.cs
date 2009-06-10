@@ -1,6 +1,6 @@
 namespace Intruders.menu
 {
-    interface MenuEventListener
+    internal interface MenuEventListener
     {
         void ExitGame();
 

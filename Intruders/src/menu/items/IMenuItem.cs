@@ -1,13 +1,13 @@
 namespace Intruders.menu.items
 {
-    interface IMenuItem
+    internal interface IMenuItem
     {
+        string ItemText { get; }
+
         void Select();
 
         void RiseValue();
 
         void LowerValue();
-
-        string ItemText { get; }
     }
 }

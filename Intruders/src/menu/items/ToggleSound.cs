@@ -2,7 +2,7 @@ using Intruders.screen;
 
 namespace Intruders.menu.items
 {
-    class ToggleSound : MenuItem
+    internal class ToggleSound : MenuItem
     {
         public ToggleSound(GameEventListener i_Listener) : base(i_Listener)
         {
@@ -22,6 +22,5 @@ namespace Intruders.menu.items
         {
             GameListener().ToggleSound();
         }
-
     }
 }
